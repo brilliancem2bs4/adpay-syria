@@ -29,4 +29,7 @@
       "type": "image/jpeg"
     }
   ],
-  "categories": ["
+  "categories": ["business", "shopping", "social"],
+  "lang": "ar",
+  "dir": "rtl"
+}
