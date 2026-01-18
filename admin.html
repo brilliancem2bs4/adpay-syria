@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - AdPay Syria</title>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: #f1f5f9; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: auto; 
+        }
+        .header { 
+            background: linear-gradient(135deg, #7C3AED, #8B5CF6); 
+            color: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1 { margin: 0 0 15px 0; font-size: 32px; }
+        .password-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px auto;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .password-box input {
+            padding: 15px;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            width: 80%;
+            margin: 15px 0;
+            font-size: 18px;
+        }
+        .btn { 
+            background: #7C3AED; 
+            color: white; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            cursor: pointer;
+            margin: 10px;
+        }
+        .admin-panel {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 15px 25px;
+            background: #e5e7eb;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .tab.active {
+            background: #7C3AED;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .order-card {
+            background: #f8fafc;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-right: 5px solid #047857;
+        }
+        .order-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-published { background: #d1fae5; color: #065f46; }
+        .status-paid { background: #dbeafe; color: #1e40af; }
+        .search-box {
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            width: 100%;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .stats-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .stat-number {
+            font-size: 42px;
+            font-weight: bold;
+            color: #7C3AED;
+            margin: 10px 0;
+        }
+        .action-buttons {
+            margin-top: 20px;
+        }
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-mark-published { background: #10b981; color: white; }
+        .btn-mark-paid { background: #3b82f6; color: white; }
+        .btn-delete { background: #ef4444; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 لوحة تحكم AdPay Syria</h1>
+            <p>إدارة الطلبات والمستخدمين</p>
+        </div>
+        
+        <div class="password-box" id="loginSection">
+            <h2>الدخول إلى لوحة التحكم</h2>
+            <p>أدخل كلمة المرور:</p>
+            <input type="password" id="adminPassword" placeholder="كلمة المرور">
+            <br>
+            <button class="btn" onclick="checkPassword()">🔓 دخول</button>
+        </div>
+        
+        <div class="admin-panel" id="adminPanel">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('orders')">📋 الطلبات</button>
+                <button class="tab" onclick="showTab('users')">👥 المستخدمين</button>
+                <button class="tab" onclick="showTab('stats')">📊 الإحصائيات</button>
+                <button class="tab" onclick="showTab('settings')">⚙️ الإعدادات</button>
+            </div>
+            
+            <div id="orders-tab" class="tab-content active">
+                <h2>📋 جميع الطلبات</h2>
+                <input type="text" class="search-box" placeholder="🔍 بحث برقم الهاتف أو رقم الطلب..." onkeyup="searchOrders(this.value)">
+                
+                <div id="ordersList">
+                    <p>جاري تحميل الطلبات...</p>
+                </div>
+            </div>
+            
+            <div id="users-tab" class="tab-content">
+                <h2>👥 المستخدمين</h2>
+                <div id="usersList">
+                    <p>جاري تحميل بيانات المستخدمين...</p>
+                </div>
+            </div>
+            
+            <div id="stats-tab" class="tab-content">
+                <h2>📊 الإحصائيات</h2>
+                <div class="stats-box">
+                    <div class="stat-card">
+                        <h3>إجمالي الطلبات</h3>
+                        <div class="stat-number" id="totalOrders">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>المستخدمين المسجلين</h3>
+                        <div class="stat-number" id="totalUsers">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>إعلانات منشورة</h3>
+                        <div class="stat-number" id="publishedAds">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>إجمالي الإيرادات</h3>
+                        <div class="stat-number" id="totalRevenue">0 ل.س</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="settings-tab" class="tab-content">
+                <h2>⚙️ الإعدادات</h2>
+                <div class="order-card">
+                    <h3>إعدادات النظام</h3>
+                    <p><strong>الرقم الحالي:</strong> <span id="currentNumber">+963 993 113 374</span></p>
+                    <input type="text" id="newNumber" placeholder="رقم واتساب جديد" style="width: 100%; margin: 10px 0; padding: 10px;">
+                    <button class="btn" onclick="updateWhatsAppNumber()">💾 تحديث رقم واتساب</button>
+                    
+                    <h3 style="margin-top: 30px;">نسخ احتياطي للبيانات</h3>
+                    <button class="btn" onclick="exportData()">📥 تصدير جميع البيانات</button>
+                    <button class="btn" onclick="importData()" style="background: #10b981;">📤 استيراد بيانات</button>
+                    <input type="file" id="importFile" style="display: none;" accept=".json">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Password for admin access
+        const ADMIN_PASSWORD = "salmia123"; // Change this to your own password
+        
+        function checkPassword() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadAllData();
+            } else {
+                alert('❌ كلمة المرور غير صحيحة');
+            }
+        }
+        
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Activate selected button
+            event.target.classList.add('active');
+            
+            // Refresh data if needed
+            if (tabName === 'orders') loadOrders();
+            if (tabName === 'users') loadUsers();
+            if (tabName === 'stats') loadStats();
+        }
+        
+        function loadAllData() {
+            loadOrders();
+            loadUsers();
+            loadStats();
+        }
+        
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+            let html = '';
+            
+            if (orders.length === 0) {
+                html = '<p>لا توجد طلبات بعد.</p>';
+            } else {
+                // Sort by newest first
+                orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                
+                orders.forEach(order => {
+                    html += `
+                        <div class="order-card">
+                            <h4>📱 ${order.phone} | 📅 ${order.timestamp}</h4>
+                            <p><strong>رقم الطلب:</strong> ${order.id}</p>
+                            <p><strong>نص الإعلان:</strong> ${order.adText || 'لا يوجد'}</p>
+                            <p><strong>الباقة:</strong> ${order.packageName || 'إعلان واحد'}</p>
+                            <p><strong>الكود:</strong> ${order.userCode || 'بدون كود'}</p>
+                            <span class="order-status status-pending">⏳ معلق</span>
+                            <span class="order-status status-paid">💵 مدفوع</span>
+                            <span class="order-status status-published">✅ منشور</span>
+                            <div class="action-buttons">
+                                <button class="action-btn btn-mark-published" onclick="updateOrderStatus('${order.id}', 'published')">✅ تم النشر</button>
+                                <button class="action-btn btn-mark-paid" onclick="updateOrderStatus('${order.id}', 'paid')">💰 تم الدفع</button>
+                                <button class="action-btn btn-delete" onclick="deleteOrder('${order.id}')">🗑️ حذف</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            document.getElementById('ordersList').innerHTML = html;
+        }
+        
+        function loadUsers() {
+            let users = [];
+            // Get all users from localStorage
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('adpay_user_')) {
+                    const user = JSON.parse(localStorage.getItem(key));
+                    users.push(user);
+                }
+            }
+            
+            let html = '';
+            
+            if (users.length === 0) {
+                html = '<p>لا يوجد مستخدمين مسجلين.</p>';
+            } else {
+                users.forEach(user => {
+                    html += `
+                        <div class="order-card">
+                            <h4>👤 ${user.code}</h4>
+                            <p><strong>تاريخ التسجيل:</strong> ${user.created}</p>
+                            <p><strong>آخر دخول:</strong> ${user.lastLogin}</p>
+                            <p><strong>الإعلانات المتبقية:</strong> <span style="font-size: 24px; color: #7C3AED;">${user.adsRemaining}</span></p>
+                            <p><strong>إجمالي المشتريات:</strong> ${user.totalSpent || 0} ل.س</p>
+                            <div class="action-buttons">
+                                <button class="action-btn" onclick="addAdsToUser('${user.code}', 1)" style="background: #10b981; color: white;">+1 إعلان</button>
+                                <button class="action-btn" onclick="addAdsToUser('${user.code}', 5)" style="background: #3b82f6; color: white;">+5 إعلانات</button>
+                                <button class="action-btn" onclick="resetUserAds('${user.code}')" style="background: #ef4444; color: white;">🔄 تصفير</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            document.getElementById('usersList').innerHTML = html;
+        }
+        
+        function loadStats() {
+            // Total orders
+            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+            document.getElementById('totalOrders').textContent = orders.length;
+            
+            // Total users
+            let userCount = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                if (localStorage.key(i).startsWith('adpay_user_')) {
+                    userCount++;
+                }
+            }
+            document.getElementById('totalUsers').textContent = userCount;
+            
+            // Published ads (count orders with status published)
+            const publishedCount = orders.filter(o => o.status === 'published').length;
+            document.getElementById('publishedAds').textContent = publishedCount;
+            
+            // Total revenue
+            let revenue = 0;
+            orders.forEach(order => {
+                if (order.status === 'paid' || order.status === 'published') {
+                    revenue += order.packagePrice || 0;
+                }
+            });
+            document.getElementById('totalRevenue').textContent = revenue + ' ل.س';
+        }
+        
+        function searchOrders(query) {
+            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+            const filtered = orders.filter(order => 
+                order.phone.includes(query) || 
+                order.id.includes(query) ||
+                (order.adText && order.adText.includes(query))
+            );
+            
+            let html = '';
+            filtered.forEach(order => {
+                html += `
+                    <div class="order-card">
+                        <h4>📱 ${order.phone}</h4>
+                        <p><strong>رقم الطلب:</strong> ${order.id}</p>
+                        <p><strong>النص:</strong> ${order.adText}</p>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('ordersList').innerHTML = html || '<p>لا توجد نتائج</p>';
+        }
+        
+        function addAdsToUser(userCode, adsToAdd) {
+            const userKey = 'adpay_user_' + userCode;
+            const user = JSON.parse(localStorage.getItem(userKey));
+            if (user) {
+                user.adsRemaining += adsToAdd;
+                localStorage.setItem(userKey, JSON.stringify(user));
+                alert(`✅ تم إضافة ${adsToAdd} إعلان إلى ${userCode}\nالإعلانات المتبقية: ${user.adsRemaining}`);
+                loadUsers();
+            }
+        }
+        
+        function resetUserAds(userCode) {
+            if (confirm(`هل تريد تصفير إعلانات ${userCode}؟`)) {
+                const userKey = 'adpay_user_' + userCode;
+                const user = JSON.parse(localStorage.getItem(userKey));
+                if (user) {
+                    user.adsRemaining = 0;
+                    localStorage.setItem(userKey, JSON.stringify(user));
+                    alert(`✅ تم تصفير إعلانات ${userCode}`);
+                    loadUsers();
+                }
+            }
+        }
+        
+        function updateOrderStatus(orderId, status) {
+            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+            const orderIndex = orders.findIndex(o => o.id === orderId);
+            
+            if (orderIndex !== -1) {
+                orders[orderIndex].status = status;
+                orders[orderIndex].updated = new Date().toISOString();
+                localStorage.setItem('adpay_orders', JSON.stringify(orders));
+                alert(`✅ تم تحديث حالة الطلب ${orderId} إلى: ${status}`);
+                loadOrders();
+            }
+        }
+        
+        function deleteOrder(orderId) {
+            if (confirm(`هل تريد حذف الطلب ${orderId}؟`)) {
+                const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+                const filtered = orders.filter(o => o.id !== orderId);
+                localStorage.setItem('adpay_orders', JSON.stringify(filtered));
+                alert(`✅ تم حذف الطلب ${orderId}`);
+                loadOrders();
+            }
+        }
+        
+        function updateWhatsAppNumber() {
+            const newNumber = document.getElementById('newNumber').value;
+            if (newNumber && confirm(`تغيير رقم واتساب من +963 993 113 374 إلى ${newNumber}؟`)) {
+                localStorage.setItem('whatsapp_number', newNumber);
+                document.getElementById('currentNumber').textContent = newNumber;
+                alert('✅ تم تحديث رقم واتساب');
+            }
+        }
+        
+        function exportData() {
+            const allData = {};
+            
+            // Collect all adpay-related data
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.includes('adpay') || key.includes('ORD_')) {
+                    allData[key] = JSON.parse(localStorage.getItem(key));
+                }
+            }
+            
+            // Create download link
+            const dataStr = JSON.stringify(allData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'adpay-backup-' + new Date().toISOString().split('T')[0] + '.json';
+            link.click();
+            
+            alert('✅ تم تصدير جميع البيانات');
+        }
+        
+        function importData() {
+            document.getElementById('importFile').click();
+        }
+        
+        // Handle file import
+        document.getElementById('importFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    // Confirm before importing
+                    if (confirm(`هل تريد استيراد ${Object.keys(importedData).length} سجل؟\nهذا قد يحذف البيانات الحالية!`)) {
+                        // Clear existing data first
+                        for (let i = 0; i < localStorage.length; i++) {
+                            const key = localStorage.key(i);
+                            if (key.includes('adpay') || key.includes('ORD_')) {
+                                localStorage.removeItem(key);
+                            }
+                        }
+                        
+                        // Import new data
+                        for (const key in importedData) {
+                            localStorage.setItem(key, JSON.stringify(importedData[key]));
+                        }
+                        
+                        alert('✅ تم استيراد البيانات بنجاح');
+                        loadAllData();
+                    }
+                } catch (error) {
+                    alert('❌ ملف غير صالح');
+                }
+            };
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
