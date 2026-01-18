@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طلب إعلان - Ad Request Form</title>
+    <title>طلب نشر إعلان في مجموعة سلامية</title>
     <style>
         body { 
             font-family: 'Arial', sans-serif; 
@@ -13,56 +13,52 @@
             min-height: 100vh;
         }
         .container { 
-            max-width: 700px; 
+            max-width: 600px; 
             margin: auto; 
             background: white; 
-            padding: 40px; 
+            padding: 30px; 
             border-radius: 20px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         h1 { 
             color: #047857; 
             text-align: center; 
-            margin-bottom: 30px;
-            font-size: 32px;
+            margin-bottom: 25px;
+            font-size: 28px;
         }
         .form-group { 
-            margin-bottom: 25px; 
+            margin-bottom: 20px; 
         }
         label { 
             display: block; 
             margin-bottom: 8px; 
             font-weight: bold; 
             color: #374151;
-            font-size: 18px;
         }
         input, textarea, select { 
             width: 100%; 
-            padding: 15px; 
+            padding: 12px; 
             border: 2px solid #d1d5db; 
             border-radius: 10px; 
             font-size: 16px;
-            transition: border-color 0.3s;
             box-sizing: border-box;
         }
         input:focus, textarea:focus, select:focus { 
             border-color: #047857; 
             outline: none;
-            box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.1);
         }
         .radio-group { 
             display: flex; 
-            gap: 20px; 
+            gap: 15px; 
             margin: 15px 0; 
-            flex-wrap: wrap;
         }
         .radio-option { 
             flex: 1; 
-            min-width: 200px; 
             border: 2px solid #d1d5db; 
             padding: 20px; 
             border-radius: 10px; 
             cursor: pointer;
+            text-align: center;
             transition: all 0.3s;
         }
         .radio-option:hover { 
@@ -75,172 +71,146 @@
             box-shadow: 0 5px 15px rgba(4, 120, 87, 0.1);
         }
         .price-tag { 
-            font-size: 24px; 
+            font-size: 28px; 
             color: #047857; 
             font-weight: bold; 
             margin: 10px 0;
         }
-        .file-upload { 
-            border: 3px dashed #d1d5db; 
-            padding: 40px; 
-            text-align: center; 
-            border-radius: 10px; 
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .file-upload:hover { 
-            border-color: #047857; 
-            background: #f0fdf4;
-        }
-        .file-upload p { 
-            margin: 10px 0; 
-            color: #6b7280;
-        }
         .btn { 
             background: #047857; 
             color: white; 
-            padding: 18px; 
+            padding: 16px; 
             border: none; 
             border-radius: 10px; 
             width: 100%; 
-            font-size: 20px; 
+            font-size: 18px; 
             font-weight: bold; 
             cursor: pointer;
-            transition: all 0.3s;
             margin-top: 20px;
+            transition: all 0.3s;
         }
         .btn:hover { 
             background: #065f46; 
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(4, 120, 87, 0.3);
+            transform: translateY(-2px);
         }
         .back-btn { 
             display: block; 
             text-align: center; 
-            margin-top: 30px; 
+            margin-top: 25px; 
             color: #047857; 
             text-decoration: none; 
-            font-size: 18px;
             font-weight: bold;
+            font-size: 18px;
         }
-        .required { 
-            color: #dc2626; 
-            margin-left: 5px;
+        .note-box {
+            background: #fffbeb;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-right: 5px solid #f59e0b;
         }
-        .form-section {
-            background: #f8fafc;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            border-right: 5px solid #047857;
+        .facebook-note {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-right: 5px solid #1877f2;
+            text-align: center;
         }
-        .form-section h3 {
-            color: #047857;
+        .facebook-note h3 {
+            color: #1877f2;
             margin-top: 0;
-            font-size: 22px;
+        }
+        small {
+            color: #666;
+            display: block;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .whatsapp-info {
+            background: #f0fff4;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #86efac;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📝 تقديم طلب إعلان جديد</h1>
+        <h1>📝 طلب نشر إعلان في مجموعة سلامية</h1>
         
+        <div class="facebook-note">
+            <h3>📍 المجموعة: مجموعة سلامية على الفيسبوك</h3>
+            <p>👥 1,400+ عضو • 📍 مدينة السلامية، سوريا</p>
+        </div>
+
         <form id="adForm">
-            <div class="form-section">
-                <h3>📌 معلومات المتجر</h3>
-                
-                <div class="form-group">
-                    <label>اسم المتجر أو المحل <span class="required">*</span></label>
-                    <input type="text" placeholder="مثال: متجر أزياء الحداثة" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>اسم صاحب المتجر <span class="required">*</span></label>
-                    <input type="text" placeholder="الاسم الكامل" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>رقم الهاتف (واتساب) <span class="required">*</span></label>
-                    <input type="tel" placeholder="+963 XXX XXX XXX" pattern="[+][0-9]{10,15}" required>
-                    <small style="color: #6b7280; display: block; margin-top: 5px;">سنتواصل معك على هذا الرقم عبر واتساب</small>
-                </div>
-                
-                <div class="form-group">
-                    <label>البريد الإلكتروني (اختياري)</label>
-                    <input type="email" placeholder="email@example.com">
-                </div>
+            <div class="form-group">
+                <label>📱 رقم واتساب للتواصل *</label>
+                <input type="tel" placeholder="+963 XXX XXX XXX" required>
+                <small>سنراسلك على هذا الرقم لتأكيد النشر وإرسال رابط المنشور</small>
             </div>
             
-            <div class="form-section">
-                <h3>📍 معلومات الإعلان</h3>
-                
-                <div class="form-group">
-                    <label>الموقع (المدينة/المنطقة) <span class="required">*</span></label>
-                    <input type="text" placeholder="مثال: دمشق، المزة" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>أسماء المنتجات <span class="required">*</span></label>
-                    <textarea placeholder="مثال: فساتين سهرة، بدلات رجالية، أحذية نسائية، حقائب..." rows="3" required></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label>تفاصيل أخرى (اختياري)</label>
-                    <textarea placeholder="أوقات العمل، العروض الخاصة، العناوين، الخ..." rows="2"></textarea>
-                </div>
+            <div class="whatsapp-info">
+                <p>📞 رقم واتساب للاستفسارات: <strong>+963 993 113 374</strong></p>
             </div>
             
-            <div class="form-section">
-                <h3>💼 خيارات الدفع</h3>
-                
+            <div class="form-group">
+                <label>📝 نص الإعلان (سيتم نشره كما هو) *</label>
+                <textarea placeholder="اكتب نص الإعلان الكامل هنا..." rows="6" required></textarea>
+                <small>تلميح: اكتب وصفاً واضحاً للمنتج مع السعر والموقع ورقم الاتصال</small>
+            </div>
+            
+            <div class="form-group">
+                <label>🖼️ صور الإعلان (اختياري)</label>
+                <input type="text" placeholder="أرفق رابط الصور أو سأرسلها على واتساب">
+                <small>يمكنك إرسال الصور لاحقاً على واتساب: +963 993 113 374</small>
+            </div>
+            
+            <div class="form-group">
+                <label>💰 اختر باقة النشر</label>
                 <div class="radio-group">
-                    <div class="radio-option" onclick="selectOption(this)">
-                        <h4>دفع لكل إعلان</h4>
-                        <p>مناسب للإعلانات الفردية</p>
-                        <div class="price-tag">10,000 ليرة سورية</div>
-                        <input type="radio" name="payment-type" value="per-ad" hidden checked>
+                    <div class="radio-option selected" onclick="selectOption(this)">
+                        <h4>📢 إعلان واحد</h4>
+                        <p>نشر لمرة واحدة في المجموعة</p>
+                        <div class="price-tag">10 ليرة سورية</div>
+                        <p style="color: #666; font-size: 14px;">ينشر لمدة 30 يوم</p>
+                        <input type="radio" name="package" value="single" hidden checked>
                     </div>
                     
                     <div class="radio-option" onclick="selectOption(this)">
-                        <h4>اشتراك شهري</h4>
-                        <p>عدد غير محدود من الإعلانات</p>
-                        <div class="price-tag">50,000 ليرة سورية</div>
-                        <input type="radio" name="payment-type" value="monthly" hidden>
+                        <h4>🎯 20 إعلان</h4>
+                        <p>تستطيع نشر 20 إعلان مختلف</p>
+                        <div class="price-tag">100 ليرة سورية</div>
+                        <p style="color: #047857; font-size: 14px; font-weight: bold;">(توفير 50% - 5 ليرة لكل إعلان)</p>
+                        <p style="color: #666; font-size: 14px;">لا تنتهي صلاحيتها</p>
+                        <input type="radio" name="package" value="bulk" hidden>
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label>طريقة الدفع المفضلة</label>
-                    <select>
-                        <option value="sham">شام كاش (Sham Cash)</option>
-                        <option value="syriatel">سيريتيل كاش (Syriatel Cash)</option>
-                        <option value="both">أي منهما</option>
-                    </select>
-                </div>
             </div>
             
-            <div class="form-section">
-                <h3>🖼️ صور المنتجات</h3>
-                
-                <div class="file-upload" onclick="document.getElementById('fileInput').click()">
-                    <div style="font-size: 48px; color: #9ca3af;">📁</div>
-                    <p><strong>انقر لرفع صور المنتجات</strong></p>
-                    <p>يمكنك رفع حتى 10 صور (JPG, PNG)</p>
-                    <p>أو يمكنك إرسالها لاحقاً عبر واتساب</p>
-                </div>
-                <input type="file" id="fileInput" multiple accept="image/*" hidden>
-                <div id="fileList" style="margin-top: 15px;"></div>
+            <div class="note-box">
+                <h4>📌 معلومات مهمة قبل الدفع:</h4>
+                <p>✅ النشر في: <strong>مجموعة سلامية فقط</strong></p>
+                <p>✅ طريقة الدفع: <strong>شام كاش أو سيريتيل كاش</strong></p>
+                <p>✅ وقت النشر: <strong>خلال 30 دقيقة من تأكيد الدفع</strong></p>
+                <p>✅ وقت العمل: <strong>9 صباحاً - 12 منتصف الليل</strong></p>
+                <p>❌ ممنوع: <strong>المحتوى المسيء أو غير القانوني</strong></p>
             </div>
             
-            <div style="background: #fffbeb; padding: 20px; border-radius: 10px; margin: 25px 0; border: 2px solid #fbbf24;">
-                <h4 style="color: #d97706; margin-top: 0;">⚠️ ملاحظات هامة:</h4>
-                <p>1. بعد تقديم الطلب، ستنتقل إلى صفحة الدفع</p>
-                <p>2. أرسل لقطة شاشة الدفع على واتساب: <strong>+963 993 113 374</strong></p>
-                <p>3. سنتواصل معك خلال 30 دقيقة لتأكيد الطلب</p>
+            <div class="note-box" style="background: #f0fdf4; border-color: #047857;">
+                <h4>📲 خطوات ما بعد الطلب:</h4>
+                <p>1. ستنتقل إلى صفحة الدفع</p>
+                <p>2. ادفع عبر شام كاش أو سيريتيل كاش</p>
+                <p>3. أرسل لقطة الدفع على واتساب: <strong>+963 993 113 374</strong></p>
+                <p>4. سننشر إعلانك خلال 30 دقيقة</p>
+                <p>5. سنرسل لك رابط المنشور على واتساب</p>
             </div>
             
             <button type="button" class="btn" onclick="submitForm()">
-                📤 إرسال طلب الإعلان
+                → اذهب إلى صفحة الدفع
             </button>
         </form>
         
@@ -249,71 +219,67 @@
     
     <script>
         function selectOption(element) {
+            // Remove selection from all options
             document.querySelectorAll('.radio-option').forEach(el => {
                 el.classList.remove('selected');
             });
+            
+            // Add selection to clicked option
             element.classList.add('selected');
+            
+            // Check the radio button
             element.querySelector('input').checked = true;
         }
         
-        document.getElementById('fileInput').addEventListener('change', function(e) {
-            const fileList = document.getElementById('fileList');
-            const files = e.target.files;
-            
-            if (files.length > 0) {
-                fileList.innerHTML = `<p><strong>${files.length} صور تم اختيارها:</strong></p>`;
-                
-                for (let i = 0; i < files.length && i < 5; i++) {
-                    fileList.innerHTML += `<p>📷 ${files[i].name} (${(files[i].size / 1024).toFixed(1)} KB)</p>`;
-                }
-                
-                if (files.length > 5) {
-                    fileList.innerHTML += `<p>... و ${files.length - 5} صور أخرى</p>`;
-                }
-            } else {
-                fileList.innerHTML = '';
-            }
-        });
-        
         function submitForm() {
-            // Simple form validation
-            const requiredFields = document.querySelectorAll('input[required], textarea[required]');
-            let valid = true;
+            // Get form values
+            const phone = document.querySelector('input[type="tel"]').value.trim();
+            const adText = document.querySelector('textarea').value.trim();
             
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    valid = false;
-                    field.style.borderColor = '#dc2626';
-                } else {
-                    field.style.borderColor = '#d1d5db';
-                }
-            });
-            
-            if (!valid) {
-                alert('الرجاء ملء جميع الحقول الإلزامية');
+            // Validate required fields
+            if (!phone) {
+                alert('الرجاء إدخال رقم واتساب صحيح');
+                document.querySelector('input[type="tel"]').focus();
                 return;
             }
             
-            // Show success message
-            alert('✅ تم إرسال طلبك بنجاح! الرجاء الانتقال لصفحة الدفع لإتمام العملية.');
+            if (!adText) {
+                alert('الرجاء إدخال نص الإعلان');
+                document.querySelector('textarea').focus();
+                return;
+            }
             
-            // Redirect to payment page
-            const paymentType = document.querySelector('input[name="payment-type"]:checked').value;
-            const paymentMethod = document.querySelector('select').value;
+            // Validate WhatsApp number format (simple check)
+            if (!phone.includes('+963') && phone.length < 9) {
+                if (!confirm('هل رقم ' + phone + ' صحيح؟ تأكد من إضافة مفتاح الدولة +963')) {
+                    return;
+                }
+            }
             
-            // Store form data temporarily (in a real app, this would go to server)
+            // Get selected package
+            const selectedPackage = document.querySelector('input[name="package"]:checked').value;
+            const packageName = selectedPackage === 'single' ? 'إعلان واحد (10 ل.س)' : '20 إعلان (100 ل.س)';
+            
+            // Save to localStorage (temporary storage)
             localStorage.setItem('adRequest', JSON.stringify({
-                timestamp: new Date().toLocaleString(),
-                paymentType: paymentType,
-                paymentMethod: paymentMethod
+                phone: phone,
+                adText: adText.substring(0, 100) + '...', // First 100 chars
+                package: selectedPackage,
+                packageName: packageName,
+                timestamp: new Date().toLocaleString('ar-SY')
             }));
+            
+            // Show success message
+            alert('✅ تم حفظ طلبك!\n\nالرجاء الانتقال إلى صفحة الدفع لإتمام العملية.\n\nبعد الدفع، أرسل لقطة الشاشة على واتساب:\n+963 993 113 374');
             
             // Redirect to payment page
             window.location.href = 'whatsapp.html';
         }
         
         // Initialize first option as selected
-        document.querySelector('.radio-option').classList.add('selected');
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.radio-option.selected').querySelector('input').checked = true;
+        });
     </script>
 </body>
 </html>
