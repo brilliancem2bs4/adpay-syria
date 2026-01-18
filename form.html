@@ -280,6 +280,9 @@
                     document.getElementById('freePostBtn').style.display = 'block';
                     document.getElementById('submitBtn').style.display = 'none';
                     document.getElementById('submitBtn').innerHTML = '← لديك إعلانات مجانية (لا تحتاج دفع)';
+                } else {
+                    document.getElementById('freePostBtn').style.display = 'none';
+                    document.getElementById('submitBtn').style.display = 'block';
                 }
             }
         }
@@ -336,15 +339,12 @@
                 }
             }
             
-            // Get selected package (will be used if user chooses paid option)
-            const selectedPackage = document.querySelector('input[name="package"]:checked').value;
-            
             // Check if user has enough ads
             const userKey = 'adpay_user_' + currentUser;
-            const userData = JSON.parse(localStorage.getItem(userKey));
+            const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
             
-            if (userData.adsRemaining <= 0) {
-                alert('❌ ليس لديك إعلانات مجانية متبقية');
+            if (!userData.adsRemaining || userData.adsRemaining <= 0) {
+                alert('❌ ليس لديك إعلانات مجانية متبقية\n\nيرجى الدفع للحصول على إعلانات جديدة.');
                 return;
             }
             
