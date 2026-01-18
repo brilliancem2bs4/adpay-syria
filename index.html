@@ -124,6 +124,43 @@
             color: #1877f2;
             margin-top: 0;
         }
+        .important-info {
+            background: #fef3c7;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 3px solid #f59e0b;
+            text-align: right;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            font-size: 20px;
+        }
+        .info-icon {
+            margin-left: 15px;
+            font-size: 28px;
+        }
+        .user-login {
+            background: #f0f9ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 2px solid #0ea5e9;
+        }
+        .login-form {
+            display: none;
+            margin-top: 20px;
+        }
+        .login-form input {
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            width: 80%;
+            margin: 10px 0;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -134,18 +171,65 @@
         </div>
         
         <div class="header" id="header">
-            <h1>نشر إعلانات في مجموعة سلامية على الفيسبوك</h1>
+            <h1>نشر إعلانات في مجموعة سلمية الجديدة الإعلانية</h1>
             <p id="subtitle">ادفع عبر شام كاش أو سيريتيل كاش - نشر فوري بعد الدفع</p>
+        </div>
+
+        <!-- User Login/Code System -->
+        <div class="user-login" id="userLogin">
+            <h2>🔐 نظام الكود الخاص بك</h2>
+            <p>احصل على كود خاص يحفظ إعلاناتك المتبقية للأبد!</p>
+            <button class="btn" onclick="toggleLoginForm()" id="loginToggleBtn">
+                👤 أدخل الكود الخاص بك
+            </button>
+            
+            <div class="login-form" id="loginForm">
+                <input type="text" id="userCode" placeholder="أدخل الكود المكون من 6 أحرف/أرقام">
+                <label style="display: block; margin: 10px 0;">
+                    <input type="checkbox" id="rememberMe"> تذكرني على هذا الجهاز
+                </label>
+                <button class="btn" onclick="checkUserCode()" style="background: #7C3AED;">
+                    🔓 فتح حسابي
+                </button>
+                <button class="btn" onclick="generateNewCode()" style="background: #10b981;">
+                    🆕 إنشاء كود جديد
+                </button>
+            </div>
+            
+            <div id="userStatus" style="display: none; margin-top: 20px; padding: 15px; background: #f0fff4; border-radius: 10px;">
+                <h3>📊 حالة حسابك:</h3>
+                <p id="remainingAds">عدد الإعلانات المتبقية: <strong>0</strong></p>
+                <p id="userCodeDisplay">كودك: <strong>------</strong></p>
+                <button class="btn" onclick="logout()" style="background: #dc2626;">
+                    🚪 تسجيل الخروج
+                </button>
+            </div>
         </div>
 
         <div class="facebook-group">
             <h3>📢 المجموعة المستهدفة:</h3>
-            <p>سيتم نشر إعلانك في: <strong>مجموعة سلامية على الفيسبوك</strong></p>
+            <p>سيتم نشر إعلانك في: <strong>مجموعة سلمية الجديدة الإعلانية</strong></p>
             <p>👥 عدد الأعضاء: <strong>1,400+ عضو</strong></p>
             <p>📍 الموقع: <strong>مدينة السلامية، سوريا</strong></p>
             <a href="https://www.facebook.com/groups/1403908299911260" target="_blank" class="btn" style="background: #1877f2;">
                 🔗 زيارة المجموعة على الفيسبوك
             </a>
+        </div>
+
+        <div class="important-info">
+            <h2>⚠️ معلومات هامة جداً:</h2>
+            <div class="info-item">
+                <span class="emoji info-icon">⏰</span>
+                <span>سيتم النشر خلال <strong>120 دقيقة</strong> من تأكيد الدفع</span>
+            </div>
+            <div class="info-item">
+                <span class="emoji info-icon">💸</span>
+                <span>استرداد المال خلال <strong>يومين</strong> في حال عدم النشر</span>
+            </div>
+            <div class="info-item">
+                <span class="emoji info-icon">🔒</span>
+                <span>كودك الشخصي يحفظ إعلاناتك للأبد حتى لو تركت الموقع</span>
+            </div>
         </div>
 
         <div class="pricing-box">
@@ -154,8 +238,8 @@
                 <h3>إعلان واحد</h3>
                 <div class="price-amount">10 ل.س</div>
                 <p>ينشر مرة واحدة في المجموعة</p>
-                <p>مدة النشر: 30 يوم</p>
-                <a href="form.html" class="btn">📝 اطلب الآن</a>
+                <p>ينشر خلال 120 دقيقة</p>
+                <a href="form.html" class="btn" onclick="checkAdsBeforeRedirect()">📝 اطلب الآن</a>
             </div>
             <div class="price-option">
                 <h3>20 إعلان</h3>
@@ -163,14 +247,15 @@
                 <p>توفير 50% (5 ليرة لكل إعلان)</p>
                 <p>لا تنتهي صلاحيتها</p>
                 <p>نشر 20 إعلان مختلف</p>
-                <a href="form.html" class="btn">📝 اطلب الآن</a>
+                <p>مخزونك يحفظ بكود خاص</p>
+                <a href="form.html" class="btn" onclick="checkAdsBeforeRedirect()">📝 اطلب الآن</a>
             </div>
         </div>
 
         <div class="step">
             <h2><span class="emoji">📱</span> <span id="step1-title">الخطوة 1: املأ طلب الإعلان</span></h2>
             <p id="step1-desc">أدخل رقم واتساب ونص الإعلان فقط</p>
-            <a href="form.html" class="btn">✍️ ابدأ بطلب الإعلان</a>
+            <a href="form.html" class="btn" onclick="checkAdsBeforeRedirect()">✍️ ابدأ بطلب الإعلان</a>
         </div>
 
         <div class="step">
@@ -183,4 +268,177 @@
         </div>
 
         <div class="step">
-            <h2><span class="emoji">📲</span> <span id="step3-title">الخطوة 3: أرسل إثبات الدفع</s
+            <h2><span class="emoji">📲</span> <span id="step3-title">الخطوة 3: أرسل إثبات الدفع</span></h2>
+            <p id="step3-desc">أرسل لقطة الدفع على واتساب وسننشر خلال 120 دقيقة</p>
+            <div class="whatsapp-number">
+                📱 واتساب: +963 993 113 374
+            </div>
+        </div>
+
+        <div class="step">
+            <h2><span class="emoji">✅</span> <span id="step4-title">الخطوة 4: استلام رابط المنشور</span></h2>
+            <p id="step4-desc">سنرسل لك رابط منشورك على واتساب خلال 120 دقيقة</p>
+        </div>
+
+        <div class="important-info" style="background: #f0fdf4; border-color: #047857;">
+            <h2>📋 الشروط والأحكام:</h2>
+            <p>✅ النشر خلال 120 دقيقة كحد أقصى</p>
+            <p>✅ استرداد المال خلال 48 ساعة إذا لم يتم النشر</p>
+            <p>✅ نظام الكود يحفظ إعلاناتك للأبد</p>
+            <p>❌ ممنوع المحتوى المسيء أو غير القانوني</p>
+            <p>⏰ وقت العمل: 9 صباحاً - 12 منتصف الليل</p>
+        </div>
+    </div>
+
+    <script>
+        // User Code System
+        function toggleLoginForm() {
+            const form = document.getElementById('loginForm');
+            const btn = document.getElementById('loginToggleBtn');
+            
+            if (form.style.display === 'block') {
+                form.style.display = 'none';
+                btn.innerHTML = '👤 أدخل الكود الخاص بك';
+            } else {
+                form.style.display = 'block';
+                btn.innerHTML = '👆 إخفاء نموذج الدخول';
+            }
+        }
+
+        function generateNewCode() {
+            // Generate 6-character code
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            // Save to localStorage
+            const userData = {
+                code: code,
+                adsRemaining: 0,
+                created: new Date().toISOString(),
+                lastLogin: new Date().toISOString()
+            };
+            
+            localStorage.setItem('adpay_user_' + code, JSON.stringify(userData));
+            
+            // Show success message
+            alert(`🎉 تم إنشاء كود جديد لك!\n\nكودك: ${code}\n\n⚠️ احفظ هذا الكود في مكان آمن!\n\nيمكنك استخدامه على أي جهاز وفي أي وقت.`);
+            
+            // Auto-login
+            loginWithCode(code);
+        }
+
+        function checkUserCode() {
+            const code = document.getElementById('userCode').value.trim().toUpperCase();
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            if (code.length !== 6) {
+                alert('❌ الكود يجب أن يكون 6 أحرف/أرقام');
+                return;
+            }
+            
+            loginWithCode(code, rememberMe);
+        }
+
+        function loginWithCode(code, remember = false) {
+            const userKey = 'adpay_user_' + code;
+            let userData = localStorage.getItem(userKey);
+            
+            if (!userData) {
+                // Create new account if not exists
+                userData = {
+                    code: code,
+                    adsRemaining: 0,
+                    created: new Date().toISOString(),
+                    lastLogin: new Date().toISOString()
+                };
+                localStorage.setItem(userKey, JSON.stringify(userData));
+            } else {
+                userData = JSON.parse(userData);
+                userData.lastLogin = new Date().toISOString();
+                localStorage.setItem(userKey, JSON.stringify(userData));
+            }
+            
+            // Save current session
+            sessionStorage.setItem('current_user_code', code);
+            if (remember) {
+                localStorage.setItem('remembered_user_code', code);
+            }
+            
+            // Update UI
+            showUserStatus(userData);
+        }
+
+        function showUserStatus(userData) {
+            document.getElementById('userLogin').style.display = 'none';
+            document.getElementById('userStatus').style.display = 'block';
+            document.getElementById('remainingAds').innerHTML = 
+                `عدد الإعلانات المتبقية: <strong>${userData.adsRemaining}</strong>`;
+            document.getElementById('userCodeDisplay').innerHTML = 
+                `كودك: <strong>${userData.code}</strong>`;
+        }
+
+        function logout() {
+            sessionStorage.removeItem('current_user_code');
+            localStorage.removeItem('remembered_user_code');
+            location.reload();
+        }
+
+        function checkAdsBeforeRedirect() {
+            const currentUser = sessionStorage.getItem('current_user_code') || 
+                               localStorage.getItem('remembered_user_code');
+            
+            if (currentUser) {
+                const userKey = 'adpay_user_' + currentUser;
+                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
+                
+                if (userData.adsRemaining > 0) {
+                    // User has ads remaining, allow direct posting
+                    return true;
+                } else {
+                    // No ads remaining, user needs to pay
+                    alert(`⚠️ ليس لديك إعلانات متبقية.\n\nعدد الإعلانات المتبقية: ${userData.adsRemaining}\n\nيرجى الدفع للحصول على إعلانات جديدة.`);
+                    return false;
+                }
+            }
+            return true; // Allow if no user logged in (will create new)
+        }
+
+        // Check if user is remembered on page load
+        window.onload = function() {
+            const rememberedCode = localStorage.getItem('remembered_user_code');
+            if (rememberedCode) {
+                loginWithCode(rememberedCode);
+            }
+            
+            // Check session
+            const sessionCode = sessionStorage.getItem('current_user_code');
+            if (sessionCode) {
+                const userKey = 'adpay_user_' + sessionCode;
+                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
+                showUserStatus(userData);
+            }
+        };
+
+        function switchLanguage(lang) {
+            // Language switching logic
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            if (lang === 'en') {
+                document.getElementById('header').innerHTML = `
+                    <h1>Ad Publishing in New Salmiya Advertising Group</h1>
+                    <p>Pay via Sham Cash or Syriatel Cash - Instant publishing after payment</p>
+                `;
+                // Add more translations as needed
+            } else {
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
