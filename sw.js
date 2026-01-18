@@ -7,7 +7,6 @@ const urlsToCache = [
   'https://img.icons8.com/color/96/000000/syria.png'
 ];
 
-// Install Service Worker
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -17,18 +16,15 @@ self.addEventListener('install', event => {
   );
 });
 
-// Fetch from cache
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Return cached version or fetch from network
         return response || fetch(event.request);
       })
   );
 });
 
-// Update Service Worker
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
