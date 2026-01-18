@@ -135,21 +135,41 @@
             border: 2px solid #86efac;
             text-align: center;
         }
+        .user-info-box {
+            background: #f0f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #0ea5e9;
+            display: none;
+        }
+        .free-post-btn {
+            background: #10b981;
+        }
+        .free-post-btn:hover {
+            background: #059669;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📝 طلب نشر إعلان في مجموعة سلامية</h1>
+        <h1>📝 طلب نشر إعلان في مجموعة سلمية الجديدة الإعلانية</h1>
+        
+        <div class="user-info-box" id="userInfoBox">
+            <h3>👤 حسابك الحالي:</h3>
+            <p id="userAdsRemaining">عدد الإعلانات المتبقية: <strong>0</strong></p>
+            <p id="userCodeInfo">كودك: <strong>------</strong></p>
+        </div>
         
         <div class="facebook-note">
-            <h3>📍 المجموعة: مجموعة سلامية على الفيسبوك</h3>
+            <h3>📍 المجموعة: مجموعة سلمية الجديدة الإعلانية</h3>
             <p>👥 1,400+ عضو • 📍 مدينة السلامية، سوريا</p>
         </div>
 
         <form id="adForm">
             <div class="form-group">
                 <label>📱 رقم واتساب للتواصل *</label>
-                <input type="tel" placeholder="+963 XXX XXX XXX" required>
+                <input type="tel" id="whatsappNumber" placeholder="+963 XXX XXX XXX" required>
                 <small>سنراسلك على هذا الرقم لتأكيد النشر وإرسال رابط المنشور</small>
             </div>
             
@@ -159,13 +179,13 @@
             
             <div class="form-group">
                 <label>📝 نص الإعلان (سيتم نشره كما هو) *</label>
-                <textarea placeholder="اكتب نص الإعلان الكامل هنا..." rows="6" required></textarea>
+                <textarea id="adText" placeholder="اكتب نص الإعلان الكامل هنا..." rows="6" required></textarea>
                 <small>تلميح: اكتب وصفاً واضحاً للمنتج مع السعر والموقع ورقم الاتصال</small>
             </div>
             
             <div class="form-group">
                 <label>🖼️ صور الإعلان (اختياري)</label>
-                <input type="text" placeholder="أرفق رابط الصور أو سأرسلها على واتساب">
+                <input type="text" id="adImages" placeholder="أرفق رابط الصور أو سأرسلها على واتساب">
                 <small>يمكنك إرسال الصور لاحقاً على واتساب: +963 993 113 374</small>
             </div>
             
@@ -176,7 +196,7 @@
                         <h4>📢 إعلان واحد</h4>
                         <p>نشر لمرة واحدة في المجموعة</p>
                         <div class="price-tag">10 ليرة سورية</div>
-                        <p style="color: #666; font-size: 14px;">ينشر لمدة 30 يوم</p>
+                        <p style="color: #666; font-size: 14px;">ينشر خلال 120 دقيقة</p>
                         <input type="radio" name="package" value="single" hidden checked>
                     </div>
                     
@@ -193,24 +213,29 @@
             
             <div class="note-box">
                 <h4>📌 معلومات مهمة قبل الدفع:</h4>
-                <p>✅ النشر في: <strong>مجموعة سلامية فقط</strong></p>
+                <p>✅ النشر في: <strong>مجموعة سلمية الجديدة الإعلانية فقط</strong></p>
                 <p>✅ طريقة الدفع: <strong>شام كاش أو سيريتيل كاش</strong></p>
-                <p>✅ وقت النشر: <strong>خلال 30 دقيقة من تأكيد الدفع</strong></p>
+                <p>✅ وقت النشر: <strong>خلال 120 دقيقة من تأكيد الدفع</strong></p>
+                <p>✅ استرداد المال: <strong>خلال يومين إذا لم يتم النشر</strong></p>
                 <p>✅ وقت العمل: <strong>9 صباحاً - 12 منتصف الليل</strong></p>
                 <p>❌ ممنوع: <strong>المحتوى المسيء أو غير القانوني</strong></p>
             </div>
             
             <div class="note-box" style="background: #f0fdf4; border-color: #047857;">
                 <h4>📲 خطوات ما بعد الطلب:</h4>
-                <p>1. ستنتقل إلى صفحة الدفع</p>
+                <p>1. ستنتقل إلى صفحة الدفع (إلا إذا كان لديك إعلانات مجانية)</p>
                 <p>2. ادفع عبر شام كاش أو سيريتيل كاش</p>
                 <p>3. أرسل لقطة الدفع على واتساب: <strong>+963 993 113 374</strong></p>
-                <p>4. سننشر إعلانك خلال 30 دقيقة</p>
+                <p>4. سننشر إعلانك خلال 120 دقيقة</p>
                 <p>5. سنرسل لك رابط المنشور على واتساب</p>
             </div>
             
-            <button type="button" class="btn" onclick="submitForm()">
+            <button type="button" class="btn" id="submitBtn" onclick="submitForm()">
                 → اذهب إلى صفحة الدفع
+            </button>
+            
+            <button type="button" class="btn free-post-btn" id="freePostBtn" onclick="useFreeAd()" style="display: none;">
+                🎁 نشر مجاني (إعلان واحد)
             </button>
         </form>
         
@@ -218,6 +243,35 @@
     </div>
     
     <script>
+        // Check user status on page load
+        window.onload = function() {
+            checkUserAds();
+            updateSubmitButton();
+        };
+
+        function checkUserAds() {
+            const currentUser = sessionStorage.getItem('current_user_code') || 
+                               localStorage.getItem('remembered_user_code');
+            
+            if (currentUser) {
+                const userKey = 'adpay_user_' + currentUser;
+                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
+                
+                // Show user info
+                document.getElementById('userInfoBox').style.display = 'block';
+                document.getElementById('userAdsRemaining').innerHTML = 
+                    `عدد الإعلانات المتبقية: <strong>${userData.adsRemaining}</strong>`;
+                document.getElementById('userCodeInfo').innerHTML = 
+                    `كودك: <strong>${currentUser}</strong>`;
+                
+                // Enable free post button if user has ads
+                if (userData.adsRemaining > 0) {
+                    document.getElementById('freePostBtn').style.display = 'block';
+                    document.getElementById('submitBtn').style.display = 'none';
+                }
+            }
+        }
+
         function selectOption(element) {
             // Remove selection from all options
             document.querySelectorAll('.radio-option').forEach(el => {
@@ -231,25 +285,122 @@
             element.querySelector('input').checked = true;
         }
         
-        function submitForm() {
+        function updateSubmitButton() {
+            const currentUser = sessionStorage.getItem('current_user_code') || 
+                               localStorage.getItem('remembered_user_code');
+            
+            if (currentUser) {
+                const userKey = 'adpay_user_' + currentUser;
+                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
+                
+                if (userData.adsRemaining > 0) {
+                    document.getElementById('submitBtn').innerHTML = '← لديك إعلانات مجانية (لا تحتاج دفع)';
+                }
+            }
+        }
+        
+        function useFreeAd() {
+            const currentUser = sessionStorage.getItem('current_user_code') || 
+                               localStorage.getItem('remembered_user_code');
+            
+            if (!currentUser) {
+                alert('❌ يرجى تسجيل الدخول أولاً');
+                return;
+            }
+            
             // Get form values
-            const phone = document.querySelector('input[type="tel"]').value.trim();
-            const adText = document.querySelector('textarea').value.trim();
+            const phone = document.getElementById('whatsappNumber').value.trim();
+            const adText = document.getElementById('adText').value.trim();
             
             // Validate required fields
             if (!phone) {
                 alert('الرجاء إدخال رقم واتساب صحيح');
-                document.querySelector('input[type="tel"]').focus();
+                document.getElementById('whatsappNumber').focus();
                 return;
             }
             
             if (!adText) {
                 alert('الرجاء إدخال نص الإعلان');
-                document.querySelector('textarea').focus();
+                document.getElementById('adText').focus();
                 return;
             }
             
-            // Validate WhatsApp number format (simple check)
+            // Validate WhatsApp number format
+            if (!phone.includes('+963') && phone.length < 9) {
+                if (!confirm('هل رقم ' + phone + ' صحيح؟ تأكد من إضافة مفتاح الدولة +963')) {
+                    return;
+                }
+            }
+            
+            // Get selected package (will be used if user chooses paid option)
+            const selectedPackage = document.querySelector('input[name="package"]:checked').value;
+            
+            // Check if user has enough ads
+            const userKey = 'adpay_user_' + currentUser;
+            const userData = JSON.parse(localStorage.getItem(userKey));
+            
+            if (userData.adsRemaining <= 0) {
+                alert('❌ ليس لديك إعلانات مجانية متبقية');
+                return;
+            }
+            
+            // Deduct one ad
+            userData.adsRemaining -= 1;
+            localStorage.setItem(userKey, JSON.stringify(userData));
+            
+            // Save order
+            const orderId = 'ORD_' + Date.now();
+            const orderData = {
+                id: orderId,
+                phone: phone,
+                adText: adText.substring(0, 500),
+                images: document.getElementById('adImages').value,
+                package: 'free_ad',
+                userCode: currentUser,
+                status: 'pending',
+                timestamp: new Date().toISOString(),
+                estimatedPublishTime: new Date(Date.now() + 120 * 60000).toISOString() // 120 minutes from now
+            };
+            
+            // Save order to localStorage
+            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+            orders.push(orderData);
+            localStorage.setItem('adpay_orders', JSON.stringify(orders));
+            
+            // Show success message
+            alert(`✅ تم خصم إعلان مجاني!\n\nعدد الإعلانات المتبقية: ${userData.adsRemaining}\n\nرقم طلبك: ${orderId}\n\nسيتم النشر خلال 120 دقيقة!\n\nيرجى مراقبة واتساب لاستلام رابط المنشور.`);
+            
+            // Clear form
+            document.getElementById('adForm').reset();
+            
+            // Redirect to thank you page or back to home
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 3000);
+        }
+        
+        function submitForm() {
+            const currentUser = sessionStorage.getItem('current_user_code') || 
+                               localStorage.getItem('remembered_user_code');
+            
+            // Get form values
+            const phone = document.getElementById('whatsappNumber').value.trim();
+            const adText = document.getElementById('adText').value.trim();
+            
+            // Validate required fields
+            if (!phone) {
+                alert('الرجاء إدخال رقم واتساب صحيح');
+                document.getElementById('whatsappNumber').focus();
+                return;
+            }
+            
+            if (!adText) {
+                alert('الرجاء إدخال نص الإعلان');
+                document.getElementById('adText').focus();
+                return;
+            }
+            
+            // Validate WhatsApp number format
             if (!phone.includes('+963') && phone.length < 9) {
                 if (!confirm('هل رقم ' + phone + ' صحيح؟ تأكد من إضافة مفتاح الدولة +963')) {
                     return;
@@ -259,18 +410,25 @@
             // Get selected package
             const selectedPackage = document.querySelector('input[name="package"]:checked').value;
             const packageName = selectedPackage === 'single' ? 'إعلان واحد (10 ل.س)' : '20 إعلان (100 ل.س)';
+            const packagePrice = selectedPackage === 'single' ? 10 : 100;
             
             // Save to localStorage (temporary storage)
-            localStorage.setItem('adRequest', JSON.stringify({
+            const orderId = 'ORD_' + Date.now();
+            localStorage.setItem('current_order', JSON.stringify({
+                id: orderId,
                 phone: phone,
-                adText: adText.substring(0, 100) + '...', // First 100 chars
+                adText: adText.substring(0, 500),
+                images: document.getElementById('adImages').value,
                 package: selectedPackage,
                 packageName: packageName,
-                timestamp: new Date().toLocaleString('ar-SY')
+                packagePrice: packagePrice,
+                userCode: currentUser || null,
+                timestamp: new Date().toLocaleString('ar-SY'),
+                estimatedPublishTime: new Date(Date.now() + 120 * 60000).toLocaleString('ar-SY') // 120 minutes from now
             }));
             
             // Show success message
-            alert('✅ تم حفظ طلبك!\n\nالرجاء الانتقال إلى صفحة الدفع لإتمام العملية.\n\nبعد الدفع، أرسل لقطة الشاشة على واتساب:\n+963 993 113 374');
+            alert(`✅ تم حفظ طلبك!\n\nرقم طلبك: ${orderId}\n\nالرجاء الانتقال إلى صفحة الدفع لإتمام العملية.\n\nبعد الدفع، أرسل لقطة الشاشة على واتساب:\n+963 993 113 374\n\nسيتم النشر خلال 120 دقيقة!`);
             
             // Redirect to payment page
             window.location.href = 'whatsapp.html';
