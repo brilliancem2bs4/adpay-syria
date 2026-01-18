@@ -268,7 +268,7 @@
                 <div class="price-amount">10 ل.س</div>
                 <p>ينشر مرة واحدة في المجموعة</p>
                 <p>ينشر خلال 120 دقيقة</p>
-                <a href="form.html" class="btn" onclick="return checkAdsBeforeRedirect()">📝 اطلب الآن</a>
+                <a href="form.html" class="btn">📝 اطلب الآن</a>
             </div>
             <div class="price-option">
                 <h3>20 إعلان</h3>
@@ -277,22 +277,22 @@
                 <p>لا تنتهي صلاحيتها</p>
                 <p>نشر 20 إعلان مختلف</p>
                 <p>مخزونك يحفظ بكود خاص</p>
-                <a href="form.html" class="btn" onclick="return checkAdsBeforeRedirect()">📝 اطلب الآن</a>
+                <a href="form.html" class="btn">📝 اطلب الآن</a>
             </div>
         </div>
 
         <div class="step">
             <h2><span class="emoji">📱</span> <span id="step1-title">الخطوة 1: املأ طلب الإعلان</span></h2>
             <p id="step1-desc">أدخل رقم واتساب ونص الإعلان فقط</p>
-            <a href="form.html" class="btn" onclick="return checkAdsBeforeRedirect()">✍️ ابدأ بطلب الإعلان</a>
+            <a href="form.html" class="btn">✍️ ابدأ بطلب الإعلان</a>
         </div>
 
         <div class="step">
             <h2><span class="emoji">💰</span> <span id="step2-title">الخطوة 2: ادفع بسهولة</span></h2>
             <p id="step2-desc">اختر طريقة الدفع المناسبة:</p>
             <div>
-                <a href="whatsapp.html?method=sham" class="btn" style="background: #7C3AED;" onclick="return checkAdsBeforeRedirect()">💜 شام كاش</a>
-                <a href="whatsapp.html?method=syriatel" class="btn" style="background: #E63946;" onclick="return checkAdsBeforeRedirect()">❤️ سيريتيل كاش</a>
+                <a href="whatsapp.html?method=sham" class="btn" style="background: #7C3AED;">💜 شام كاش</a>
+                <a href="whatsapp.html?method=syriatel" class="btn" style="background: #E63946;">❤️ سيريتيل كاش</a>
             </div>
         </div>
 
@@ -419,26 +419,6 @@
             location.reload();
         }
 
-        function checkAdsBeforeRedirect() {
-            const currentUser = sessionStorage.getItem('current_user_code') || 
-                               localStorage.getItem('remembered_user_code');
-            
-            if (currentUser) {
-                const userKey = 'adpay_user_' + currentUser;
-                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
-                
-                if (userData.adsRemaining > 0) {
-                    // User has ads remaining, allow direct posting
-                    return true;
-                } else {
-                    // No ads remaining, user needs to pay
-                    alert(`⚠️ ليس لديك إعلانات متبقية.\n\nعدد الإعلانات المتبقية: ${userData.adsRemaining}\n\nيرجى الدفع للحصول على إعلانات جديدة.`);
-                    return false;
-                }
-            }
-            return true; // Allow if no user logged in (will create new)
-        }
-
         // Check if user is remembered on page load
         window.onload = function() {
             const rememberedCode = localStorage.getItem('remembered_user_code');
@@ -523,7 +503,7 @@
             if (Notification.permission === 'granted') {
                 new Notification(payload.notification.title, {
                     body: payload.notification.body,
-                    icon: 'https://img.icons8.com/color/96/000000/syria.png'
+                    icon: 'https://i.postimg.cc/vT6qPDcm/IMG-20260118-WA0007.jpg'
                 });
             }
         });
