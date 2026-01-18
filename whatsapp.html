@@ -95,27 +95,18 @@
             height: 200px;
             margin: 20px auto;
             background: #f8fafc;
-            border: 3px dashed #cbd5e1;
+            border: 3px solid #cbd5e1;
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
         }
         .qr-image {
             max-width: 180px;
             max-height: 180px;
             border-radius: 10px;
-        }
-        .qr-placeholder {
-            text-align: center;
-            color: #6b7280;
-            padding: 20px;
-        }
-        .qr-placeholder .icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-            opacity: 0.5;
         }
         .address-box {
             background: #f8fafc;
@@ -254,6 +245,22 @@
             margin: 20px 0;
             border-right: 5px solid #0ea5e9;
         }
+        .copy-address {
+            background: #7C3AED;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .copy-success {
+            color: #047857;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -281,7 +288,9 @@
                 </p>
                 
                 <div class="address-box">
-                    <code>a29b439a139be548a7f0b2ada7d93e67</code>
+                    <code id="shamAddress">a29b439a139be548a7f0b2ada7d93e67</code>
+                    <button class="copy-address" onclick="copyShamAddress()">📋 نسخ الرقم</button>
+                    <div class="copy-success" id="shamCopySuccess">✓ تم النسخ!</div>
                     <p style="margin: 10px 0 0 0; color: #666; font-size: 16px;">انسخ هذا الرقم وألصقه في تطبيق شام كاش</p>
                 </div>
                 
@@ -294,27 +303,21 @@
                         <div class="price-label">إعلان واحد</div>
                         <div class="price-amount">10 ل.س</div>
                         <div class="qr-container">
-                            <div class="qr-placeholder">
-                                <div class="icon">📱</div>
-                                <p><strong>QR شام كاش 10 ليرة</strong></p>
-                                <p style="font-size: 14px;">اسحب هذا الرمز</p>
-                            </div>
+                            <img src="sham-qr.jpg" class="qr-image" alt="Sham Cash QR" onerror="showQRError(this)">
                         </div>
                         <p style="color: #666; font-size: 14px; margin-top: 10px;">اسحب الرمز وادفع 10 ليرة</p>
+                        <p style="color: #dc2626; font-size: 14px;">⚠️ تأكد من إدخال المبلغ: 10 ليرة</p>
                     </div>
                     
                     <div class="price-option">
                         <div class="price-label">20 إعلان</div>
                         <div class="price-amount">100 ل.س</div>
                         <div class="qr-container">
-                            <div class="qr-placeholder">
-                                <div class="icon">📱</div>
-                                <p><strong>QR شام كاش 100 ليرة</strong></p>
-                                <p style="font-size: 14px;">اسحب هذا الرمز</p>
-                            </div>
+                            <img src="sham-qr.jpg" class="qr-image" alt="Sham Cash QR" onerror="showQRError(this)">
                         </div>
                         <p style="color: #666; font-size: 14px; margin-top: 10px;">اسحب الرمز وادفع 100 ليرة</p>
                         <p style="color: #047857; font-size: 14px; font-weight: bold;">(توفير 50%)</p>
+                        <p style="color: #dc2626; font-size: 14px;">⚠️ تأكد من إدخال المبلغ: 100 ليرة</p>
                     </div>
                 </div>
                 
@@ -340,6 +343,10 @@
                         <div class="step-number">5</div>
                         <p>أكمل عملية الدفع وانقر "تأكيد"</p>
                     </div>
+                    <div class="instruction-step">
+                        <div class="step-number">6</div>
+                        <p><strong>مهم:</strong> نفس رمز QR لكلا المبلغين، اختر المبلغ الصحيح في التطبيق</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -353,7 +360,7 @@
                 </div>
                 
                 <p style="text-align: center; color: #666; margin: 25px 0 10px 0;">
-                    <strong>اسحب رمز QR المناسب:</strong>
+                    <strong>اسحب رمز QR المناسب للمبلغ:</strong>
                 </p>
                 
                 <div class="price-options">
@@ -361,27 +368,21 @@
                         <div class="price-label">إعلان واحد</div>
                         <div class="price-amount">10 ل.س</div>
                         <div class="qr-container">
-                            <div class="qr-placeholder">
-                                <div class="icon">📱</div>
-                                <p><strong>QR سيريتيل 10 ليرة</strong></p>
-                                <p style="font-size: 14px;">اسحب هذا الرمز</p>
-                            </div>
+                            <img src="syriatel-10.jpg" class="qr-image" alt="Syriatel Cash QR 10 SYP" onerror="showQRError(this)">
                         </div>
-                        <p style="color: #666; font-size: 14px; margin-top: 10px;">اسحب الرمز وادفع 10 ليرة</p>
+                        <p style="color: #666; font-size: 14px; margin-top: 10px;">اسحب هذا الرمز المخصص لـ10 ليرة</p>
+                        <p style="color: #dc2626; font-size: 14px;">QR مخصص لـ10 ليرة فقط</p>
                     </div>
                     
                     <div class="price-option">
                         <div class="price-label">20 إعلان</div>
                         <div class="price-amount">100 ل.س</div>
                         <div class="qr-container">
-                            <div class="qr-placeholder">
-                                <div class="icon">📱</div>
-                                <p><strong>QR سيريتيل 100 ليرة</strong></p>
-                                <p style="font-size: 14px;">اسحب هذا الرمز</p>
-                            </div>
+                            <img src="syriatel-100.jpg" class="qr-image" alt="Syriatel Cash QR 100 SYP" onerror="showQRError(this)">
                         </div>
-                        <p style="color: #666; font-size: 14px; margin-top: 10px;">اسحب الرمز وادفع 100 ليرة</p>
+                        <p style="color: #666; font-size: 14px; margin-top: 10px;">اسحب هذا الرمز المخصص لـ100 ليرة</p>
                         <p style="color: #047857; font-size: 14px; font-weight: bold;">(توفير 50%)</p>
+                        <p style="color: #dc2626; font-size: 14px;">QR مخصص لـ100 ليرة فقط</p>
                     </div>
                 </div>
                 
@@ -397,11 +398,11 @@
                     </div>
                     <div class="instruction-step">
                         <div class="step-number">3</div>
-                        <p>اسحب رمز QR أعلاه بكاميرا الهاتف</p>
+                        <p>اسحب رمز QR المناسب أعلاه (10 ليرة أو 100 ليرة)</p>
                     </div>
                     <div class="instruction-step">
                         <div class="step-number">4</div>
-                        <p>تأكد من المبلغ: <strong>10</strong> أو <strong>100</strong> ليرة</p>
+                        <p>تأكد من المبلغ: <strong>10</strong> أو <strong>100</strong> ليرة (سيظهر تلقائياً)</p>
                     </div>
                     <div class="instruction-step">
                         <div class="step-number">5</div>
@@ -417,6 +418,7 @@
             <p>• تأكد أن اللقطة توضح <strong>رقم المرجع أو المعاملة</strong></p>
             <p>• تأكد أن اللقطة توضح <strong>التاريخ والوقت</strong></p>
             <p>• تأكد أن اللقطة <strong>واضحة ويمكن قراءتها</strong></p>
+            <p>• <strong>لشام كاش:</strong> تأكد أن اللقطة توضح الرقم <code>a29b439a139be548a7f0b2ada7d93e67</code></p>
         </div>
 
         <div class="instructions">
@@ -456,12 +458,13 @@
 
         <div class="important-note">
             <h4>📌 معلومات مهمة:</h4>
-            <p>• النشر فقط في <strong>مجموعة سلامية على الفيسبوك</strong></p>
+            <p>• النشر فقط في <strong>مجموعة سلامية على الفيسبوك</strong> (1,400+ عضو)</p>
             <p>• مدة النشر: <strong>30 يوم</strong> لكل إعلان</p>
             <p>• باقة الـ20 إعلان: <strong>لا تنتهي صلاحيتها</strong>، تستطيع استخدامها متى شئت</p>
             <p>• للاستفسارات: واتساب فقط على الرقم أعلاه</p>
             <p>• وقت العمل: <strong>9 صباحاً - 12 منتصف الليل</strong> (كل أيام الأسبوع)</p>
             <p>• <strong>ضمان النشر:</strong> إذا لم ينشر إعلانك خلال 30 دقيقة، استرداد كامل للمبلغ</p>
+            <p>• <strong>لشام كاش:</strong> نفس رمز QR لكلا المبلغين، اختر المبلغ الصحيح في التطبيق</p>
         </div>
 
         <a href="index.html" class="back-btn">↩ العودة إلى الصفحة الرئيسية</a>
@@ -493,8 +496,23 @@
             showTab('syriatel');
         }
         
+        function copyShamAddress() {
+            const address = document.getElementById('shamAddress').textContent;
+            navigator.clipboard.writeText(address).then(() => {
+                const successMsg = document.getElementById('shamCopySuccess');
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 2000);
+            });
+        }
+        
+        function showQRError(img) {
+            img.outerHTML = '<div class="qr-placeholder"><div style="font-size: 48px; opacity: 0.5;">⚠️</div><p style="color: #dc2626;"><strong>لم يتم تحميل QR</strong></p><p style="font-size: 12px;">تأكد من رفع الصورة باسم: ' + img.src.split('/').pop() + '</p></div>';
+        }
+        
         function saveWhatsAppClick() {
-            // Save that user clicked WhatsApp button (for analytics)
+            // Save that user clicked WhatsApp button
             localStorage.setItem('whatsappClicked', new Date().toLocaleString());
         }
         
@@ -505,11 +523,19 @@
                 if (savedRequest) {
                     const request = JSON.parse(savedRequest);
                     console.log('User selected package:', request.package);
-                    // You could highlight the appropriate price option here
                 }
             } catch (e) {
                 console.log('No saved request found');
             }
+            
+            // Check if QR images loaded
+            setTimeout(() => {
+                document.querySelectorAll('img[onerror]').forEach(img => {
+                    if (!img.complete || img.naturalHeight === 0) {
+                        showQRError(img);
+                    }
+                });
+            }, 1000);
         });
     </script>
 </body>
