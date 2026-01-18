@@ -371,8 +371,23 @@
             orders.push(orderData);
             localStorage.setItem('adpay_orders', JSON.stringify(orders));
             
+            // AUTO SEND TO WHATSAPP
+            const whatsappMessage = `
+📊 طلب جديد - نشر مجاني
+📱 الرقم: ${phone}
+🔖 رقم الطلب: ${orderId}
+📝 النص: ${adText.substring(0, 100)}...
+💰 الباقة: نشر مجاني (إعلان واحد)
+🔐 الكود: ${currentUser}
+⏰ الوقت: ${new Date().toLocaleString('ar-SY')}
+📱 رابط الطلب: https://brilliancem2bs4.github.io/adpay-syria/admin.html
+            `.trim();
+            
+            const whatsappURL = `https://wa.me/963993113374?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappURL, '_blank');
+            
             // Show success message
-            alert(`✅ تم خصم إعلان مجاني!\n\nعدد الإعلانات المتبقية: ${userData.adsRemaining}\n\nرقم طلبك: ${orderId}\n\nسيتم النشر خلال 120 دقيقة!\n\nيرجى مراقبة واتساب لاستلام رابط المنشور.`);
+            alert(`✅ تم خصم إعلان مجاني!\n\nعدد الإعلانات المتبقية: ${userData.adsRemaining}\n\nرقم طلبك: ${orderId}\n\nتم إرسال التفاصيل إلى واتساب الإدارة.\n\nسيتم النشر خلال 120 دقيقة!\n\nيرجى مراقبة واتساب لاستلام رابط المنشور.`);
             
             // Clear form
             document.getElementById('adForm').reset();
@@ -421,7 +436,7 @@
             
             // Save to localStorage
             const orderId = 'ORD_' + Date.now();
-            localStorage.setItem('current_order', JSON.stringify({
+            const orderData = {
                 id: orderId,
                 phone: phone,
                 adText: adText.substring(0, 500),
@@ -432,10 +447,27 @@
                 userCode: currentUser || null,
                 timestamp: new Date().toLocaleString('ar-SY'),
                 estimatedPublishTime: new Date(Date.now() + 120 * 60000).toLocaleString('ar-SY')
-            }));
+            };
+            
+            localStorage.setItem('current_order', JSON.stringify(orderData));
+            
+            // AUTO SEND TO WHATSAPP
+            const whatsappMessage = `
+📊 طلب جديد - مجموعة سلمية الجديدة الإعلانية
+📱 الرقم: ${phone}
+🔖 رقم الطلب: ${orderId}
+📝 النص: ${adText.substring(0, 100)}...
+💰 الباقة: ${packageName}
+🔐 الكود: ${currentUser || 'بدون كود'}
+⏰ الوقت: ${new Date().toLocaleString('ar-SY')}
+📱 رابط الطلب: https://brilliancem2bs4.github.io/adpay-syria/admin.html
+            `.trim();
+            
+            const whatsappURL = `https://wa.me/963993113374?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappURL, '_blank');
             
             // Show success message
-            alert(`✅ تم حفظ طلبك!\n\nرقم طلبك: ${orderId}\n\nالرجاء الانتقال إلى صفحة الدفع لإتمام العملية.\n\nبعد الدفع، أرسل لقطة الشاشة على واتساب:\n+963 993 113 374\n\nسيتم النشر خلال 120 دقيقة!`);
+            alert(`✅ تم حفظ طلبك!\n\nرقم طلبك: ${orderId}\n\nتم إرسال التفاصيل إلى واتساب الإدارة.\n\nالرجاء الانتقال إلى صفحة الدفع لإتمام العملية.\n\nبعد الدفع، أرسل لقطة الشاشة على واتساب:\n+963 993 113 374\n\nسيتم النشر خلال 120 دقيقة!`);
             
             // Redirect to payment page
             window.location.href = 'whatsapp.html';
