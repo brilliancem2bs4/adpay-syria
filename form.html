@@ -219,3 +219,101 @@
                 </div>
             </div>
             
+            <div class="form-section">
+                <h3>🖼️ صور المنتجات</h3>
+                
+                <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                    <div style="font-size: 48px; color: #9ca3af;">📁</div>
+                    <p><strong>انقر لرفع صور المنتجات</strong></p>
+                    <p>يمكنك رفع حتى 10 صور (JPG, PNG)</p>
+                    <p>أو يمكنك إرسالها لاحقاً عبر واتساب</p>
+                </div>
+                <input type="file" id="fileInput" multiple accept="image/*" hidden>
+                <div id="fileList" style="margin-top: 15px;"></div>
+            </div>
+            
+            <div style="background: #fffbeb; padding: 20px; border-radius: 10px; margin: 25px 0; border: 2px solid #fbbf24;">
+                <h4 style="color: #d97706; margin-top: 0;">⚠️ ملاحظات هامة:</h4>
+                <p>1. بعد تقديم الطلب، ستنتقل إلى صفحة الدفع</p>
+                <p>2. أرسل لقطة شاشة الدفع على واتساب: <strong>+963 993 113 374</strong></p>
+                <p>3. سنتواصل معك خلال 30 دقيقة لتأكيد الطلب</p>
+            </div>
+            
+            <button type="button" class="btn" onclick="submitForm()">
+                📤 إرسال طلب الإعلان
+            </button>
+        </form>
+        
+        <a href="index.html" class="back-btn">↩ الرجوع إلى الصفحة الرئيسية</a>
+    </div>
+    
+    <script>
+        function selectOption(element) {
+            document.querySelectorAll('.radio-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            element.querySelector('input').checked = true;
+        }
+        
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const fileList = document.getElementById('fileList');
+            const files = e.target.files;
+            
+            if (files.length > 0) {
+                fileList.innerHTML = `<p><strong>${files.length} صور تم اختيارها:</strong></p>`;
+                
+                for (let i = 0; i < files.length && i < 5; i++) {
+                    fileList.innerHTML += `<p>📷 ${files[i].name} (${(files[i].size / 1024).toFixed(1)} KB)</p>`;
+                }
+                
+                if (files.length > 5) {
+                    fileList.innerHTML += `<p>... و ${files.length - 5} صور أخرى</p>`;
+                }
+            } else {
+                fileList.innerHTML = '';
+            }
+        });
+        
+        function submitForm() {
+            // Simple form validation
+            const requiredFields = document.querySelectorAll('input[required], textarea[required]');
+            let valid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    valid = false;
+                    field.style.borderColor = '#dc2626';
+                } else {
+                    field.style.borderColor = '#d1d5db';
+                }
+            });
+            
+            if (!valid) {
+                alert('الرجاء ملء جميع الحقول الإلزامية');
+                return;
+            }
+            
+            // Show success message
+            alert('✅ تم إرسال طلبك بنجاح! الرجاء الانتقال لصفحة الدفع لإتمام العملية.');
+            
+            // Redirect to payment page
+            const paymentType = document.querySelector('input[name="payment-type"]:checked').value;
+            const paymentMethod = document.querySelector('select').value;
+            
+            // Store form data temporarily (in a real app, this would go to server)
+            localStorage.setItem('adRequest', JSON.stringify({
+                timestamp: new Date().toLocaleString(),
+                paymentType: paymentType,
+                paymentMethod: paymentMethod
+            }));
+            
+            // Redirect to payment page
+            window.location.href = 'whatsapp.html';
+        }
+        
+        // Initialize first option as selected
+        document.querySelector('.radio-option').classList.add('selected');
+    </script>
+</body>
+</html>
