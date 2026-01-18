@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نشر إعلانات في مجموعة سلامية - AdPay Syria</title>
+    <title>نشر إعلانات في مجموعة سلمية - AdPay Syria</title>
     <!-- PWA App Tags -->
     <meta name="theme-color" content="#047857">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="https://img.icons8.com/color/96/000000/syria.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="سلمية الإعلانية">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/color/144/000000/syria.png">
     <style>
         body { 
             font-family: 'Arial', sans-serif; 
@@ -161,9 +165,34 @@
             margin: 10px 0;
             font-size: 16px;
         }
+        .user-status {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0fff4;
+            border-radius: 10px;
+        }
+        .notification-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #FF9800;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: none;
+            z-index: 1000;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    <button class="notification-btn" onclick="requestNotificationPermission()" id="notifyBtn" style="display: none;">
+        🔔 تفعيل الإشعارات
+    </button>
+
     <div class="container">
         <div class="language-switch">
             <button class="language-btn active" onclick="switchLanguage('ar')">العربية 🇸🇾</button>
@@ -196,7 +225,7 @@
                 </button>
             </div>
             
-            <div id="userStatus" style="display: none; margin-top: 20px; padding: 15px; background: #f0fff4; border-radius: 10px;">
+            <div class="user-status" id="userStatus">
                 <h3>📊 حالة حسابك:</h3>
                 <p id="remainingAds">عدد الإعلانات المتبقية: <strong>0</strong></p>
                 <p id="userCodeDisplay">كودك: <strong>------</strong></p>
@@ -239,7 +268,7 @@
                 <div class="price-amount">10 ل.س</div>
                 <p>ينشر مرة واحدة في المجموعة</p>
                 <p>ينشر خلال 120 دقيقة</p>
-                <a href="form.html" class="btn" onclick="checkAdsBeforeRedirect()">📝 اطلب الآن</a>
+                <a href="form.html" class="btn" onclick="return checkAdsBeforeRedirect()">📝 اطلب الآن</a>
             </div>
             <div class="price-option">
                 <h3>20 إعلان</h3>
@@ -248,22 +277,22 @@
                 <p>لا تنتهي صلاحيتها</p>
                 <p>نشر 20 إعلان مختلف</p>
                 <p>مخزونك يحفظ بكود خاص</p>
-                <a href="form.html" class="btn" onclick="checkAdsBeforeRedirect()">📝 اطلب الآن</a>
+                <a href="form.html" class="btn" onclick="return checkAdsBeforeRedirect()">📝 اطلب الآن</a>
             </div>
         </div>
 
         <div class="step">
             <h2><span class="emoji">📱</span> <span id="step1-title">الخطوة 1: املأ طلب الإعلان</span></h2>
             <p id="step1-desc">أدخل رقم واتساب ونص الإعلان فقط</p>
-            <a href="form.html" class="btn" onclick="checkAdsBeforeRedirect()">✍️ ابدأ بطلب الإعلان</a>
+            <a href="form.html" class="btn" onclick="return checkAdsBeforeRedirect()">✍️ ابدأ بطلب الإعلان</a>
         </div>
 
         <div class="step">
             <h2><span class="emoji">💰</span> <span id="step2-title">الخطوة 2: ادفع بسهولة</span></h2>
             <p id="step2-desc">اختر طريقة الدفع المناسبة:</p>
             <div>
-                <a href="whatsapp.html?method=sham" class="btn" style="background: #7C3AED;">💜 شام كاش</a>
-                <a href="whatsapp.html?method=syriatel" class="btn" style="background: #E63946;">❤️ سيريتيل كاش</a>
+                <a href="whatsapp.html?method=sham" class="btn" style="background: #7C3AED;" onclick="return checkAdsBeforeRedirect()">💜 شام كاش</a>
+                <a href="whatsapp.html?method=syriatel" class="btn" style="background: #E63946;" onclick="return checkAdsBeforeRedirect()">❤️ سيريتيل كاش</a>
             </div>
         </div>
 
@@ -290,6 +319,10 @@
         </div>
     </div>
 
+    <!-- Firebase for Notifications -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js"></script>
+    
     <script>
         // User Code System
         function toggleLoginForm() {
@@ -420,6 +453,9 @@
                 const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
                 showUserStatus(userData);
             }
+            
+            // Show notification button
+            document.getElementById('notifyBtn').style.display = 'block';
         };
 
         function switchLanguage(lang) {
@@ -434,10 +470,75 @@
                     <h1>Ad Publishing in New Salmiya Advertising Group</h1>
                     <p>Pay via Sham Cash or Syriatel Cash - Instant publishing after payment</p>
                 `;
-                // Add more translations as needed
+                document.getElementById('subtitle').textContent = 'Pay via Sham Cash or Syriatel Cash - Instant publishing after payment';
+                document.getElementById('step1-title').textContent = 'Step 1: Fill Ad Request';
+                document.getElementById('step1-desc').textContent = 'Enter WhatsApp number and ad text only';
+                document.getElementById('step2-title').textContent = 'Step 2: Easy Payment';
+                document.getElementById('step2-desc').textContent = 'Choose payment method:';
+                document.getElementById('step3-title').textContent = 'Step 3: Send Payment Proof';
+                document.getElementById('step3-desc').textContent = 'Send payment screenshot on WhatsApp and we publish within 120 minutes';
+                document.getElementById('step4-title').textContent = 'Step 4: Receive Post Link';
+                document.getElementById('step4-desc').textContent = 'We send you post link on WhatsApp within 120 minutes';
             } else {
                 location.reload();
             }
+        }
+
+        // Firebase Notification System
+        const firebaseConfig = {
+            apiKey: "AIzaSyDUqKQ-6SbjZpxLgSpksN8AqV2qUYBrvYk",
+            authDomain: "adpay-syria.firebaseapp.com",
+            projectId: "adpay-syria",
+            storageBucket: "adpay-syria.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef1234567890"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+
+        function requestNotificationPermission() {
+            Notification.requestPermission().then((permission) => {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted.');
+                    // Get FCM token
+                    messaging.getToken().then((currentToken) => {
+                        if (currentToken) {
+                            console.log('FCM Token:', currentToken);
+                            // Save token to localStorage
+                            localStorage.setItem('fcm_token', currentToken);
+                            alert('✅ تم تفعيل الإشعارات!');
+                            document.getElementById('notifyBtn').style.display = 'none';
+                        }
+                    });
+                }
+            });
+        }
+
+        // Handle incoming messages
+        messaging.onMessage((payload) => {
+            console.log('Message received:', payload);
+            // Show notification
+            if (Notification.permission === 'granted') {
+                new Notification(payload.notification.title, {
+                    body: payload.notification.body,
+                    icon: 'https://img.icons8.com/color/96/000000/syria.png'
+                });
+            }
+        });
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
         }
     </script>
 </body>
