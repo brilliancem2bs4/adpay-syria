@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdPay Syria - دعاية سوريا</title>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: #f0f9f0; 
+            line-height: 1.6;
+        }
+        .container { 
+            max-width: 800px; 
+            margin: auto; 
+        }
+        .header { 
+            background: linear-gradient(135deg, #047857, #10b981); 
+            color: white; 
+            padding: 40px 30px; 
+            border-radius: 20px; 
+            text-align: center; 
+            margin-bottom: 30px;
+        }
+        .step { 
+            background: white; 
+            padding: 25px; 
+            margin: 25px 0; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+            border-right: 5px solid #047857;
+        }
+        .btn { 
+            background: #047857; 
+            color: white; 
+            padding: 15px 30px; 
+            text-decoration: none; 
+            border-radius: 10px; 
+            display: inline-block; 
+            margin: 10px; 
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #065f46;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(4, 120, 87, 0.3);
+        }
+        .payment-btn {
+            background: #7C3AED;
+            margin: 5px;
+        }
+        .payment-btn.syriatel {
+            background: #E63946;
+        }
+        .whatsapp-number {
+            font-size: 28px;
+            color: #047857;
+            font-weight: bold;
+            direction: ltr;
+            display: block;
+            margin: 15px 0;
+        }
+        h1 { margin: 0 0 15px 0; font-size: 36px; }
+        h2 { color: #047857; margin-top: 0; }
+        p { font-size: 18px; color: #333; }
+        .emoji { font-size: 24px; margin-left: 10px; }
+        .language-switch { text-align: center; margin: 20px 0; }
+        .language-btn { 
+            background: #e2e8f0; 
+            color: #475569; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 8px; 
+            margin: 0 5px; 
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .language-btn.active { 
+            background: #047857; 
+            color: white; 
+        }
+        .instructions { 
+            background: #fffbeb; 
+            border: 2px dashed #f59e0b; 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin: 25px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-switch">
+            <button class="language-btn active" onclick="switchLanguage('ar')">العربية 🇸🇾</button>
+            <button class="language-btn" onclick="switchLanguage('en')">English 🌍</button>
+        </div>
+        
+        <div class="header" id="header">
+            <h1>AdPay Syria - دعاية سوريا</h1>
+            <p id="subtitle">دفع سهل وآمن للإعلانات عبر شام كاش و سيريتيل كاش</p>
+        </div>
+
+        <div class="instructions" id="instructions">
+            <h3>🎯 كيف تعمل الخدمة:</h3>
+            <ol>
+                <li>املأ استمارة طلب الإعلان</li>
+                <li>اختر طريقة الدفع (شام كاش أو سيريتيل كاش)</li>
+                <li>أرسل لقطة شاشة للدفع على واتساب</li>
+                <li>سننشر إعلانك على صفحتنا خلال 24 ساعة</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h2><span class="emoji">✍️</span> <span id="step1-title">الخطوة 1: قدم طلب إعلان</span></h2>
+            <p id="step1-desc">املأ النموذج مع تفاصيل منتجاتك، صورها، الموقع، والسعر</p>
+            <a href="form.html" class="btn">📝 ابدأ بطلب الإعلان الآن</a>
+        </div>
+
+        <div class="step">
+            <h2><span class="emoji">💰</span> <span id="step2-title">الخطوة 2: ادفع بسهولة</span></h2>
+            <p id="step2-desc">اختر طريقة الدفع المناسبة لك:</p>
+            <div style="text-align: center;">
+                <a href="whatsapp.html?method=sham" class="btn payment-btn">💜 شام كاش (Sham Cash)</a>
+                <a href="whatsapp.html?method=syriatel" class="btn payment-btn syriatel">❤️ سيريتيل كاش (Syriatel Cash)</a>
+            </div>
+            <p id="pricing">السعر: 10,000 ليرة لكل إعلان أو 50,000 ليرة للاشتراك الشهري</p>
+        </div>
+
+        <div class="step">
+            <h2><span class="emoji">📲</span> <span id="step3-title">الخطوة 3: أرسل إثبات الدفع</span></h2>
+            <p id="step3-desc">بعد الدفع، أرسل لقطة الشاشة على الواتساب:</p>
+            <p style="text-align: center;">
+                <span class="whatsapp-number">+963 993 113 374</span>
+            </p>
+            <a href="https://wa.me/963993113374?text=مرحباً،%20لقد%20دفعت%20مبلغ%20طلب%20الإعلان" 
+               class="btn" 
+               target="_blank"
+               style="background: #25D366;">
+               📲 اضغط هنا للدردشة على واتساب
+            </a>
+        </div>
+
+        <div class="step">
+            <h2><span class="emoji">📢</span> <span id="step4-title">الخطوة 4: احصل على إعلانك</span></h2>
+            <p id="step4-desc">سننشر إعلانك على صفحة الفيسبوك خلال 24 ساعة من تأكيد الدفع</p>
+            <p id="guarantee">ضمان الجودة: إذا لم ينشر إعلانك خلال 24 ساعة، سنعيد المبلغ كاملاً</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #666; font-size: 14px;">
+            <p id="footer">AdPay Syria - © 2024 - خدمة دفع سورية للإعلانات على الفيسبوك</p>
+        </div>
+    </div>
+
+    <script>
+        function switchLanguage(lang) {
+            const arContent = {
+                header: "AdPay Syria - دعاية سوريا",
+                subtitle: "دفع سهل وآمن للإعلانات عبر شام كاش و سيريتيل كاش",
+                instructionsTitle: "🎯 كيف تعمل الخدمة:",
+                instructionsList: [
+                    "املأ استمارة طلب الإعلان",
+                    "اختر طريقة الدفع (شام كاش أو سيريتيل كاش)",
+                    "أرسل لقطة شاشة للدفع على واتساب",
+                    "سننشر إعلانك على صفحتنا خلال 24 ساعة"
+                ],
+                step1Title: "الخطوة 1: قدم طلب إعلان",
+                step1Desc: "املأ النموذج مع تفاصيل منتجاتك، صورها، الموقع، والسعر",
+                step2Title: "الخطوة 2: ادفع بسهولة",
+                step2Desc: "اختر طريقة الدفع المناسبة لك:",
+                step3Title: "الخطوة 3: أرسل إثبات الدفع",
+                step3Desc: "بعد الدفع، أرسل لقطة الشاشة على الواتساب:",
+                step4Title: "الخطوة 4: احصل على إعلانك",
+                step4Desc: "سننشر إعلانك على صفحة الفيسبوك خلال 24 ساعة من تأكيد الدفع",
+                pricing: "السعر: 10,000 ليرة لكل إعلان أو 50,000 ليرة للاشتراك الشهري",
+                guarantee: "ضمان الجودة: إذا لم ينشر إعلانك خلال 24 ساعة، سنعيد المبلغ كاملاً",
+                footer: "AdPay Syria - © 2024 - خدمة دفع سورية للإعلانات على الفيسبوك"
+            };
+
+            const enContent = {
+                header: "AdPay Syria - دعاية سوريا",
+                subtitle: "Easy and secure payments for ads via Sham Cash and Syriatel Cash",
+                instructionsTitle: "🎯 How it works:",
+                instructionsList: [
+                    "Fill out the ad request form",
+                    "Choose payment method (Sham Cash or Syriatel Cash)",
+                    "Send payment screenshot on WhatsApp",
+                    "We'll publish your ad on our page within 24 hours"
+                ],
+                step1Title: "Step 1: Submit Ad Request",
+                step1Desc: "Fill the form with your product details, photos, location, and price",
+                step2Title: "Step 2: Easy Payment",
+                step2Desc: "Choose your preferred payment method:",
+                step3Title: "Step 3: Send Payment Proof",
+                step3Desc: "After payment, send the screenshot on WhatsApp:",
+                step4Title: "Step 4: Get Your Ad",
+                step4Desc: "We'll publish your ad on Facebook within 24 hours of payment confirmation",
+                pricing: "Price: 10,000 Lira per ad or 50,000 Lira for monthly subscription",
+                guarantee: "Quality Guarantee: If your ad is not published within 24 hours, full refund",
+                footer: "AdPay Syria - © 2024 - Syrian payment service for Facebook ads"
+            };
+
+            const content = lang === 'ar' ? arContent : enContent;
+            
+            // Update direction
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update content
+            document.getElementById('header').innerHTML = `
+                <h1>${content.header}</h1>
+                <p>${content.subtitle}</p>
+            `;
+            
+            document.getElementById('instructions').innerHTML = `
+                <h3>${content.instructionsTitle}</h3>
+                <ol>
+                    ${content.instructionsList.map(item => `<li>${item}</li>`).join('')}
+                </ol>
+            `;
+            
+            document.getElementById('step1-title').textContent = content.step1Title;
+            document.getElementById('step1-desc').textContent = content.step1Desc;
+            document.getElementById('step2-title').textContent = content.step2Title;
+            document.getElementById('step2-desc').textContent = content.step2Desc;
+            document.getElementById('step3-title').textContent = content.step3Title;
+            document.getElementById('step3-desc').textContent = content.step3Desc;
+            document.getElementById('step4-title').textContent = content.step4Title;
+            document.getElementById('step4-desc').textContent = content.step4Desc;
+            document.getElementById('pricing').textContent = content.pricing;
+            document.getElementById('guarantee').textContent = content.guarantee;
+            document.getElementById('footer').textContent = content.footer;
+            
+            // Update language buttons
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.language-btn')[lang === 'ar' ? 0 : 1].classList.add('active');
+        }
+    </script>
+</body>
+</html>
