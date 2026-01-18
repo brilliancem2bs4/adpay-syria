@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طلب نشر إعلان في مجموعة سلامية</title>
+    <title>طلب نشر إعلان في مجموعة سلمية الجديدة الإعلانية</title>
     <style>
         body { 
             font-family: 'Arial', sans-serif; 
@@ -141,7 +141,6 @@
             border-radius: 10px;
             margin: 20px 0;
             border: 2px solid #0ea5e9;
-            display: none;
         }
         .free-post-btn {
             background: #10b981;
@@ -149,16 +148,30 @@
         .free-post-btn:hover {
             background: #059669;
         }
+        .user-code-display {
+            background: #f5f3ff;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 20px;
+            color: #7C3AED;
+            text-align: center;
+            border: 2px solid #a78bfa;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📝 طلب نشر إعلان في مجموعة سلمية الجديدة الإعلانية</h1>
         
-        <div class="user-info-box" id="userInfoBox">
+        <div class="user-info-box" id="userInfoBox" style="display: none;">
             <h3>👤 حسابك الحالي:</h3>
+            <div class="user-code-display" id="userCodeDisplay">------</div>
             <p id="userAdsRemaining">عدد الإعلانات المتبقية: <strong>0</strong></p>
-            <p id="userCodeInfo">كودك: <strong>------</strong></p>
+            <button class="btn" onclick="logout()" style="background: #dc2626; padding: 10px; font-size: 14px; margin-top: 10px;">
+                🚪 تسجيل الخروج
+            </button>
         </div>
         
         <div class="facebook-note">
@@ -234,7 +247,7 @@
                 → اذهب إلى صفحة الدفع
             </button>
             
-            <button type="button" class="btn free-post-btn" id="freePostBtn" onclick="useFreeAd()" style="display: none;">
+            <button type="button" class="btn free-post-btn" id="freePostBtn" onclick="useFreeAd()" style="display: none; margin-top: 10px;">
                 🎁 نشر مجاني (إعلان واحد)
             </button>
         </form>
@@ -246,7 +259,6 @@
         // Check user status on page load
         window.onload = function() {
             checkUserAds();
-            updateSubmitButton();
         };
 
         function checkUserAds() {
@@ -255,19 +267,19 @@
             
             if (currentUser) {
                 const userKey = 'adpay_user_' + currentUser;
-                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
+                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0, "code":"------"}');
                 
                 // Show user info
                 document.getElementById('userInfoBox').style.display = 'block';
+                document.getElementById('userCodeDisplay').textContent = userData.code;
                 document.getElementById('userAdsRemaining').innerHTML = 
                     `عدد الإعلانات المتبقية: <strong>${userData.adsRemaining}</strong>`;
-                document.getElementById('userCodeInfo').innerHTML = 
-                    `كودك: <strong>${currentUser}</strong>`;
                 
                 // Enable free post button if user has ads
                 if (userData.adsRemaining > 0) {
                     document.getElementById('freePostBtn').style.display = 'block';
                     document.getElementById('submitBtn').style.display = 'none';
+                    document.getElementById('submitBtn').innerHTML = '← لديك إعلانات مجانية (لا تحتاج دفع)';
                 }
             }
         }
@@ -285,18 +297,10 @@
             element.querySelector('input').checked = true;
         }
         
-        function updateSubmitButton() {
-            const currentUser = sessionStorage.getItem('current_user_code') || 
-                               localStorage.getItem('remembered_user_code');
-            
-            if (currentUser) {
-                const userKey = 'adpay_user_' + currentUser;
-                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
-                
-                if (userData.adsRemaining > 0) {
-                    document.getElementById('submitBtn').innerHTML = '← لديك إعلانات مجانية (لا تحتاج دفع)';
-                }
-            }
+        function logout() {
+            sessionStorage.removeItem('current_user_code');
+            localStorage.removeItem('remembered_user_code');
+            location.reload();
         }
         
         function useFreeAd() {
@@ -358,8 +362,8 @@
                 package: 'free_ad',
                 userCode: currentUser,
                 status: 'pending',
-                timestamp: new Date().toISOString(),
-                estimatedPublishTime: new Date(Date.now() + 120 * 60000).toISOString() // 120 minutes from now
+                timestamp: new Date().toLocaleString('ar-SY'),
+                estimatedPublishTime: new Date(Date.now() + 120 * 60000).toLocaleString('ar-SY')
             };
             
             // Save order to localStorage
@@ -373,7 +377,10 @@
             // Clear form
             document.getElementById('adForm').reset();
             
-            // Redirect to thank you page or back to home
+            // Update UI
+            checkUserAds();
+            
+            // Show success for 3 seconds then redirect
             setTimeout(() => {
                 window.location.href = 'index.html';
             }, 3000);
@@ -412,7 +419,7 @@
             const packageName = selectedPackage === 'single' ? 'إعلان واحد (10 ل.س)' : '20 إعلان (100 ل.س)';
             const packagePrice = selectedPackage === 'single' ? 10 : 100;
             
-            // Save to localStorage (temporary storage)
+            // Save to localStorage
             const orderId = 'ORD_' + Date.now();
             localStorage.setItem('current_order', JSON.stringify({
                 id: orderId,
@@ -424,7 +431,7 @@
                 packagePrice: packagePrice,
                 userCode: currentUser || null,
                 timestamp: new Date().toLocaleString('ar-SY'),
-                estimatedPublishTime: new Date(Date.now() + 120 * 60000).toLocaleString('ar-SY') // 120 minutes from now
+                estimatedPublishTime: new Date(Date.now() + 120 * 60000).toLocaleString('ar-SY')
             }));
             
             // Show success message
