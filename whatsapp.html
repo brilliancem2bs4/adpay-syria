@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إتمام الدفع - مجموعة سلامية</title>
+    <title>إتمام الدفع - مجموعة سلمية الجديدة الإعلانية</title>
     <style>
         body { 
             font-family: 'Arial', sans-serif; 
@@ -261,13 +261,45 @@
             margin-top: 10px;
             display: none;
         }
+        .user-code-section {
+            background: #f0f9ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid #0ea5e9;
+            text-align: center;
+        }
+        .generated-code {
+            font-size: 36px;
+            color: #7C3AED;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f5f3ff;
+            border-radius: 10px;
+            border: 3px solid #a78bfa;
+        }
+        .order-info {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #10b981;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>💰 إتمام الدفع للنشر في مجموعة سلامية</h1>
+            <h1>💰 إتمام الدفع للنشر في مجموعة سلمية الجديدة الإعلانية</h1>
             <p style="font-size: 18px; color: #4b5563;">اختر طريقة الدفع وأرسل إثبات الدفع على واتساب</p>
+        </div>
+
+        <!-- Order Information -->
+        <div class="order-info" id="orderInfo">
+            <h3>📋 معلومات طلبك:</h3>
+            <p id="orderDetails">جاري تحميل معلومات الطلب...</p>
         </div>
 
         <div class="payment-tabs">
@@ -412,6 +444,24 @@
             </div>
         </div>
 
+        <!-- User Code Generation Section -->
+        <div class="user-code-section" id="codeSection" style="display: none;">
+            <h3>🔐 كودك الشخصي لحفظ إعلاناتك</h3>
+            <p>بعد الدفع، احصل على كود خاص يحفظ إعلاناتك المتبقية للأبد!</p>
+            
+            <div class="generated-code" id="generatedCode">
+                جاري إنشاء الكود...
+            </div>
+            
+            <p>⚠️ <strong>احفظ هذا الكود في مكان آمن!</strong> تستطيع استخدامه على أي جهاز وفي أي وقت.</p>
+            <p>📱 الكود يحفظ إعلاناتك حتى لو تركت الموقع لشهور!</p>
+            
+            <button class="copy-address" onclick="copyUserCode()" style="background: #10b981; margin-top: 20px;">
+                📋 نسخ الكود
+            </button>
+            <div class="copy-success" id="codeCopySuccess">✓ تم نسخ الكود!</div>
+        </div>
+
         <div class="screenshot-tip">
             <h4>📸 نصائح للقطة الشاشة الجيدة:</h4>
             <p>• تأكد أن اللقطة توضح <strong>المبلغ المدفوع</strong></p>
@@ -430,9 +480,10 @@
                 +963 993 113 374
             </div>
             
-            <a href="https://wa.me/963993113374?text=لقد%20دفعت%20للنشر%20في%20مجموعة%20سلامية.%20هذه%20لقطة%20شاشة%20الدفع" 
+            <a href="https://wa.me/963993113374?text=لقد%20دفعت%20للنشر%20في%20مجموعة%20سلمية%20الجديدة%20الإعلانية.%20هذه%20لقطة%20شاشة%20الدفع" 
                class="whatsapp-btn" 
                target="_blank"
+               id="whatsappLink"
                onclick="saveWhatsAppClick()">
                📲 اضغط هنا لإرسال إثبات الدفع على واتساب
             </a>
@@ -444,11 +495,11 @@
             </div>
             <div class="instruction-step">
                 <div class="step-number">2</div>
-                <p>ننشر إعلانك في <strong>مجموعة سلامية</strong> على الفيسبوك</p>
+                <p>ننشر إعلانك في <strong>مجموعة سلمية الجديدة الإعلانية</strong> على الفيسبوك</p>
             </div>
             <div class="instruction-step">
                 <div class="step-number">3</div>
-                <p>نرسل لك <strong>رابط المنشور</strong> على واتساب</p>
+                <p>نرسل لك <strong>رابط المنشور</strong> على واتساب خلال <strong>120 دقيقة</strong></p>
             </div>
             <div class="instruction-step">
                 <div class="step-number">4</div>
@@ -458,19 +509,57 @@
 
         <div class="important-note">
             <h4>📌 معلومات مهمة:</h4>
-            <p>• النشر فقط في <strong>مجموعة سلامية على الفيسبوك</strong> (1,400+ عضو)</p>
-            <p>• مدة النشر: <strong>30 يوم</strong> لكل إعلان</p>
+            <p>• النشر فقط في <strong>مجموعة سلمية الجديدة الإعلانية</strong> (1,400+ عضو)</p>
+            <p>• وقت النشر: <strong>خلال 120 دقيقة من تأكيد الدفع</strong></p>
+            <p>• استرداد المال: <strong>خلال يومين إذا لم يتم النشر</strong></p>
             <p>• باقة الـ20 إعلان: <strong>لا تنتهي صلاحيتها</strong>، تستطيع استخدامها متى شئت</p>
+            <p>• <strong>نظام الكود:</strong> احصل على كود خاص يحفظ إعلاناتك للأبد!</p>
             <p>• للاستفسارات: واتساب فقط على الرقم أعلاه</p>
             <p>• وقت العمل: <strong>9 صباحاً - 12 منتصف الليل</strong> (كل أيام الأسبوع)</p>
-            <p>• <strong>ضمان النشر:</strong> إذا لم ينشر إعلانك خلال 30 دقيقة، استرداد كامل للمبلغ</p>
-            <p>• <strong>لشام كاش:</strong> نفس رمز QR لكلا المبلغين، اختر المبلغ الصحيح في التطبيق</p>
+            <p>• <strong>ضمان النشر:</strong> إذا لم ينشر إعلانك خلال 120 دقيقة، استرداد كامل للمبلغ</p>
         </div>
 
         <a href="index.html" class="back-btn">↩ العودة إلى الصفحة الرئيسية</a>
     </div>
 
     <script>
+        // Load order info on page load
+        window.onload = function() {
+            loadOrderInfo();
+            
+            // Check URL parameters for default tab
+            const urlParams = new URLSearchParams(window.location.search);
+            const method = urlParams.get('method');
+            if (method === 'syriatel') {
+                showTab('syriatel');
+            }
+            
+            // Check if QR images loaded
+            setTimeout(() => {
+                document.querySelectorAll('img[onerror]').forEach(img => {
+                    if (!img.complete || img.naturalHeight === 0) {
+                        showQRError(img);
+                    }
+                });
+            }, 1000);
+        };
+
+        function loadOrderInfo() {
+            try {
+                const orderData = JSON.parse(localStorage.getItem('current_order') || '{}');
+                if (orderData.id) {
+                    document.getElementById('orderDetails').innerHTML = `
+                        <p>📞 رقم واتساب: <strong>${orderData.phone || 'غير محدد'}</strong></p>
+                        <p>💰 الباقة: <strong>${orderData.packageName || 'غير محدد'}</strong></p>
+                        <p>⏰ موعد النشر المتوقع: <strong>${orderData.estimatedPublishTime || 'خلال 120 دقيقة'}</strong></p>
+                        <p>🔖 رقم الطلب: <strong>${orderData.id}</strong></p>
+                    `;
+                }
+            } catch (e) {
+                console.log('No order data found');
+            }
+        }
+
         function showTab(tabName) {
             // Hide all tabs
             document.querySelectorAll('.payment-content').forEach(tab => {
@@ -489,13 +578,6 @@
             event.target.classList.add('active');
         }
         
-        // Check URL parameters for default tab
-        const urlParams = new URLSearchParams(window.location.search);
-        const method = urlParams.get('method');
-        if (method === 'syriatel') {
-            showTab('syriatel');
-        }
-        
         function copyShamAddress() {
             const address = document.getElementById('shamAddress').textContent;
             navigator.clipboard.writeText(address).then(() => {
@@ -512,31 +594,93 @@
         }
         
         function saveWhatsAppClick() {
-            // Save that user clicked WhatsApp button
-            localStorage.setItem('whatsappClicked', new Date().toLocaleString());
-        }
-        
-        // Check if coming from form and show appropriate price
-        document.addEventListener('DOMContentLoaded', function() {
-            try {
-                const savedRequest = localStorage.getItem('adRequest');
-                if (savedRequest) {
-                    const request = JSON.parse(savedRequest);
-                    console.log('User selected package:', request.package);
-                }
-            } catch (e) {
-                console.log('No saved request found');
+            // Get current order
+            const orderData = JSON.parse(localStorage.getItem('current_order') || '{}');
+            
+            // Generate user code if paying for 20 ads package
+            if (orderData.package === 'bulk') {
+                generateUserCode(20); // 20 ads
+            } else if (orderData.package === 'single') {
+                generateUserCode(1); // 1 ad
             }
             
-            // Check if QR images loaded
-            setTimeout(() => {
-                document.querySelectorAll('img[onerror]').forEach(img => {
-                    if (!img.complete || img.naturalHeight === 0) {
-                        showQRError(img);
-                    }
+            // Save that user clicked WhatsApp button
+            localStorage.setItem('whatsappClicked', new Date().toLocaleString());
+            
+            // Update WhatsApp message with order info
+            const whatsappLink = document.getElementById('whatsappLink');
+            const orderText = encodeURIComponent(
+                `لقد دفعت ${orderData.packagePrice} ليرة للنشر في مجموعة سلمية الجديدة الإعلانية.\n` +
+                `رقم الطلب: ${orderData.id}\n` +
+                `رقم واتساب: ${orderData.phone}\n` +
+                `هذه لقطة شاشة الدفع:`
+            );
+            whatsappLink.href = `https://wa.me/963993113374?text=${orderText}`;
+        }
+
+        function generateUserCode(adsCount) {
+            // Check if user already has a code
+            const currentUser = sessionStorage.getItem('current_user_code') || 
+                               localStorage.getItem('remembered_user_code');
+            
+            let userCode;
+            
+            if (currentUser) {
+                // Use existing code
+                userCode = currentUser;
+                const userKey = 'adpay_user_' + userCode;
+                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
+                userData.adsRemaining += adsCount;
+                localStorage.setItem(userKey, JSON.stringify(userData));
+            } else {
+                // Generate new code
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                userCode = '';
+                for (let i = 0; i < 6; i++) {
+                    userCode += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                
+                // Save user data
+                const userData = {
+                    code: userCode,
+                    adsRemaining: adsCount,
+                    created: new Date().toISOString(),
+                    lastLogin: new Date().toISOString(),
+                    totalSpent: adsCount === 20 ? 100 : 10
+                };
+                
+                localStorage.setItem('adpay_user_' + userCode, JSON.stringify(userData));
+                
+                // Save to session and remember
+                sessionStorage.setItem('current_user_code', userCode);
+                localStorage.setItem('remembered_user_code', userCode);
+            }
+            
+            // Show code section
+            document.getElementById('codeSection').style.display = 'block';
+            document.getElementById('generatedCode').textContent = userCode;
+            
+            // Update order with user code
+            const orderData = JSON.parse(localStorage.getItem('current_order') || '{}');
+            orderData.userCode = userCode;
+            localStorage.setItem('current_order', JSON.stringify(orderData));
+            
+            // Show success message
+            alert(`🎉 تم إضافة ${adsCount} إعلان إلى حسابك!\n\nكودك: ${userCode}\n\nإعلاناتك المتبقية: ${adsCount}\n\n⚠️ احفظ هذا الكود في مكان آمن!`);
+        }
+
+        function copyUserCode() {
+            const code = document.getElementById('generatedCode').textContent;
+            if (code && code !== 'جاري إنشاء الكود...') {
+                navigator.clipboard.writeText(code).then(() => {
+                    const successMsg = document.getElementById('codeCopySuccess');
+                    successMsg.style.display = 'block';
+                    setTimeout(() => {
+                        successMsg.style.display = 'none';
+                    }, 2000);
                 });
-            }, 1000);
-        });
+            }
+        }
     </script>
 </body>
 </html>
