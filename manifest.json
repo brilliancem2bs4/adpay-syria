@@ -1,23 +1,13 @@
 {
-  "name": "مجموعة سلمية الجديدة الإعلانية",
-  "short_name": "سلمية الإعلانية",
-  "description": "نشر إعلانات في مجموعة سلمية الجديدة الإعلانية على الفيسبوك",
-  "start_url": "/",
+  "name": "سلمية الإعلانية",
+  "short_name": "سلمية",
+  "description": "نشر إعلانات في مجموعة سلمية الجديدة الإعلانية",
+  "start_url": "https://brilliancem2bs4.github.io/adpay-syria/",
   "display": "standalone",
   "background_color": "#047857",
   "theme_color": "#047857",
   "orientation": "portrait",
   "icons": [
-    {
-      "src": "https://i.postimg.cc/vT6qPDcm/IMG-20260118-WA0007.jpg",
-      "sizes": "96x96",
-      "type": "image/jpeg"
-    },
-    {
-      "src": "https://i.postimg.cc/vT6qPDcm/IMG-20260118-WA0007.jpg",
-      "sizes": "144x144",
-      "type": "image/jpeg"
-    },
     {
       "src": "https://i.postimg.cc/vT6qPDcm/IMG-20260118-WA0007.jpg",
       "sizes": "192x192",
@@ -28,8 +18,5 @@
       "sizes": "512x512",
       "type": "image/jpeg"
     }
-  ],
-  "categories": ["business", "shopping", "social"],
-  "lang": "ar",
-  "dir": "rtl"
+  ]
 }
