@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - سلمية الإعلانية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* شريط التنقل */
+        .navbar {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-text h1 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .logo-text p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .ads-counter {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
+        }
+        
+        .ads-counter .number {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .ads-counter .label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .logout-btn {
+            background: #f0f2f5;
+            color: #ff4757;
+            border: 2px solid #ffa8b5;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: #ff4757;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* المحتوى الرئيسي */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* بطاقة النشر السريع */
+        .quick-post {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 6px solid #4361ee;
+        }
+        
+        .quick-post h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .quick-post .icon {
+            font-size: 64px;
+            margin: 20px 0;
+            color: #4361ee;
+        }
+        
+        .publish-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+            padding: 22px;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 25px 0;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .publish-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(67, 97, 238, 0.3);
+        }
+        
+        .publish-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* بطاقات الباقات */
+        .packages {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-top: 6px solid #f093fb;
+        }
+        
+        .packages h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .package-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .package-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .package-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 2px solid #e1e5e9;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-5px);
+            border-color: #4361ee;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .package-card.popular {
+            border-color: #f093fb;
+            position: relative;
+            background: linear-gradient(135deg, #f8f0ff, #f0f4ff);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .package-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .package-name {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .package-price {
+            font-size: 36px;
+            color: #4361ee;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .package-desc {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .buy-btn {
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        /* معلومات مهمة */
+        .important-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-top: 6px solid #ffd166;
+        }
+        
+        .important-info h2 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-right: 4px solid #4361ee;
+        }
+        
+        .info-item .icon {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #4361ee;
+        }
+        
+        .info-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .info-item p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* واتساب للدعم */
+        .support-box {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+            margin-bottom: 30px;
+        }
+        
+        .support-box h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .whatsapp-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0;
+            direction: ltr;
+            letter-spacing: 1px;
+        }
+        
+        .support-btn {
+            display: inline-block;
+            background: white;
+            color: #25D366;
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .support-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* التنبيهات */
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            border-right: 4px solid #4361ee;
+            max-width: 400px;
+        }
+        
+        .alert.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* الأحجام الصغيرة */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .quick-post, .packages, .important-info, .support-box {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- شريط التنقل -->
+        <div class="navbar">
+            <div class="logo">
+                <div class="logo-icon">📢</div>
+                <div class="logo-text">
+                    <h1>سلمية الإعلانية</h1>
+                    <p>مجموعة سلمية الجديدة - 1,400+ عضو</p>
+                </div>
+            </div>
+            
+            <div class="user-info">
+                <div class="ads-counter">
+                    <div class="number" id="adsCount">0</div>
+                    <div class="label">إعلان متبقي</div>
+                </div>
+                
+                <div class="user-code">
+                    <div style="font-size: 14px; color: #666; margin-bottom: 5px;">كودك:</div>
+                    <div style="font-weight: bold; color: #333;" id="userCodeDisplay">------</div>
+                </div>
+                
+                <button class="logout-btn" onclick="logout()">
+                    🚪 تسجيل خروج
+                </button>
+            </div>
+        </div>
+        
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- النشر السريع -->
+            <div class="quick-post">
+                <h2>📝 نشر إعلان جديد</h2>
+                <div class="icon">🚀</div>
+                <p style="color: #666; margin-bottom: 20px; line-height: 1.6;">
+                    لديك <span id="adsRemainingText" style="font-weight: bold; color: #4361ee;">0</span> إعلان متبقي<br>
+                    يمكنك نشر إعلان فوراً في مجموعة سلمية الجديدة
+                </p>
+                
+                <a href="form.html" class="publish-btn" id="publishBtn">
+                    🔥 ابدأ بنشر إعلانك الآن
+                </a>
+                
+                <p style="color: #888; font-size: 14px; margin-top: 15px;">
+                    ⚡ النشر خلال 120 دقيقة | ✅ ضمان النشر
+                </p>
+            </div>
+            
+            <!-- شراء باقات -->
+            <div class="packages">
+                <h2>🛒 شراء إعلانات جديدة</h2>
+                <p style="color: #666; text-align: center; margin-bottom: 30px;">
+                    اختر الباقة المناسبة لك
+                </p>
+                
+                <div class="package-grid">
+                    <!-- الباقة الأولى -->
+                    <div class="package-card">
+                        <div class="package-icon">📢</div>
+                        <div class="package-name">إعلان واحد</div>
+                        <div class="package-price">10 ل.س</div>
+                        <div class="package-desc">
+                            نشر إعلان واحد<br>
+                            في مجموعة سلمية<br>
+                            👥 1,400+ عضو
+                        </div>
+                        <button class="buy-btn" onclick="selectPackage('single')">
+                            💸 شراء الآن
+                        </button>
+                    </div>
+                    
+                    <!-- الباقة الثانية (الرئيسية) -->
+                    <div class="package-card popular">
+                        <div class="popular-badge">الأكثر طلباً</div>
+                        <div class="package-icon">🎯</div>
+                        <div class="package-name">20 إعلان</div>
+                        <div class="package-price">100 ل.س</div>
+                        <div class="package-desc">
+                            توفير 50%<br>
+                            5 ليرة لكل إعلان<br>
+                            ⭐ الأفضل للمعلنين
+                        </div>
+                        <button class="buy-btn" onclick="selectPackage('bulk')">
+                            💰 شراء الآن
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 25px; text-align: center;">
+                    <p style="color: #666; font-size: 14px;">
+                        💳 الدفع عبر: شام كاش أو سيريتيل كاش
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- معلومات مهمة -->
+        <div class="important-info">
+            <h2>📌 معلومات مهمة</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="icon">⏰</div>
+                    <h3>سرعة النشر</h3>
+                    <p>نشر إعلانك خلال 120 دقيقة (ساعتين) كحد أقصى من تأكيد الدفع</p>
+                </div>
+                
+                <div class="info-item">
+                    <div class="icon">💰</div>
+                    <h3>استرداد المال</h3>
+                    <p>ضمان استرداد المال خلال 48 ساعة إذا لم يتم النشر</p>
+                </div>
+                
+                <div class="info-item">
+                    <div class="icon">📲</div>
+                    <h3>مراقبة النشر</h3>
+                    <p>نرسل لك رابط منشورك على واتساب بعد النشر</p>
+                </div>
+                
+                <div class="info-item">
+                    <div class="icon">🔒</div>
+                    <h3>الأمان</h3>
+                    <p>كودك الشخصي يحفظ إعلاناتك للأبد حتى لو تركت الموقع</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- واتساب للدعم -->
+        <div class="support-box">
+            <h2>🆘 تحتاج مساعدة؟</h2>
+            <p style="font-size: 18px; opacity: 0.9; margin-bottom: 10px;">
+                نحن هنا لمساعدتك على مدار الساعة
+            </p>
+            
+            <div class="whatsapp-number">+963 993 113 374</div>
+            
+            <p style="margin: 15px 0; opacity: 0.9;">
+                للاستفسارات، المساعدة في الدفع، أو أي مشكلة
+            </p>
+            
+            <a href="https://wa.me/963993113374" class="support-btn" target="_blank">
+                📱 اضغط للتواصل على واتساب
+            </a>
+            
+            <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
+                ⏰ وقت العمل: 9 صباحاً - 12 منتصف الليل
+            </p>
+        </div>
+        
+        <!-- تنبيهات -->
+        <div class="alert" id="alertBox">
+            <div id="alertMessage"></div>
+        </div>
+    </div>
+    
+    <script>
+        // بيانات المستخدم
+        let currentUser = null;
+        let userData = null;
+        
+        // تحميل بيانات المستخدم عند فتح الصفحة
+        window.onload = function() {
+            // الحصول على كود المستخدم
+            currentUser = sessionStorage.getItem('current_user_code') || 
+                         localStorage.getItem('remembered_user_code');
+            
+            if (!currentUser) {
+                // إذا لم يكن مسجل دخول، العودة لصفحة الدخول
+                showAlert('⚠️ يرجى تسجيل الدخول أولاً', 'warning');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                return;
+            }
+            
+            // تحميل بيانات المستخدم
+            loadUserData();
+            
+            // تحديث الواجهة
+            updateUI();
+            
+            // عرض رسالة ترحيب
+            setTimeout(() => {
+                showAlert(`مرحباً بعودتك! 👋\nكودك: ${currentUser}`, 'success');
+            }, 500);
+        };
+        
+        // تحميل بيانات المستخدم
+        function loadUserData() {
+            const userKey = 'user_' + currentUser;
+            userData = JSON.parse(localStorage.getItem(userKey));
+            
+            if (!userData) {
+                // إنشاء بيانات جديدة إذا لم توجد
+                userData = {
+                    code: currentUser,
+                    adsRemaining: 0,
+                    freeAdsUsed: 0,
+                    totalAds: 0,
+                    created: new Date().toISOString(),
+                    lastLogin: new Date().toISOString(),
+                    isNewUser: false
+                };
+                
+                localStorage.setItem(userKey, JSON.stringify(userData));
+            }
+            
+            // تحديث وقت الدخول الأخير
+            userData.lastLogin = new Date().toISOString();
+            localStorage.setItem(userKey, JSON.stringify(userData));
+        }
+        
+        // تحديث الواجهة
+        function updateUI() {
+            // عرض كود المستخدم
+            document.getElementById('userCodeDisplay').textContent = currentUser;
+            
+            // عرض عدد الإعلانات المتبقية
+            const adsRemaining = userData.adsRemaining || 0;
+            document.getElementById('adsCount').textContent = adsRemaining;
+            document.getElementById('adsRemainingText').textContent = adsRemaining;
+            
+            // تفعيل أو تعطيل زر النشر
+            const publishBtn = document.getElementById('publishBtn');
+            if (adsRemaining > 0) {
+                publishBtn.style.display = 'block';
+                publishBtn.onclick = function() {
+                    if (adsRemaining > 0) {
+                        window.location.href = 'form.html';
+                    } else {
+                        showAlert('⚠️ ليس لديك إعلانات متبقية', 'warning');
+                    }
+                };
+            } else {
+                publishBtn.style.display = 'block';
+                publishBtn.onclick = function() {
+                    showAlert('⚠️ ليس لديك إعلانات متبقية\n\nيرجى شراء باقة جديدة', 'warning');
+                };
+                publishBtn.style.background = '#ccc';
+                publishBtn.textContent = '⚠️ ليس لديك إعلانات متبقية';
+            }
+        }
+        
+        // اختيار باقة
+        function selectPackage(packageType) {
+            if (!currentUser) {
+                showAlert('⚠️ يرجى تسجيل الدخول أولاً', 'warning');
+                return;
+            }
+            
+            // حفظ معلومات الباقة
+            const packageInfo = {
+                type: packageType,
+                price: packageType === 'single' ? 10 : 100,
+                ads: packageType === 'single' ? 1 : 20,
+                userCode: currentUser
+            };
+            
+            localStorage.setItem('selected_package', JSON.stringify(packageInfo));
+            
+            // الانتقال لصفحة الدفع
+            window.location.href = 'payment.html';
+        }
+        
+        // تسجيل الخروج
+        function logout() {
+            if (confirm('هل تريد تسجيل الخروج؟')) {
+                sessionStorage.removeItem('current_user_code');
+                localStorage.removeItem('remembered_user_code');
+                showAlert('تم تسجيل الخروج بنجاح ✅', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }
+        }
+        
+        // عرض التنبيهات
+        function showAlert(message, type = 'info') {
+            const alertBox = document.getElementById('alertBox');
+            const alertMessage = document.getElementById('alertMessage');
+            
+            alertMessage.textContent = message;
+            
+            // تغيير اللون حسب نوع التنبيه
+            if (type === 'success') {
+                alertBox.style.borderRightColor = '#10b981';
+            } else if (type === 'warning') {
+                alertBox.style.borderRightColor = '#f59e0b';
+            } else {
+                alertBox.style.borderRightColor = '#4361ee';
+            }
+            
+            alertBox.classList.add('show');
+            
+            // إخفاء التنبيه بعد 5 ثواني
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 5000);
+        }
+        
+        // تحديث تلقائي كل 30 ثانية
+        setInterval(() => {
+            if (currentUser) {
+                loadUserData();
+                updateUI();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
