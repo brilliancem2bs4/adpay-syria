@@ -3,523 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نشر إعلانات في مجموعة سلمية - AdPay Syria</title>
-    <!-- PWA App Tags -->
-    <meta name="theme-color" content="#047857">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="https://i.postimg.cc/vT6qPDcm/IMG-20260118-WA0007.jpg">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="سلمية الإعلانية">
-    <link rel="apple-touch-icon" href="https://i.postimg.cc/vT6qPDcm/IMG-20260118-WA0007.jpg">
+    <title>نشر إعلانات في مجموعة سلمية - سهل وبسيط</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body { 
             font-family: 'Arial', sans-serif; 
-            margin: 0; 
-            padding: 20px; 
             background: #f0f9f0; 
-            line-height: 1.6;
             text-align: center;
+            padding: 10px;
         }
+        
         .container { 
             max-width: 800px; 
             margin: auto; 
         }
+        
         .header { 
-            background: linear-gradient(135deg, #047857, #10b981); 
+            background: #047857; 
             color: white; 
-            padding: 40px 30px; 
+            padding: 30px 20px; 
             border-radius: 20px; 
-            text-align: center; 
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(4, 120, 87, 0.3);
         }
-        .step { 
-            background: white; 
-            padding: 25px; 
-            margin: 25px 0; 
-            border-radius: 15px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+        
+        h1 { 
+            font-size: 28px; 
+            margin-bottom: 15px; 
+        }
+        
+        h2 {
+            color: #047857;
+            margin: 25px 0 15px 0;
+            font-size: 24px;
+        }
+        
+        .whatsapp-number {
+            font-size: 32px;
+            color: white;
+            background: #25D366;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+            display: block;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .whatsapp-number:hover {
+            background: #128C7E;
+        }
+        
+        .simple-box {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: right;
+        }
+        
+        .step-box {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 20px;
+            border-right: 10px solid #047857;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background: #047857;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        
+        .big-button {
+            display: block;
+            background: #047857;
+            color: white;
+            padding: 25px;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(4, 120, 87, 0.3);
+        }
+        
+        .big-button:hover {
+            background: #065f46;
+            transform: translateY(-5px);
+        }
+        
+        .price-box {
+            background: linear-gradient(135deg, #047857, #10b981);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .price-note {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        
+        .help-box {
+            background: #e0f2fe;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            border: 3px solid #0ea5e9;
+            text-align: center;
+        }
+        
+        .emoji {
+            font-size: 30px;
+            margin: 0 5px;
+        }
+        
+        p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 15px 0;
+            color: #333;
+        }
+        
+        .info-item {
+            background: #f8fafc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
             border-right: 5px solid #047857;
             text-align: right;
         }
-        .btn { 
-            background: #047857; 
-            color: white; 
-            padding: 15px 30px; 
-            text-decoration: none; 
-            border-radius: 10px; 
-            display: inline-block; 
-            margin: 10px; 
-            font-weight: bold;
-            font-size: 18px;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background: #065f46;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(4, 120, 87, 0.3);
-        }
-        .whatsapp-number {
-            font-size: 28px;
-            color: #047857;
-            font-weight: bold;
-            direction: ltr;
-            display: block;
-            margin: 15px 0;
-            padding: 15px;
-            background: #f0fff4;
-            border-radius: 10px;
-            border: 2px solid #86efac;
-        }
-        h1 { margin: 0 0 15px 0; font-size: 36px; }
-        h2 { color: #047857; margin-top: 0; text-align: right; }
-        p { font-size: 18px; color: #333; text-align: right; }
-        .emoji { font-size: 24px; margin-left: 10px; }
-        .language-switch { text-align: center; margin: 20px 0; }
-        .language-btn { 
-            background: #e2e8f0; 
-            color: #475569; 
-            padding: 10px 20px; 
-            border: none; 
-            border-radius: 8px; 
-            margin: 0 5px; 
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .language-btn.active { 
-            background: #047857; 
-            color: white; 
-        }
-        .pricing-box {
-            background: #fffbeb;
-            border: 3px solid #f59e0b;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            text-align: center;
-        }
-        .price-option {
-            display: inline-block;
-            background: white;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 10px;
-            border: 2px solid #047857;
-            width: 250px;
-            vertical-align: top;
-        }
-        .price-amount {
-            font-size: 36px;
-            color: #047857;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .facebook-group {
-            background: #e8f4fd;
-            border: 3px solid #1877f2;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 25px 0;
-        }
-        .facebook-group h3 {
-            color: #1877f2;
-            margin-top: 0;
-        }
-        .important-info {
-            background: #fef3c7;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-            border: 3px solid #f59e0b;
+        
+        .simple-list {
             text-align: right;
-        }
-        .info-item {
-            display: flex;
-            align-items: center;
+            padding-right: 20px;
             margin: 15px 0;
-            font-size: 20px;
         }
-        .info-icon {
-            margin-left: 15px;
-            font-size: 28px;
-        }
-        .user-login {
-            background: #f0f9ff;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 25px 0;
-            border: 2px solid #0ea5e9;
-        }
-        .login-form {
-            display: none;
-            margin-top: 20px;
-        }
-        .login-form input {
-            padding: 12px;
-            border: 2px solid #d1d5db;
-            border-radius: 10px;
-            width: 80%;
+        
+        .simple-list li {
+            font-size: 18px;
             margin: 10px 0;
-            font-size: 16px;
-        }
-        .user-status {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background: #f0fff4;
-            border-radius: 10px;
-        }
-        .notification-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #FF9800;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            border: none;
-            z-index: 1000;
-            font-size: 14px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            cursor: pointer;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <button class="notification-btn" onclick="requestNotificationPermission()" id="notifyBtn" style="display: none;">
-        🔔 تفعيل الإشعارات
-    </button>
-
     <div class="container">
-        <div class="language-switch">
-            <button class="language-btn active" onclick="switchLanguage('ar')">العربية 🇸🇾</button>
-            <button class="language-btn" onclick="switchLanguage('en')">English 🌍</button>
+        <!-- العنوان الرئيسي -->
+        <div class="header">
+            <h1>📢 نشر إعلانات في مجموعة سلمية الجديدة</h1>
+            <p style="font-size: 20px; opacity: 0.9;">سهل جداً - 3 خطوات فقط</p>
         </div>
         
-        <div class="header" id="header">
-            <h1>نشر إعلانات في مجموعة سلمية الجديدة الإعلانية</h1>
-            <p id="subtitle">ادفع عبر شام كاش أو سيريتيل كاش - نشر فوري بعد الدفع</p>
-        </div>
-
-        <!-- User Login/Code System -->
-        <div class="user-login" id="userLogin">
-            <h2>🔐 نظام الكود الخاص بك</h2>
-            <p>احصل على كود خاص يحفظ إعلاناتك المتبقية للأبد!</p>
-            <button class="btn" onclick="toggleLoginForm()" id="loginToggleBtn">
-                👤 أدخل الكود الخاص بك
-            </button>
-            
-            <div class="login-form" id="loginForm">
-                <input type="text" id="userCode" placeholder="أدخل الكود المكون من 6 أحرف/أرقام">
-                <label style="display: block; margin: 10px 0;">
-                    <input type="checkbox" id="rememberMe"> تذكرني على هذا الجهاز
-                </label>
-                <button class="btn" onclick="checkUserCode()" style="background: #7C3AED;">
-                    🔓 فتح حسابي
-                </button>
-                <button class="btn" onclick="generateNewCode()" style="background: #10b981;">
-                    🆕 إنشاء كود جديد
-                </button>
+        <!-- رقم الواتساب الكبير -->
+        <a href="https://wa.me/963993113374" class="whatsapp-number" target="_blank">
+            📞 واتساب للإستفسار: +963 993 113 374
+        </a>
+        
+        <!-- صندوق البساطة -->
+        <div class="simple-box">
+            <h2>🧐 كيف تعمل؟ بسيط جداً:</h2>
+            <div class="step-box">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <span class="step-number">1</span>
+                    <h3 style="margin: 0;">اكتب إعلانك</h3>
+                </div>
+                <p>اضغط الزر الأخضر في الأسفل واكتب إعلانك فقط</p>
             </div>
             
-            <div class="user-status" id="userStatus">
-                <h3>📊 حالة حسابك:</h3>
-                <p id="remainingAds">عدد الإعلانات المتبقية: <strong>0</strong></p>
-                <p id="userCodeDisplay">كودك: <strong>------</strong></p>
-                <button class="btn" onclick="logout()" style="background: #dc2626;">
-                    🚪 تسجيل الخروج
-                </button>
+            <div class="step-box">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <span class="step-number">2</span>
+                    <h3 style="margin: 0;">ادفع 10 ليرة</h3>
+                </div>
+                <p>ادفع 10 ليرة عن طريق شام كاش أو سيريتيل كاش</p>
+            </div>
+            
+            <div class="step-box">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <span class="step-number">3</span>
+                    <h3 style="margin: 0;">أرسل لقطة الدفع</h3>
+                </div>
+                <p>أرسل صورة الدفع على واتساب وسننشر إعلانك</p>
             </div>
         </div>
-
-        <div class="facebook-group">
-            <h3>📢 المجموعة المستهدفة:</h3>
-            <p>سيتم نشر إعلانك في: <strong>مجموعة سلمية الجديدة الإعلانية</strong></p>
-            <p>👥 عدد الأعضاء: <strong>1,400+ عضو</strong></p>
-            <p>📍 الموقع: <strong>مدينة السلامية، سوريا</strong></p>
-            <a href="https://www.facebook.com/groups/1403908299911260" target="_blank" class="btn" style="background: #1877f2;">
-                🔗 زيارة المجموعة على الفيسبوك
+        
+        <!-- الزر الكبير للبدء -->
+        <a href="form.html" class="big-button">
+            🚀 ابدأ الآن - اضغط هنا لكتابة إعلانك
+        </a>
+        
+        <!-- سعر بسيط -->
+        <div class="price-box">
+            <h2>💰 السعر</h2>
+            <div class="price">10 ليرة</div>
+            <p class="price-note">لنشر إعلان واحد في المجموعة</p>
+            <p class="price-note">👥 مجموعة سلمية الجديدة (1400+ عضو)</p>
+        </div>
+        
+        <!-- معلومات مهمة -->
+        <div class="simple-box">
+            <h2>📌 معلومات مهمة:</h2>
+            
+            <div class="info-item">
+                <span class="emoji">⏰</span>
+                <strong>متى ينشر إعلاني؟</strong>
+                <p>خلال 120 دقيقة (ساعتين) من إرسال لقطة الدفع</p>
+            </div>
+            
+            <div class="info-item">
+                <span class="emoji">💰</span>
+                <strong>كيف أدفع؟</strong>
+                <p>شام كاش أو سيريتيل كاش فقط</p>
+            </div>
+            
+            <div class="info-item">
+                <span class="emoji">📲</span>
+                <strong>ماذا أفعل بعد الدفع؟</strong>
+                <p>ترسل لقطة الشاشة على واتساب: +963 993 113 374</p>
+            </div>
+            
+            <div class="info-item">
+                <span class="emoji">✅</span>
+                <strong>ماذا بعد النشر؟</strong>
+                <p>نرسل لك رابط منشورك على واتساب</p>
+            </div>
+        </div>
+        
+        <!-- صندوق المساعدة -->
+        <div class="help-box">
+            <h2>🆘 تحتاج مساعدة؟</h2>
+            <p style="font-size: 22px; color: #0c4a6e; margin: 15px 0;">
+                اتصل بنا على واتساب:
+            </p>
+            <a href="https://wa.me/963993113374" class="whatsapp-number" 
+               style="font-size: 26px; padding: 12px;" target="_blank">
+                📱 +963 993 113 374
             </a>
+            <p style="margin-top: 15px;">نساعدك خطوة بخطوة</p>
+            <p>⏰ من الساعة 9 صباحاً حتى 12 ليلاً</p>
         </div>
-
-        <div class="important-info">
-            <h2>⚠️ معلومات هامة جداً:</h2>
-            <div class="info-item">
-                <span class="emoji info-icon">⏰</span>
-                <span>سيتم النشر خلال <strong>120 دقيقة</strong> من تأكيد الدفع</span>
-            </div>
-            <div class="info-item">
-                <span class="emoji info-icon">💸</span>
-                <span>استرداد المال خلال <strong>يومين</strong> في حال عدم النشر</span>
-            </div>
-            <div class="info-item">
-                <span class="emoji info-icon">🔒</span>
-                <span>كودك الشخصي يحفظ إعلاناتك للأبد حتى لو تركت الموقع</span>
-            </div>
+        
+        <!-- خطوات مفصلة -->
+        <div class="simple-box">
+            <h2>📋 خطوات مفصلة:</h2>
+            <ol class="simple-list">
+                <li><strong>اضغط الزر الأخضر "ابدأ الآن"</strong></li>
+                <li>اكتب رقم واتسابك (مثل: 0993113374)</li>
+                <li>اكتب نص الإعلان (ماذا تريد أن تنشر؟)</li>
+                <li>اضغط "اذهب للدفع"</li>
+                <li>اختر طريقة الدفع: شام كاش أو سيريتيل كاش</li>
+                <li>ادفع 10 ليرة</li>
+                <li>خذ صورة للدفع (لقطة شاشة)</li>
+                <li>أرسل الصورة على واتساب: +963 993 113 374</li>
+                <li>انتظر حتى نرسل لك رابط منشورك</li>
+            </ol>
         </div>
-
-        <div class="pricing-box">
-            <h2>💰 الأسعار البسيطة</h2>
-            <div class="price-option">
-                <h3>إعلان واحد</h3>
-                <div class="price-amount">10 ل.س</div>
-                <p>ينشر مرة واحدة في المجموعة</p>
-                <p>ينشر خلال 120 دقيقة</p>
-                <a href="form.html" class="btn">📝 اطلب الآن</a>
-            </div>
-            <div class="price-option">
-                <h3>20 إعلان</h3>
-                <div class="price-amount">100 ل.س</div>
-                <p>توفير 50% (5 ليرة لكل إعلان)</p>
-                <p>لا تنتهي صلاحيتها</p>
-                <p>نشر 20 إعلان مختلف</p>
-                <p>مخزونك يحفظ بكود خاص</p>
-                <a href="form.html" class="btn">📝 اطلب الآن</a>
-            </div>
-        </div>
-
-        <div class="step">
-            <h2><span class="emoji">📱</span> <span id="step1-title">الخطوة 1: املأ طلب الإعلان</span></h2>
-            <p id="step1-desc">أدخل رقم واتساب ونص الإعلان فقط</p>
-            <a href="form.html" class="btn">✍️ ابدأ بطلب الإعلان</a>
-        </div>
-
-        <div class="step">
-            <h2><span class="emoji">💰</span> <span id="step2-title">الخطوة 2: ادفع بسهولة</span></h2>
-            <p id="step2-desc">اختر طريقة الدفع المناسبة:</p>
-            <div>
-                <a href="whatsapp.html?method=sham" class="btn" style="background: #7C3AED;">💜 شام كاش</a>
-                <a href="whatsapp.html?method=syriatel" class="btn" style="background: #E63946;">❤️ سيريتيل كاش</a>
-            </div>
-        </div>
-
-        <div class="step">
-            <h2><span class="emoji">📲</span> <span id="step3-title">الخطوة 3: أرسل إثبات الدفع</span></h2>
-            <p id="step3-desc">أرسل لقطة الدفع على واتساب وسننشر خلال 120 دقيقة</p>
-            <div class="whatsapp-number">
-                📱 واتساب: +963 993 113 374
-            </div>
-        </div>
-
-        <div class="step">
-            <h2><span class="emoji">✅</span> <span id="step4-title">الخطوة 4: استلام رابط المنشور</span></h2>
-            <p id="step4-desc">سنرسل لك رابط منشورك على واتساب خلال 120 دقيقة</p>
-        </div>
-
-        <div class="important-info" style="background: #f0fdf4; border-color: #047857;">
-            <h2>📋 الشروط والأحكام:</h2>
-            <p>✅ النشر خلال 120 دقيقة كحد أقصى</p>
-            <p>✅ استرداد المال خلال 48 ساعة إذا لم يتم النشر</p>
-            <p>✅ نظام الكود يحفظ إعلاناتك للأبد</p>
-            <p>❌ ممنوع المحتوى المسيء أو غير القانوني</p>
-            <p>⏰ وقت العمل: 9 صباحاً - 12 منتصف الليل</p>
+        
+        <!-- زر البدء مرة أخرى -->
+        <a href="form.html" class="big-button">
+            ✅ ابدأ الآن - النشر خلال ساعتين
+        </a>
+        
+        <!-- تنبيه أخير -->
+        <div style="background: #fef3c7; padding: 20px; border-radius: 15px; 
+                    margin: 25px 0; border: 3px solid #f59e0b;">
+            <h3>⚠️ انتبه:</h3>
+            <p>• ادفع فقط 10 ليرة لإعلان واحد</p>
+            <p>• أرسل لقطة الدفع على واتساب فقط</p>
+            <p>• لا تدفع لأي شخص آخر</p>
+            <p>• رقم واتسابنا الوحيد: +963 993 113 374</p>
         </div>
     </div>
-
-    <!-- Firebase for Notifications -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js"></script>
     
     <script>
-        // User Code System
-        function toggleLoginForm() {
-            const form = document.getElementById('loginForm');
-            const btn = document.getElementById('loginToggleBtn');
-            
-            if (form.style.display === 'block') {
-                form.style.display = 'none';
-                btn.innerHTML = '👤 أدخل الكود الخاص بك';
-            } else {
-                form.style.display = 'block';
-                btn.innerHTML = '👆 إخفاء نموذج الدخول';
-            }
-        }
-
-        function generateNewCode() {
-            // Generate 6-character code
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            let code = '';
-            for (let i = 0; i < 6; i++) {
-                code += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            
-            // Save to localStorage
-            const userData = {
-                code: code,
-                adsRemaining: 0,
-                created: new Date().toISOString(),
-                lastLogin: new Date().toISOString()
-            };
-            
-            localStorage.setItem('adpay_user_' + code, JSON.stringify(userData));
-            
-            // Show success message
-            alert(`🎉 تم إنشاء كود جديد لك!\n\nكودك: ${code}\n\n⚠️ احفظ هذا الكود في مكان آمن!\n\nيمكنك استخدامه على أي جهاز وفي أي وقت.`);
-            
-            // Auto-login
-            loginWithCode(code);
-        }
-
-        function checkUserCode() {
-            const code = document.getElementById('userCode').value.trim().toUpperCase();
-            const rememberMe = document.getElementById('rememberMe').checked;
-            
-            if (code.length !== 6) {
-                alert('❌ الكود يجب أن يكون 6 أحرف/أرقام');
-                return;
-            }
-            
-            loginWithCode(code, rememberMe);
-        }
-
-        function loginWithCode(code, remember = false) {
-            const userKey = 'adpay_user_' + code;
-            let userData = localStorage.getItem(userKey);
-            
-            if (!userData) {
-                // Create new account if not exists
-                userData = {
-                    code: code,
-                    adsRemaining: 0,
-                    created: new Date().toISOString(),
-                    lastLogin: new Date().toISOString()
-                };
-                localStorage.setItem(userKey, JSON.stringify(userData));
-            } else {
-                userData = JSON.parse(userData);
-                userData.lastLogin = new Date().toISOString();
-                localStorage.setItem(userKey, JSON.stringify(userData));
-            }
-            
-            // Save current session
-            sessionStorage.setItem('current_user_code', code);
-            if (remember) {
-                localStorage.setItem('remembered_user_code', code);
-            }
-            
-            // Update UI
-            showUserStatus(userData);
-        }
-
-        function showUserStatus(userData) {
-            document.getElementById('userLogin').style.display = 'none';
-            document.getElementById('userStatus').style.display = 'block';
-            document.getElementById('remainingAds').innerHTML = 
-                `عدد الإعلانات المتبقية: <strong>${userData.adsRemaining}</strong>`;
-            document.getElementById('userCodeDisplay').innerHTML = 
-                `كودك: <strong>${userData.code}</strong>`;
-        }
-
-        function logout() {
-            sessionStorage.removeItem('current_user_code');
-            localStorage.removeItem('remembered_user_code');
-            location.reload();
-        }
-
-        // Check if user is remembered on page load
+        // كود بسيط للتأكد من أن الصفحة تعمل
+        console.log("مرحباً! الموقع يعمل بشكل صحيح");
+        
+        // إظهار رسالة ترحيب
         window.onload = function() {
-            const rememberedCode = localStorage.getItem('remembered_user_code');
-            if (rememberedCode) {
-                loginWithCode(rememberedCode);
-            }
-            
-            // Check session
-            const sessionCode = sessionStorage.getItem('current_user_code');
-            if (sessionCode) {
-                const userKey = 'adpay_user_' + sessionCode;
-                const userData = JSON.parse(localStorage.getItem(userKey) || '{"adsRemaining":0}');
-                showUserStatus(userData);
-            }
-            
-            // Show notification button
-            document.getElementById('notifyBtn').style.display = 'block';
+            setTimeout(function() {
+                alert("مرحباً بك! 👋\n\nاضغط 'ابدأ الآن' لكتابة إعلانك");
+            }, 1000);
         };
-
-        function switchLanguage(lang) {
-            // Language switching logic
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            if (lang === 'en') {
-                document.getElementById('header').innerHTML = `
-                    <h1>Ad Publishing in New Salmiya Advertising Group</h1>
-                    <p>Pay via Sham Cash or Syriatel Cash - Instant publishing after payment</p>
-                `;
-                document.getElementById('subtitle').textContent = 'Pay via Sham Cash or Syriatel Cash - Instant publishing after payment';
-                document.getElementById('step1-title').textContent = 'Step 1: Fill Ad Request';
-                document.getElementById('step1-desc').textContent = 'Enter WhatsApp number and ad text only';
-                document.getElementById('step2-title').textContent = 'Step 2: Easy Payment';
-                document.getElementById('step2-desc').textContent = 'Choose payment method:';
-                document.getElementById('step3-title').textContent = 'Step 3: Send Payment Proof';
-                document.getElementById('step3-desc').textContent = 'Send payment screenshot on WhatsApp and we publish within 120 minutes';
-                document.getElementById('step4-title').textContent = 'Step 4: Receive Post Link';
-                document.getElementById('step4-desc').textContent = 'We send you post link on WhatsApp within 120 minutes';
-            } else {
-                location.reload();
-            }
-        }
-
-        // Firebase Notification System
-        const firebaseConfig = {
-            apiKey: "AIzaSyDUqKQ-6SbjZpxLgSpksN8AqV2qUYBrvYk",
-            authDomain: "adpay-syria.firebaseapp.com",
-            projectId: "adpay-syria",
-            storageBucket: "adpay-syria.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef1234567890"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const messaging = firebase.messaging();
-
-        function requestNotificationPermission() {
-            Notification.requestPermission().then((permission) => {
-                if (permission === 'granted') {
-                    console.log('Notification permission granted.');
-                    // Get FCM token
-                    messaging.getToken().then((currentToken) => {
-                        if (currentToken) {
-                            console.log('FCM Token:', currentToken);
-                            // Save token to localStorage
-                            localStorage.setItem('fcm_token', currentToken);
-                            alert('✅ تم تفعيل الإشعارات!');
-                            document.getElementById('notifyBtn').style.display = 'none';
-                        }
-                    });
-                }
-            });
-        }
-
-        // Handle incoming messages
-        messaging.onMessage((payload) => {
-            console.log('Message received:', payload);
-            // Show notification
-            if (Notification.permission === 'granted') {
-                new Notification(payload.notification.title, {
-                    body: payload.notification.body,
-                    icon: 'https://i.postimg.cc/vT6qPDcm/IMG-20260118-WA0007.jpg'
-                });
-            }
-        });
-
-        // PWA Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(registration => {
-                        console.log('Service Worker registered:', registration);
-                    })
-                    .catch(error => {
-                        console.log('Service Worker registration failed:', error);
-                    });
-            });
-        }
     </script>
 </body>
 </html>
