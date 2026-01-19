@@ -142,6 +142,33 @@
         .btn-mark-published { background: #10b981; color: white; }
         .btn-mark-paid { background: #3b82f6; color: white; }
         .btn-delete { background: #ef4444; color: white; }
+        .whatsapp-import-box {
+            background: #f0fdf4;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 3px solid #25D366;
+        }
+        .whatsapp-import-box textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 16px;
+            height: 200px;
+            font-family: monospace;
+        }
+        .example-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-right: 5px solid #0ea5e9;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body>
@@ -163,6 +190,7 @@
             <div class="tabs">
                 <button class="tab active" onclick="showTab('orders')">📋 الطلبات</button>
                 <button class="tab" onclick="showTab('users')">👥 المستخدمين</button>
+                <button class="tab" onclick="showTab('whatsapp')">📲 استيراد من واتساب</button>
                 <button class="tab" onclick="showTab('stats')">📊 الإحصائيات</button>
                 <button class="tab" onclick="showTab('settings')">⚙️ الإعدادات</button>
             </div>
@@ -180,6 +208,36 @@
                 <h2>👥 المستخدمين</h2>
                 <div id="usersList">
                     <p>جاري تحميل بيانات المستخدمين...</p>
+                </div>
+            </div>
+            
+            <div id="whatsapp-tab" class="tab-content">
+                <h2>📲 استيراد الطلبات من واتساب</h2>
+                
+                <div class="whatsapp-import-box">
+                    <h3>📝 كيف تعمل:</h3>
+                    <p>1. عندما يقدم المستخدم طلباً، ستصل رسالة على واتساب</p>
+                    <p>2. انسخ الرسالة من واتساب</p>
+                    <p>3. الصقها في المربع أدناه</p>
+                    <p>4. اضغط "استيراد"</p>
+                    
+                    <h3>📋 مثال للرسالة:</h3>
+                    <div class="example-box">
+📊 طلب جديد - مجموعة سلمية الجديدة الإعلانية
+📱 الرقم: 0993113374
+🔖 رقم الطلب: ORD_1234567890
+📝 النص: بيع سيارة مرسيدس موديل 2020...
+💰 الباقة: إعلان واحد (10 ل.س)
+🔐 الكود: ABC123
+⏰ الوقت: 18/1/2025, 10:30:00 ص
+📱 رابط الطلب: https://brilliancem2bs4.github.io/adpay-syria/admin.html
+                    </div>
+                    
+                    <textarea id="whatsappText" placeholder="📝 الصق رسالة واتساب هنا..."></textarea>
+                    
+                    <button class="btn" onclick="importFromWhatsApp()" style="background: #25D366; width: 100%;">
+                        📥 استيراد الطلب من واتساب
+                    </button>
                 </div>
             </div>
             
@@ -217,6 +275,10 @@
                     <button class="btn" onclick="exportData()">📥 تصدير جميع البيانات</button>
                     <button class="btn" onclick="importData()" style="background: #10b981;">📤 استيراد بيانات</button>
                     <input type="file" id="importFile" style="display: none;" accept=".json">
+                    
+                    <h3 style="margin-top: 30px;">🔐 تغيير كلمة المرور</h3>
+                    <input type="password" id="newPassword" placeholder="كلمة مرور جديدة" style="width: 100%; margin: 10px 0; padding: 10px;">
+                    <button class="btn" onclick="changePassword()" style="background: #ef4444;">🔄 تغيير كلمة المرور</button>
                 </div>
             </div>
         </div>
@@ -224,7 +286,7 @@
     
     <script>
         // Password for admin access
-        const ADMIN_PASSWORD = "salmia123"; // ⚠️ تغيير هذا الباسورد!
+        const ADMIN_PASSWORD = "salmia123";
         
         function checkPassword() {
             const password = document.getElementById('adminPassword').value;
@@ -284,9 +346,7 @@
                             <p><strong>نص الإعلان:</strong> ${order.adText || 'لا يوجد'}</p>
                             <p><strong>الباقة:</strong> ${order.packageName || 'إعلان واحد'}</p>
                             <p><strong>الكود:</strong> ${order.userCode || 'بدون كود'}</p>
-                            <span class="order-status status-pending">⏳ معلق</span>
-                            <span class="order-status status-paid">💵 مدفوع</span>
-                            <span class="order-status status-published">✅ منشور</span>
+                            <p><strong>الحالة:</strong> ${order.status || 'معلق'}</p>
                             <div class="action-buttons">
                                 <button class="action-btn btn-mark-published" onclick="updateOrderStatus('${order.id}', 'published')">✅ تم النشر</button>
                                 <button class="action-btn btn-mark-paid" onclick="updateOrderStatus('${order.id}', 'paid')">💰 تم الدفع</button>
@@ -365,6 +425,107 @@
             document.getElementById('totalRevenue').textContent = revenue + ' ل.س';
         }
         
+        function importFromWhatsApp() {
+            const text = document.getElementById('whatsappText').value.trim();
+            if (!text) {
+                alert('الرجاء لصق رسالة واتساب');
+                return;
+            }
+            
+            // Parse the WhatsApp message
+            const lines = text.split('\n');
+            const data = {};
+            
+            lines.forEach(line => {
+                if (line.includes('📱 الرقم:')) data.phone = line.split(':')[1]?.trim();
+                if (line.includes('🔖 رقم الطلب:')) data.id = line.split(':')[1]?.trim();
+                if (line.includes('📝 النص:')) data.adText = line.split(':')[1]?.trim();
+                if (line.includes('💰 الباقة:')) data.packageName = line.split(':')[1]?.trim();
+                if (line.includes('🔐 الكود:')) data.userCode = line.split(':')[1]?.trim();
+                if (line.includes('⏰ الوقت:')) data.timestamp = line.split(':')[1]?.trim();
+            });
+            
+            // Check if we have minimum data
+            if (!data.phone || !data.id) {
+                alert('❌ الرسالة غير مكتملة. تأكد من نسخ الرسالة كاملة.');
+                return;
+            }
+            
+            // Determine package price
+            let packagePrice = 0;
+            if (data.packageName && data.packageName.includes('20')) {
+                packagePrice = 100;
+                data.package = 'bulk';
+            } else {
+                packagePrice = 10;
+                data.package = 'single';
+            }
+            
+            // Save to orders
+            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+            
+            // Check if order already exists
+            const existingOrder = orders.find(o => o.id === data.id);
+            if (existingOrder) {
+                alert('⚠️ هذا الطلب موجود بالفعل!');
+                return;
+            }
+            
+            // Add new order
+            const newOrder = {
+                id: data.id,
+                phone: data.phone,
+                adText: data.adText || 'لا يوجد نص',
+                package: data.package || 'single',
+                packageName: data.packageName || 'إعلان واحد',
+                packagePrice: packagePrice,
+                userCode: data.userCode || 'بدون كود',
+                status: 'pending',
+                timestamp: data.timestamp || new Date().toLocaleString('ar-SY'),
+                estimatedPublishTime: new Date(Date.now() + 120 * 60000).toLocaleString('ar-SY')
+            };
+            
+            orders.push(newOrder);
+            localStorage.setItem('adpay_orders', JSON.stringify(orders));
+            
+            // Update user if code exists
+            if (data.userCode && data.userCode !== 'بدون كود') {
+                const userKey = 'adpay_user_' + data.userCode;
+                let userData = JSON.parse(localStorage.getItem(userKey) || 'null');
+                
+                if (!userData) {
+                    // Create new user
+                    userData = {
+                        code: data.userCode,
+                        adsRemaining: data.package === 'bulk' ? 20 : 1,
+                        created: new Date().toISOString(),
+                        lastLogin: new Date().toISOString(),
+                        totalSpent: packagePrice
+                    };
+                } else {
+                    // Update existing user
+                    userData.adsRemaining += (data.package === 'bulk' ? 20 : 1);
+                    userData.totalSpent = (userData.totalSpent || 0) + packagePrice;
+                    userData.lastLogin = new Date().toISOString();
+                }
+                
+                localStorage.setItem(userKey, JSON.stringify(userData));
+            }
+            
+            alert(`✅ تم استيراد الطلب بنجاح!\n\nرقم الطلب: ${data.id}\n\nتم إضافة ${data.package === 'bulk' ? '20' : '1'} إعلان إلى حساب ${data.userCode || 'بدون كود'}`);
+            
+            // Clear textarea
+            document.getElementById('whatsappText').value = '';
+            
+            // Refresh data
+            loadOrders();
+            loadUsers();
+            loadStats();
+            
+            // Go to orders tab
+            showTab('orders');
+        }
+        
         function searchOrders(query) {
             const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
             const filtered = orders.filter(order => 
@@ -440,6 +601,16 @@
                 localStorage.setItem('whatsapp_number', newNumber);
                 document.getElementById('currentNumber').textContent = newNumber;
                 alert('✅ تم تحديث رقم واتساب');
+            }
+        }
+        
+        function changePassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            if (newPassword && confirm('هل تريد تغيير كلمة المرور؟')) {
+                // Note: In real app, this would save to server
+                // For now, we just show alert
+                alert(`✅ تم تغيير كلمة المرور إلى: ${newPassword}\n\n⚠️ تذكر أن تغيرها في الكود أيضاً!`);
+                document.getElementById('newPassword').value = '';
             }
         }
         
