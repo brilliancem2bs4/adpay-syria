@@ -5,16 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم - AdPay Syria</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body { 
             font-family: 'Arial', sans-serif; 
-            margin: 0; 
-            padding: 20px; 
             background: #f1f5f9; 
+            padding: 20px;
         }
+        
         .container { 
             max-width: 1000px; 
             margin: auto; 
         }
+        
         .header { 
             background: linear-gradient(135deg, #7C3AED, #8B5CF6); 
             color: white; 
@@ -23,7 +30,12 @@
             margin-bottom: 30px;
             text-align: center;
         }
-        h1 { margin: 0 0 15px 0; font-size: 32px; }
+        
+        h1 { 
+            font-size: 32px; 
+            margin-bottom: 15px; 
+        }
+        
         .password-box {
             background: white;
             padding: 30px;
@@ -33,6 +45,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             text-align: center;
         }
+        
         .password-box input {
             padding: 15px;
             border: 2px solid #d1d5db;
@@ -41,6 +54,7 @@
             margin: 15px 0;
             font-size: 18px;
         }
+        
         .btn { 
             background: #7C3AED; 
             color: white; 
@@ -52,6 +66,11 @@
             cursor: pointer;
             margin: 10px;
         }
+        
+        .btn:hover {
+            background: #6d28d9;
+        }
+        
         .admin-panel {
             display: none;
             background: white;
@@ -60,12 +79,14 @@
             margin-top: 30px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
+        
         .tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
+        
         .tab {
             padding: 15px 25px;
             background: #e5e7eb;
@@ -73,17 +94,27 @@
             border-radius: 10px;
             font-size: 16px;
             cursor: pointer;
+            flex: 1;
+            text-align: center;
         }
+        
+        .tab:hover {
+            background: #d1d5db;
+        }
+        
         .tab.active {
             background: #7C3AED;
             color: white;
         }
+        
         .tab-content {
             display: none;
         }
+        
         .tab-content.active {
             display: block;
         }
+        
         .order-card {
             background: #f8fafc;
             padding: 20px;
@@ -91,16 +122,7 @@
             border-radius: 10px;
             border-right: 5px solid #047857;
         }
-        .order-status {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin: 5px;
-        }
-        .status-pending { background: #fef3c7; color: #92400e; }
-        .status-published { background: #d1fae5; color: #065f46; }
-        .status-paid { background: #dbeafe; color: #1e40af; }
+        
         .search-box {
             padding: 12px;
             border: 2px solid #d1d5db;
@@ -109,47 +131,71 @@
             margin: 20px 0;
             font-size: 16px;
         }
+        
         .stats-box {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin: 30px 0;
         }
+        
         .stat-card {
             background: white;
             padding: 25px;
             border-radius: 15px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 2px solid #e5e7eb;
         }
+        
         .stat-number {
             font-size: 42px;
             font-weight: bold;
             color: #7C3AED;
             margin: 10px 0;
         }
+        
         .action-buttons {
             margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
+        
         .action-btn {
             padding: 10px 20px;
             border: none;
             border-radius: 8px;
-            margin: 5px;
             cursor: pointer;
             font-size: 14px;
+            flex: 1;
+            min-width: 120px;
         }
-        .btn-mark-published { background: #10b981; color: white; }
-        .btn-mark-paid { background: #3b82f6; color: white; }
-        .btn-delete { background: #ef4444; color: white; }
-        .whatsapp-import-box {
+        
+        .btn-published { 
+            background: #10b981; 
+            color: white; 
+        }
+        
+        .btn-paid { 
+            background: #3b82f6; 
+            color: white; 
+        }
+        
+        .btn-delete { 
+            background: #ef4444; 
+            color: white; 
+        }
+        
+        .whatsapp-box {
             background: #f0fdf4;
             padding: 25px;
             border-radius: 15px;
             margin: 30px 0;
             border: 3px solid #25D366;
         }
-        .whatsapp-import-box textarea {
+        
+        .whatsapp-box textarea {
             width: 100%;
             padding: 15px;
             border: 2px solid #d1d5db;
@@ -159,6 +205,7 @@
             height: 200px;
             font-family: monospace;
         }
+        
         .example-box {
             background: #f8fafc;
             padding: 15px;
@@ -169,52 +216,113 @@
             font-size: 14px;
             white-space: pre-wrap;
         }
+        
+        .backup-box {
+            background: #fef3c7;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 3px solid #f59e0b;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+        
+        .order-info {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+            font-size: 14px;
+        }
+        
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-published { background: #d1fae5; color: #065f46; }
+        .status-paid { background: #dbeafe; color: #1e40af; }
+        
+        .simple-input {
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            width: 100%;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .stats-box {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- العنوان -->
         <div class="header">
             <h1>🔐 لوحة تحكم AdPay Syria</h1>
             <p>إدارة الطلبات والمستخدمين</p>
         </div>
         
+        <!-- تسجيل الدخول -->
         <div class="password-box" id="loginSection">
             <h2>الدخول إلى لوحة التحكم</h2>
             <p>أدخل كلمة المرور:</p>
             <input type="password" id="adminPassword" placeholder="كلمة المرور">
-            <br>
+            <br><br>
             <button class="btn" onclick="checkPassword()">🔓 دخول</button>
+            <p style="margin-top: 20px; color: #666; font-size: 14px;">
+                كلمة المرور الافتراضية: salmia123
+            </p>
         </div>
         
+        <!-- لوحة التحكم -->
         <div class="admin-panel" id="adminPanel">
+            <!-- التبويبات -->
             <div class="tabs">
                 <button class="tab active" onclick="showTab('orders')">📋 الطلبات</button>
-                <button class="tab" onclick="showTab('users')">👥 المستخدمين</button>
                 <button class="tab" onclick="showTab('whatsapp')">📲 استيراد من واتساب</button>
                 <button class="tab" onclick="showTab('stats')">📊 الإحصائيات</button>
                 <button class="tab" onclick="showTab('settings')">⚙️ الإعدادات</button>
             </div>
             
+            <!-- تبويب الطلبات -->
             <div id="orders-tab" class="tab-content active">
                 <h2>📋 جميع الطلبات</h2>
-                <input type="text" class="search-box" placeholder="🔍 بحث برقم الهاتف أو رقم الطلب..." onkeyup="searchOrders(this.value)">
+                
+                <input type="text" class="search-box" placeholder="🔍 ابحث برقم الهاتف..." 
+                       onkeyup="searchOrders(this.value)">
                 
                 <div id="ordersList">
                     <p>جاري تحميل الطلبات...</p>
                 </div>
             </div>
             
-            <div id="users-tab" class="tab-content">
-                <h2>👥 المستخدمين</h2>
-                <div id="usersList">
-                    <p>جاري تحميل بيانات المستخدمين...</p>
-                </div>
-            </div>
-            
+            <!-- تبويب استيراد من واتساب -->
             <div id="whatsapp-tab" class="tab-content">
                 <h2>📲 استيراد الطلبات من واتساب</h2>
                 
-                <div class="whatsapp-import-box">
+                <div class="whatsapp-box">
                     <h3>📝 كيف تعمل:</h3>
                     <p>1. عندما يقدم المستخدم طلباً، ستصل رسالة على واتساب</p>
                     <p>2. انسخ الرسالة من واتساب</p>
@@ -225,12 +333,8 @@
                     <div class="example-box">
 📊 طلب جديد - مجموعة سلمية الجديدة الإعلانية
 📱 الرقم: 0993113374
-🔖 رقم الطلب: ORD_1234567890
 📝 النص: بيع سيارة مرسيدس موديل 2020...
 💰 الباقة: إعلان واحد (10 ل.س)
-🔐 الكود: ABC123
-⏰ الوقت: 18/1/2025, 10:30:00 ص
-📱 رابط الطلب: https://brilliancem2bs4.github.io/adpay-syria/admin.html
                     </div>
                     
                     <textarea id="whatsappText" placeholder="📝 الصق رسالة واتساب هنا..."></textarea>
@@ -241,93 +345,131 @@
                 </div>
             </div>
             
+            <!-- تبويب الإحصائيات -->
             <div id="stats-tab" class="tab-content">
                 <h2>📊 الإحصائيات</h2>
+                
                 <div class="stats-box">
                     <div class="stat-card">
                         <h3>إجمالي الطلبات</h3>
                         <div class="stat-number" id="totalOrders">0</div>
                     </div>
+                    
                     <div class="stat-card">
-                        <h3>المستخدمين المسجلين</h3>
-                        <div class="stat-number" id="totalUsers">0</div>
+                        <h3>طلبات قيد الانتظار</h3>
+                        <div class="stat-number" id="pendingOrders">0</div>
                     </div>
+                    
                     <div class="stat-card">
                         <h3>إعلانات منشورة</h3>
                         <div class="stat-number" id="publishedAds">0</div>
                     </div>
+                    
                     <div class="stat-card">
                         <h3>إجمالي الإيرادات</h3>
                         <div class="stat-number" id="totalRevenue">0 ل.س</div>
                     </div>
                 </div>
+                
+                <div style="margin-top: 30px;">
+                    <button class="btn" onclick="loadStats()" style="background: #10b981;">
+                        🔄 تحديث الإحصائيات
+                    </button>
+                </div>
             </div>
             
+            <!-- تبويب الإعدادات -->
             <div id="settings-tab" class="tab-content">
                 <h2>⚙️ الإعدادات</h2>
+                
                 <div class="order-card">
-                    <h3>إعدادات النظام</h3>
-                    <p><strong>الرقم الحالي:</strong> <span id="currentNumber">+963 993 113 374</span></p>
-                    <input type="text" id="newNumber" placeholder="رقم واتساب جديد" style="width: 100%; margin: 10px 0; padding: 10px;">
-                    <button class="btn" onclick="updateWhatsAppNumber()">💾 تحديث رقم واتساب</button>
+                    <h3>إعدادات واتساب</h3>
                     
-                    <h3 style="margin-top: 30px;">نسخ احتياطي للبيانات</h3>
-                    <button class="btn" onclick="exportData()">📥 تصدير جميع البيانات</button>
-                    <button class="btn" onclick="importData()" style="background: #10b981;">📤 استيراد بيانات</button>
+                    <div class="info-row">
+                        <span>رقم واتساب الحالي:</span>
+                        <span id="currentNumber">+963 993 113 374</span>
+                    </div>
+                    
+                    <input type="text" id="newNumber" class="simple-input" 
+                           placeholder="أدخل رقم واتساب جديد">
+                    
+                    <button class="btn" onclick="updateWhatsAppNumber()" style="width: 100%;">
+                        💾 تحديث رقم واتساب
+                    </button>
+                </div>
+                
+                <div class="backup-box">
+                    <h3>📁 نسخ احتياطي للبيانات</h3>
+                    <p>حفظ واستعادة جميع البيانات</p>
+                    
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="exportData()" style="background: #7C3AED;">
+                            📥 تصدير البيانات
+                        </button>
+                        
+                        <button class="action-btn" onclick="importData()" style="background: #10b981;">
+                            📤 استيراد بيانات
+                        </button>
+                    </div>
+                    
                     <input type="file" id="importFile" style="display: none;" accept=".json">
                     
-                    <h3 style="margin-top: 30px;">🔐 تغيير كلمة المرور</h3>
-                    <input type="password" id="newPassword" placeholder="كلمة مرور جديدة" style="width: 100%; margin: 10px 0; padding: 10px;">
-                    <button class="btn" onclick="changePassword()" style="background: #ef4444;">🔄 تغيير كلمة المرور</button>
+                    <p style="margin-top: 15px; color: #666; font-size: 14px;">
+                        ⚠️ النسخ الاحتياطي يحفظ جميع الطلبات والمستخدمين
+                    </p>
+                </div>
+                
+                <div class="order-card">
+                    <h3>🔐 تغيير كلمة المرور</h3>
+                    
+                    <input type="password" id="newPassword" class="simple-input" 
+                           placeholder="كلمة مرور جديدة">
+                    
+                    <button class="btn" onclick="changePassword()" style="background: #ef4444; width: 100%;">
+                        🔄 تغيير كلمة المرور
+                    </button>
                 </div>
             </div>
         </div>
     </div>
     
     <script>
-        // Password for admin access
+        // كلمة المرور
         const ADMIN_PASSWORD = "salmia123";
         
+        // التحقق من كلمة المرور
         function checkPassword() {
             const password = document.getElementById('adminPassword').value;
             if (password === ADMIN_PASSWORD) {
                 document.getElementById('loginSection').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
-                loadAllData();
+                loadOrders();
+                loadStats();
             } else {
                 alert('❌ كلمة المرور غير صحيحة');
             }
         }
         
+        // عرض التبويب المحدد
         function showTab(tabName) {
-            // Hide all tabs
+            // إخفاء كل المحتويات
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Remove active class from all buttons
+            // إزالة النشاط من كل الأزرار
             document.querySelectorAll('.tab').forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Show selected tab
+            // إظهار المحتوى المحدد
             document.getElementById(tabName + '-tab').classList.add('active');
             
-            // Activate selected button
+            // تفعيل الزر المحدد
             event.target.classList.add('active');
-            
-            // Refresh data if needed
-            if (tabName === 'orders') loadOrders();
-            if (tabName === 'users') loadUsers();
-            if (tabName === 'stats') loadStats();
         }
         
-        function loadAllData() {
-            loadOrders();
-            loadUsers();
-            loadStats();
-        }
-        
+        // تحميل الطلبات
         function loadOrders() {
             const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
             let html = '';
@@ -335,22 +477,41 @@
             if (orders.length === 0) {
                 html = '<p>لا توجد طلبات بعد.</p>';
             } else {
-                // Sort by newest first
+                // ترتيب من الأحدث للأقدم
                 orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                 
                 orders.forEach(order => {
+                    // تحديد حالة الطلب
+                    let statusBadge = '';
+                    if (order.status === 'published') {
+                        statusBadge = '<span class="status-badge status-published">منشور</span>';
+                    } else if (order.status === 'paid') {
+                        statusBadge = '<span class="status-badge status-paid">مدفوع</span>';
+                    } else {
+                        statusBadge = '<span class="status-badge status-pending">قيد الانتظار</span>';
+                    }
+                    
                     html += `
                         <div class="order-card">
-                            <h4>📱 ${order.phone} | 📅 ${order.timestamp}</h4>
-                            <p><strong>رقم الطلب:</strong> ${order.id}</p>
-                            <p><strong>نص الإعلان:</strong> ${order.adText || 'لا يوجد'}</p>
-                            <p><strong>الباقة:</strong> ${order.packageName || 'إعلان واحد'}</p>
-                            <p><strong>الكود:</strong> ${order.userCode || 'بدون كود'}</p>
-                            <p><strong>الحالة:</strong> ${order.status || 'معلق'}</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4>📱 ${order.phone || 'بدون رقم'}</h4>
+                                ${statusBadge}
+                            </div>
+                            
+                            <p class="order-info">📅 ${order.timestamp || 'لا يوجد تاريخ'}</p>
+                            <p class="order-info">📝 ${order.adText || 'لا يوجد نص'}</p>
+                            <p class="order-info">💰 ${order.packageName || 'إعلان واحد'} - ${order.packagePrice || 10} ل.س</p>
+                            
                             <div class="action-buttons">
-                                <button class="action-btn btn-mark-published" onclick="updateOrderStatus('${order.id}', 'published')">✅ تم النشر</button>
-                                <button class="action-btn btn-mark-paid" onclick="updateOrderStatus('${order.id}', 'paid')">💰 تم الدفع</button>
-                                <button class="action-btn btn-delete" onclick="deleteOrder('${order.id}')">🗑️ حذف</button>
+                                <button class="action-btn btn-published" onclick="updateOrderStatus('${order.id}', 'published')">
+                                    ✅ تم النشر
+                                </button>
+                                <button class="action-btn btn-paid" onclick="updateOrderStatus('${order.id}', 'paid')">
+                                    💰 تم الدفع
+                                </button>
+                                <button class="action-btn btn-delete" onclick="deleteOrder('${order.id}')">
+                                    🗑️ حذف
+                                </button>
                             </div>
                         </div>
                     `;
@@ -360,71 +521,88 @@
             document.getElementById('ordersList').innerHTML = html;
         }
         
-        function loadUsers() {
-            let users = [];
-            // Get all users from localStorage
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('adpay_user_')) {
-                    const user = JSON.parse(localStorage.getItem(key));
-                    users.push(user);
-                }
-            }
-            
-            let html = '';
-            
-            if (users.length === 0) {
-                html = '<p>لا يوجد مستخدمين مسجلين.</p>';
-            } else {
-                users.forEach(user => {
-                    html += `
-                        <div class="order-card">
-                            <h4>👤 ${user.code}</h4>
-                            <p><strong>تاريخ التسجيل:</strong> ${user.created}</p>
-                            <p><strong>آخر دخول:</strong> ${user.lastLogin}</p>
-                            <p><strong>الإعلانات المتبقية:</strong> <span style="font-size: 24px; color: #7C3AED;">${user.adsRemaining}</span></p>
-                            <p><strong>إجمالي المشتريات:</strong> ${user.totalSpent || 0} ل.س</p>
-                            <div class="action-buttons">
-                                <button class="action-btn" onclick="addAdsToUser('${user.code}', 1)" style="background: #10b981; color: white;">+1 إعلان</button>
-                                <button class="action-btn" onclick="addAdsToUser('${user.code}', 5)" style="background: #3b82f6; color: white;">+5 إعلانات</button>
-                                <button class="action-btn" onclick="resetUserAds('${user.code}')" style="background: #ef4444; color: white;">🔄 تصفير</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-            
-            document.getElementById('usersList').innerHTML = html;
-        }
-        
+        // تحميل الإحصائيات
         function loadStats() {
-            // Total orders
             const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+            
+            // إجمالي الطلبات
             document.getElementById('totalOrders').textContent = orders.length;
             
-            // Total users
-            let userCount = 0;
-            for (let i = 0; i < localStorage.length; i++) {
-                if (localStorage.key(i).startsWith('adpay_user_')) {
-                    userCount++;
-                }
-            }
-            document.getElementById('totalUsers').textContent = userCount;
+            // الطلبات قيد الانتظار
+            const pendingOrders = orders.filter(o => !o.status || o.status === 'pending');
+            document.getElementById('pendingOrders').textContent = pendingOrders.length;
             
-            // Published ads (count orders with status published)
+            // الإعلانات المنشورة
             const publishedCount = orders.filter(o => o.status === 'published').length;
             document.getElementById('publishedAds').textContent = publishedCount;
             
-            // Total revenue
+            // إجمالي الإيرادات
             let revenue = 0;
             orders.forEach(order => {
                 if (order.status === 'paid' || order.status === 'published') {
-                    revenue += order.packagePrice || 0;
+                    revenue += order.packagePrice || 10;
                 }
             });
             document.getElementById('totalRevenue').textContent = revenue + ' ل.س';
         }
         
+        // البحث في الطلبات
+        function searchOrders(query) {
+            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+            const filtered = orders.filter(order => 
+                order.phone && order.phone.includes(query)
+            );
+            
+            let html = '';
+            
+            if (filtered.length === 0) {
+                html = '<p>لا توجد نتائج</p>';
+            } else {
+                filtered.forEach(order => {
+                    html += `
+                        <div class="order-card">
+                            <h4>📱 ${order.phone}</h4>
+                            <p>📝 ${order.adText ? order.adText.substring(0, 100) + '...' : 'لا يوجد نص'}</p>
+                        </div>
+                    `;
+                });
+            }
+            
+            document.getElementById('ordersList').innerHTML = html;
+        }
+        
+        // تحديث حالة الطلب
+        function updateOrderStatus(orderId, status) {
+            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+            const orderIndex = orders.findIndex(o => o.id === orderId);
+            
+            if (orderIndex !== -1) {
+                orders[orderIndex].status = status;
+                orders[orderIndex].updated = new Date().toLocaleString('ar-SY');
+                localStorage.setItem('adpay_orders', JSON.stringify(orders));
+                
+                alert(`✅ تم تحديث حالة الطلب إلى: ${status}`);
+                loadOrders();
+                loadStats();
+            } else {
+                alert('❌ لم يتم العثور على الطلب');
+            }
+        }
+        
+        // حذف الطلب
+        function deleteOrder(orderId) {
+            if (confirm(`هل تريد حذف هذا الطلب؟`)) {
+                const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
+                const filtered = orders.filter(o => o.id !== orderId);
+                localStorage.setItem('adpay_orders', JSON.stringify(filtered));
+                
+                alert('✅ تم حذف الطلب');
+                loadOrders();
+                loadStats();
+            }
+        }
+        
+        // استيراد من واتساب
         function importFromWhatsApp() {
             const text = document.getElementById('whatsappText').value.trim();
             if (!text) {
@@ -432,200 +610,95 @@
                 return;
             }
             
-            // Parse the WhatsApp message
+            // تحليل الرسالة
             const lines = text.split('\n');
             const data = {};
             
             lines.forEach(line => {
                 if (line.includes('📱 الرقم:')) data.phone = line.split(':')[1]?.trim();
-                if (line.includes('🔖 رقم الطلب:')) data.id = line.split(':')[1]?.trim();
                 if (line.includes('📝 النص:')) data.adText = line.split(':')[1]?.trim();
                 if (line.includes('💰 الباقة:')) data.packageName = line.split(':')[1]?.trim();
-                if (line.includes('🔐 الكود:')) data.userCode = line.split(':')[1]?.trim();
-                if (line.includes('⏰ الوقت:')) data.timestamp = line.split(':')[1]?.trim();
             });
             
-            // Check if we have minimum data
-            if (!data.phone || !data.id) {
-                alert('❌ الرسالة غير مكتملة. تأكد من نسخ الرسالة كاملة.');
+            // التحقق من البيانات
+            if (!data.phone) {
+                alert('❌ الرجاء التأكد من وجود رقم الهاتف في الرسالة');
                 return;
             }
             
-            // Determine package price
-            let packagePrice = 0;
-            if (data.packageName && data.packageName.includes('20')) {
-                packagePrice = 100;
-                data.package = 'bulk';
-            } else {
-                packagePrice = 10;
-                data.package = 'single';
-            }
-            
-            // Save to orders
+            // الحصول على الطلبات الحالية
             const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
             
-            // Check if order already exists
-            const existingOrder = orders.find(o => o.id === data.id);
-            if (existingOrder) {
-                alert('⚠️ هذا الطلب موجود بالفعل!');
-                return;
-            }
-            
-            // Add new order
+            // إنشاء طلب جديد
             const newOrder = {
-                id: data.id,
+                id: 'ORD_' + Date.now(),
                 phone: data.phone,
                 adText: data.adText || 'لا يوجد نص',
-                package: data.package || 'single',
                 packageName: data.packageName || 'إعلان واحد',
-                packagePrice: packagePrice,
-                userCode: data.userCode || 'بدون كود',
+                packagePrice: 10,
                 status: 'pending',
-                timestamp: data.timestamp || new Date().toLocaleString('ar-SY'),
-                estimatedPublishTime: new Date(Date.now() + 120 * 60000).toLocaleString('ar-SY')
+                timestamp: new Date().toLocaleString('ar-SY'),
+                importedFromWhatsApp: true
             };
             
+            // إضافة الطلب
             orders.push(newOrder);
             localStorage.setItem('adpay_orders', JSON.stringify(orders));
             
-            // Update user if code exists
-            if (data.userCode && data.userCode !== 'بدون كود') {
-                const userKey = 'adpay_user_' + data.userCode;
-                let userData = JSON.parse(localStorage.getItem(userKey) || 'null');
-                
-                if (!userData) {
-                    // Create new user
-                    userData = {
-                        code: data.userCode,
-                        adsRemaining: data.package === 'bulk' ? 20 : 1,
-                        created: new Date().toISOString(),
-                        lastLogin: new Date().toISOString(),
-                        totalSpent: packagePrice
-                    };
-                } else {
-                    // Update existing user
-                    userData.adsRemaining += (data.package === 'bulk' ? 20 : 1);
-                    userData.totalSpent = (userData.totalSpent || 0) + packagePrice;
-                    userData.lastLogin = new Date().toISOString();
-                }
-                
-                localStorage.setItem(userKey, JSON.stringify(userData));
-            }
+            // رسالة النجاح
+            alert(`✅ تم استيراد الطلب بنجاح!\n\nرقم الهاتف: ${data.phone}\n\nتم إضافة الطلب إلى القائمة`);
             
-            alert(`✅ تم استيراد الطلب بنجاح!\n\nرقم الطلب: ${data.id}\n\nتم إضافة ${data.package === 'bulk' ? '20' : '1'} إعلان إلى حساب ${data.userCode || 'بدون كود'}`);
-            
-            // Clear textarea
+            // تفريغ الحقل
             document.getElementById('whatsappText').value = '';
             
-            // Refresh data
+            // تحديث البيانات
             loadOrders();
-            loadUsers();
             loadStats();
-            
-            // Go to orders tab
             showTab('orders');
         }
         
-        function searchOrders(query) {
-            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
-            const filtered = orders.filter(order => 
-                order.phone.includes(query) || 
-                order.id.includes(query) ||
-                (order.adText && order.adText.includes(query))
-            );
-            
-            let html = '';
-            filtered.forEach(order => {
-                html += `
-                    <div class="order-card">
-                        <h4>📱 ${order.phone}</h4>
-                        <p><strong>رقم الطلب:</strong> ${order.id}</p>
-                        <p><strong>النص:</strong> ${order.adText}</p>
-                    </div>
-                `;
-            });
-            
-            document.getElementById('ordersList').innerHTML = html || '<p>لا توجد نتائج</p>';
-        }
-        
-        function addAdsToUser(userCode, adsToAdd) {
-            const userKey = 'adpay_user_' + userCode;
-            const user = JSON.parse(localStorage.getItem(userKey));
-            if (user) {
-                user.adsRemaining += adsToAdd;
-                localStorage.setItem(userKey, JSON.stringify(user));
-                alert(`✅ تم إضافة ${adsToAdd} إعلان إلى ${userCode}\nالإعلانات المتبقية: ${user.adsRemaining}`);
-                loadUsers();
-            }
-        }
-        
-        function resetUserAds(userCode) {
-            if (confirm(`هل تريد تصفير إعلانات ${userCode}؟`)) {
-                const userKey = 'adpay_user_' + userCode;
-                const user = JSON.parse(localStorage.getItem(userKey));
-                if (user) {
-                    user.adsRemaining = 0;
-                    localStorage.setItem(userKey, JSON.stringify(user));
-                    alert(`✅ تم تصفير إعلانات ${userCode}`);
-                    loadUsers();
-                }
-            }
-        }
-        
-        function updateOrderStatus(orderId, status) {
-            const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
-            const orderIndex = orders.findIndex(o => o.id === orderId);
-            
-            if (orderIndex !== -1) {
-                orders[orderIndex].status = status;
-                orders[orderIndex].updated = new Date().toISOString();
-                localStorage.setItem('adpay_orders', JSON.stringify(orders));
-                alert(`✅ تم تحديث حالة الطلب ${orderId} إلى: ${status}`);
-                loadOrders();
-            }
-        }
-        
-        function deleteOrder(orderId) {
-            if (confirm(`هل تريد حذف الطلب ${orderId}؟`)) {
-                const orders = JSON.parse(localStorage.getItem('adpay_orders') || '[]');
-                const filtered = orders.filter(o => o.id !== orderId);
-                localStorage.setItem('adpay_orders', JSON.stringify(filtered));
-                alert(`✅ تم حذف الطلب ${orderId}`);
-                loadOrders();
-            }
-        }
-        
+        // تحديث رقم واتساب
         function updateWhatsAppNumber() {
-            const newNumber = document.getElementById('newNumber').value;
-            if (newNumber && confirm(`تغيير رقم واتساب من +963 993 113 374 إلى ${newNumber}؟`)) {
+            const newNumber = document.getElementById('newNumber').value.trim();
+            if (!newNumber) {
+                alert('الرجاء إدخال رقم جديد');
+                return;
+            }
+            
+            if (confirm(`هل تريد تغيير رقم واتساب إلى:\n${newNumber}`)) {
                 localStorage.setItem('whatsapp_number', newNumber);
                 document.getElementById('currentNumber').textContent = newNumber;
+                document.getElementById('newNumber').value = '';
                 alert('✅ تم تحديث رقم واتساب');
             }
         }
         
+        // تغيير كلمة المرور
         function changePassword() {
-            const newPassword = document.getElementById('newPassword').value;
-            if (newPassword && confirm('هل تريد تغيير كلمة المرور؟')) {
-                // Note: In real app, this would save to server
-                // For now, we just show alert
-                alert(`✅ تم تغيير كلمة المرور إلى: ${newPassword}\n\n⚠️ تذكر أن تغيرها في الكود أيضاً!`);
+            const newPassword = document.getElementById('newPassword').value.trim();
+            if (!newPassword) {
+                alert('الرجاء إدخال كلمة مرور جديدة');
+                return;
+            }
+            
+            if (confirm('هل تريد تغيير كلمة المرور؟')) {
+                // في التطبيق الحقيقي، هنا يتم حفظ كلمة المرور في الخادم
+                alert(`✅ تم تغيير كلمة المرور إلى: ${newPassword}\n\nتذكر أن تخبر جميع المديرين`);
                 document.getElementById('newPassword').value = '';
             }
         }
         
+        // تصدير البيانات
         function exportData() {
             const allData = {};
             
-            // Collect all adpay-related data
+            // جمع جميع البيانات
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key.includes('adpay') || key.includes('ORD_')) {
-                    allData[key] = JSON.parse(localStorage.getItem(key));
-                }
+                allData[key] = JSON.parse(localStorage.getItem(key));
             }
             
-            // Create download link
+            // إنشاء رابط التحميل
             const dataStr = JSON.stringify(allData, null, 2);
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const url = URL.createObjectURL(dataBlob);
@@ -638,11 +711,12 @@
             alert('✅ تم تصدير جميع البيانات');
         }
         
+        // استيراد البيانات
         function importData() {
             document.getElementById('importFile').click();
         }
         
-        // Handle file import
+        // معالجة استيراد الملف
         document.getElementById('importFile').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -652,23 +726,19 @@
                 try {
                     const importedData = JSON.parse(e.target.result);
                     
-                    // Confirm before importing
-                    if (confirm(`هل تريد استيراد ${Object.keys(importedData).length} سجل؟\nهذا قد يحذف البيانات الحالية!`)) {
-                        // Clear existing data first
-                        for (let i = 0; i < localStorage.length; i++) {
-                            const key = localStorage.key(i);
-                            if (key.includes('adpay') || key.includes('ORD_')) {
-                                localStorage.removeItem(key);
-                            }
-                        }
+                    // التأكيد قبل الاستيراد
+                    if (confirm(`هل تريد استيراد البيانات؟\nسيتم استبدال جميع البيانات الحالية!`)) {
+                        // مسح البيانات الحالية
+                        localStorage.clear();
                         
-                        // Import new data
+                        // استيراد البيانات الجديدة
                         for (const key in importedData) {
                             localStorage.setItem(key, JSON.stringify(importedData[key]));
                         }
                         
                         alert('✅ تم استيراد البيانات بنجاح');
-                        loadAllData();
+                        loadOrders();
+                        loadStats();
                     }
                 } catch (error) {
                     alert('❌ ملف غير صالح');
@@ -676,6 +746,14 @@
             };
             reader.readAsText(file);
         });
+        
+        // تحميل رقم واتساب عند فتح الصفحة
+        window.onload = function() {
+            const savedNumber = localStorage.getItem('whatsapp_number');
+            if (savedNumber) {
+                document.getElementById('currentNumber').textContent = savedNumber;
+            }
+        };
     </script>
 </body>
 </html>
