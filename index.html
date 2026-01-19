@@ -3,312 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نشر إعلانات في مجموعة سلمية - سهل وبسيط</title>
+    <title>سلمية الإعلانية - دخول/تسجيل</title>
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        body { 
-            font-family: 'Arial', sans-serif; 
-            background: #f0f9f0; 
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+            padding: 40px 30px;
             text-align: center;
-            padding: 10px;
         }
         
-        .container { 
-            max-width: 800px; 
-            margin: auto; 
+        .logo {
+            font-size: 48px;
+            margin-bottom: 15px;
         }
         
-        .header { 
-            background: #047857; 
-            color: white; 
-            padding: 30px 20px; 
-            border-radius: 20px; 
-            margin-bottom: 20px;
-            box-shadow: 0 10px 20px rgba(4, 120, 87, 0.3);
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
         
-        h1 { 
-            font-size: 28px; 
-            margin-bottom: 15px; 
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
         }
         
-        h2 {
-            color: #047857;
-            margin: 25px 0 15px 0;
-            font-size: 24px;
+        .form-container {
+            padding: 40px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4361ee;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background: white;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .checkbox-group input {
+            margin-left: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .checkbox-group label {
+            margin: 0;
+            font-weight: normal;
+            color: #555;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f0f2f5;
+            color: #4361ee;
+            border: 2px solid #e1e5e9;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .info-box h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .info-box p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .whatsapp-box {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .whatsapp-box h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
         }
         
         .whatsapp-number {
-            font-size: 32px;
-            color: white;
-            background: #25D366;
-            padding: 15px;
-            border-radius: 15px;
-            margin: 20px 0;
-            display: block;
-            text-decoration: none;
+            font-size: 24px;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-        }
-        
-        .whatsapp-number:hover {
-            background: #128C7E;
-        }
-        
-        .simple-box {
-            background: white;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: right;
-        }
-        
-        .step-box {
-            background: white;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 20px;
-            border-right: 10px solid #047857;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .step-number {
-            background: #047857;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            margin-left: 15px;
-        }
-        
-        .big-button {
-            display: block;
-            background: #047857;
-            color: white;
-            padding: 25px;
-            text-decoration: none;
-            border-radius: 15px;
-            font-size: 22px;
-            font-weight: bold;
-            margin: 25px 0;
-            box-shadow: 0 5px 15px rgba(4, 120, 87, 0.3);
-        }
-        
-        .big-button:hover {
-            background: #065f46;
-            transform: translateY(-5px);
-        }
-        
-        .price-box {
-            background: linear-gradient(135deg, #047857, #10b981);
-            color: white;
-            padding: 25px;
-            border-radius: 20px;
-            margin: 25px 0;
-        }
-        
-        .price {
-            font-size: 48px;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-        
-        .price-note {
-            font-size: 18px;
             margin: 10px 0;
+            direction: ltr;
         }
         
-        .help-box {
-            background: #e0f2fe;
-            padding: 25px;
-            border-radius: 20px;
-            margin: 25px 0;
-            border: 3px solid #0ea5e9;
+        .note {
+            background: #fff9db;
+            border-right: 4px solid #ffd43b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #5c3c00;
+        }
+        
+        .language-switch {
             text-align: center;
+            margin-bottom: 20px;
         }
         
-        .emoji {
-            font-size: 30px;
-            margin: 0 5px;
-        }
-        
-        p {
-            font-size: 20px;
-            line-height: 1.6;
-            margin: 15px 0;
-            color: #333;
-        }
-        
-        .info-item {
-            background: #f8fafc;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border-right: 5px solid #047857;
-            text-align: right;
-        }
-        
-        .simple-list {
-            text-align: right;
-            padding-right: 20px;
-            margin: 15px 0;
-        }
-        
-        .simple-list li {
-            font-size: 18px;
-            margin: 10px 0;
+        .language-btn {
+            background: #f0f2f5;
+            border: 2px solid #e1e5e9;
             color: #555;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .language-btn.active {
+            background: #4361ee;
+            color: white;
+            border-color: #4361ee;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- العنوان الرئيسي -->
         <div class="header">
-            <h1>📢 نشر إعلانات في مجموعة سلمية الجديدة</h1>
-            <p style="font-size: 20px; opacity: 0.9;">سهل جداً - 3 خطوات فقط</p>
+            <div class="logo">📢</div>
+            <h1>سلمية الإعلانية</h1>
+            <p>نشر إعلانات في مجموعة سلمية الجديدة</p>
         </div>
         
-        <!-- رقم الواتساب الكبير -->
-        <a href="https://wa.me/963993113374" class="whatsapp-number" target="_blank">
-            📞 واتساب للإستفسار: +963 993 113 374
-        </a>
-        
-        <!-- صندوق البساطة -->
-        <div class="simple-box">
-            <h2>🧐 كيف تعمل؟ بسيط جداً:</h2>
-            <div class="step-box">
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <span class="step-number">1</span>
-                    <h3 style="margin: 0;">اكتب إعلانك</h3>
-                </div>
-                <p>اضغط الزر الأخضر في الأسفل واكتب إعلانك فقط</p>
+        <div class="form-container">
+            <!-- تبديل اللغة -->
+            <div class="language-switch">
+                <button class="language-btn active">العربية 🇸🇾</button>
+                <button class="language-btn">English 🌍</button>
             </div>
             
-            <div class="step-box">
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <span class="step-number">2</span>
-                    <h3 style="margin: 0;">ادفع 10 ليرة</h3>
-                </div>
-                <p>ادفع 10 ليرة عن طريق شام كاش أو سيريتيل كاش</p>
+            <!-- معلومات المجموعة -->
+            <div class="info-box">
+                <h3>🎯 المجموعة المستهدفة</h3>
+                <p>مجموعة سلمية الجديدة الإعلانية</p>
+                <p>👥 1,400+ عضو | 📍 مدينة السلامية، سوريا</p>
             </div>
             
-            <div class="step-box">
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <span class="step-number">3</span>
-                    <h3 style="margin: 0;">أرسل لقطة الدفع</h3>
-                </div>
-                <p>أرسل صورة الدفع على واتساب وسننشر إعلانك</p>
-            </div>
-        </div>
-        
-        <!-- الزر الكبير للبدء -->
-        <a href="form.html" class="big-button">
-            🚀 ابدأ الآن - اضغط هنا لكتابة إعلانك
-        </a>
-        
-        <!-- سعر بسيط -->
-        <div class="price-box">
-            <h2>💰 السعر</h2>
-            <div class="price">10 ليرة</div>
-            <p class="price-note">لنشر إعلان واحد في المجموعة</p>
-            <p class="price-note">👥 مجموعة سلمية الجديدة (1400+ عضو)</p>
-        </div>
-        
-        <!-- معلومات مهمة -->
-        <div class="simple-box">
-            <h2>📌 معلومات مهمة:</h2>
-            
-            <div class="info-item">
-                <span class="emoji">⏰</span>
-                <strong>متى ينشر إعلاني؟</strong>
-                <p>خلال 120 دقيقة (ساعتين) من إرسال لقطة الدفع</p>
+            <!-- نموذج الدخول -->
+            <div class="form-group">
+                <label>👤 أدخل كودك الشخصي</label>
+                <input type="text" class="form-input" id="userCode" 
+                       placeholder="مثال: ABC123 أو أدخل كود جديد">
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">
+                    الكود يحفظ إعلاناتك للأبد، يمكنك استخدامه على أي جهاز
+                </p>
             </div>
             
-            <div class="info-item">
-                <span class="emoji">💰</span>
-                <strong>كيف أدفع؟</strong>
-                <p>شام كاش أو سيريتيل كاش فقط</p>
+            <!-- تذكرني -->
+            <div class="checkbox-group">
+                <input type="checkbox" id="rememberMe" checked>
+                <label for="rememberMe">تذكرني على هذا الجهاز</label>
             </div>
             
-            <div class="info-item">
-                <span class="emoji">📲</span>
-                <strong>ماذا أفعل بعد الدفع؟</strong>
-                <p>ترسل لقطة الشاشة على واتساب: +963 993 113 374</p>
+            <!-- أزرار الدخول والتسجيل -->
+            <button class="btn btn-primary" onclick="loginUser()">
+                🔓 دخول بحسابي
+            </button>
+            
+            <button class="btn btn-secondary" onclick="generateNewCode()">
+                🆗 إنشاء كود جديد لي
+            </button>
+            
+            <!-- التجربة المجانية -->
+            <div class="note">
+                <strong>🎁 عرض خاص للمستخدمين الجدد:</strong>
+                <p>احصل على إعلانين مجانيين عند إنشاء كود جديد!</p>
+                <p style="font-size: 12px; margin-top: 5px;">
+                    ⚠️ لكل رقم واتساب كود واحد فقط لمنع الاحتيال
+                </p>
             </div>
             
-            <div class="info-item">
-                <span class="emoji">✅</span>
-                <strong>ماذا بعد النشر؟</strong>
-                <p>نرسل لك رابط منشورك على واتساب</p>
+            <!-- واتساب للمساعدة -->
+            <div class="whatsapp-box">
+                <h3>📞 للاستفسارات والدعم</h3>
+                <div class="whatsapp-number">+963 993 113 374</div>
+                <p>على واتساب فقط</p>
+                <a href="https://wa.me/963993113374" 
+                   style="display: inline-block; background: white; color: #25D366; 
+                          padding: 10px 20px; border-radius: 8px; margin-top: 10px;
+                          text-decoration: none; font-weight: bold;">
+                    📱 اضغط للتواصل
+                </a>
             </div>
-        </div>
-        
-        <!-- صندوق المساعدة -->
-        <div class="help-box">
-            <h2>🆘 تحتاج مساعدة؟</h2>
-            <p style="font-size: 22px; color: #0c4a6e; margin: 15px 0;">
-                اتصل بنا على واتساب:
-            </p>
-            <a href="https://wa.me/963993113374" class="whatsapp-number" 
-               style="font-size: 26px; padding: 12px;" target="_blank">
-                📱 +963 993 113 374
-            </a>
-            <p style="margin-top: 15px;">نساعدك خطوة بخطوة</p>
-            <p>⏰ من الساعة 9 صباحاً حتى 12 ليلاً</p>
-        </div>
-        
-        <!-- خطوات مفصلة -->
-        <div class="simple-box">
-            <h2>📋 خطوات مفصلة:</h2>
-            <ol class="simple-list">
-                <li><strong>اضغط الزر الأخضر "ابدأ الآن"</strong></li>
-                <li>اكتب رقم واتسابك (مثل: 0993113374)</li>
-                <li>اكتب نص الإعلان (ماذا تريد أن تنشر؟)</li>
-                <li>اضغط "اذهب للدفع"</li>
-                <li>اختر طريقة الدفع: شام كاش أو سيريتيل كاش</li>
-                <li>ادفع 10 ليرة</li>
-                <li>خذ صورة للدفع (لقطة شاشة)</li>
-                <li>أرسل الصورة على واتساب: +963 993 113 374</li>
-                <li>انتظر حتى نرسل لك رابط منشورك</li>
-            </ol>
-        </div>
-        
-        <!-- زر البدء مرة أخرى -->
-        <a href="form.html" class="big-button">
-            ✅ ابدأ الآن - النشر خلال ساعتين
-        </a>
-        
-        <!-- تنبيه أخير -->
-        <div style="background: #fef3c7; padding: 20px; border-radius: 15px; 
-                    margin: 25px 0; border: 3px solid #f59e0b;">
-            <h3>⚠️ انتبه:</h3>
-            <p>• ادفع فقط 10 ليرة لإعلان واحد</p>
-            <p>• أرسل لقطة الدفع على واتساب فقط</p>
-            <p>• لا تدفع لأي شخص آخر</p>
-            <p>• رقم واتسابنا الوحيد: +963 993 113 374</p>
+            
+            <!-- تنبيه -->
+            <div style="text-align: center; margin-top: 20px; color: #666; font-size: 14px;">
+                <p>⏰ وقت العمل: 9 صباحاً - 12 منتصف الليل</p>
+            </div>
         </div>
     </div>
     
     <script>
-        // كود بسيط للتأكد من أن الصفحة تعمل
-        console.log("مرحباً! الموقع يعمل بشكل صحيح");
+        // توليد كود جديد
+        function generateNewCode() {
+            // توليد كود مكون من 6 أحرف/أرقام
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            // عرض الكود للمستخدم
+            document.getElementById('userCode').value = code;
+            
+            // شرح للاستخدام
+            alert(`🎉 تم إنشاء كود جديد لك!\n\nكودك الشخصي: ${code}\n\n📌 احفظ هذا الكود في مكان آمن!\n\n🎁 تحصل على إعلانين مجانيين كهدية!`);
+            
+            // تسجيل تلقائي بعد إنشاء الكود
+            setTimeout(() => loginUser(), 500);
+        }
         
-        // إظهار رسالة ترحيب
+        // دخول المستخدم
+        function loginUser() {
+            const userCode = document.getElementById('userCode').value.trim().toUpperCase();
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            if (!userCode) {
+                alert('⚠️ الرجاء إدخال كود صحيح أو إنشاء كود جديد');
+                return;
+            }
+            
+            if (userCode.length < 4) {
+                alert('⚠️ الكود يجب أن يكون 4 أحرف على الأقل');
+                return;
+            }
+            
+            // حفظ في الجلسة
+            sessionStorage.setItem('current_user_code', userCode);
+            
+            // حفظ في الذاكرة إذا اختار تذكرني
+            if (rememberMe) {
+                localStorage.setItem('remembered_user_code', userCode);
+            }
+            
+            // تحقق إذا كان مستخدم جديد
+            const userKey = 'user_' + userCode;
+            let userData = localStorage.getItem(userKey);
+            
+            if (!userData) {
+                // مستخدم جديد - إعطاء إعلانين مجانيين
+                userData = {
+                    code: userCode,
+                    adsRemaining: 2, // إعلانين مجانيين
+                    freeAdsUsed: 0,
+                    totalAds: 2,
+                    created: new Date().toISOString(),
+                    lastLogin: new Date().toISOString(),
+                    isNewUser: true
+                };
+                
+                localStorage.setItem(userKey, JSON.stringify(userData));
+                
+                // حفظ تاريخ التسجيل لمنع الاحتيال
+                localStorage.setItem('registered_' + userCode, new Date().toISOString());
+                
+                alert(`🎉 أهلاً بك! مستخدم جديد\n\nكودك: ${userCode}\n\n🎁 حصلت على إعلانين مجانيين!\n\nالآن يمكنك نشر إعلانين مجاناً!`);
+            } else {
+                // مستخدم موجود
+                userData = JSON.parse(userData);
+                userData.lastLogin = new Date().toISOString();
+                localStorage.setItem(userKey, JSON.stringify(userData));
+                
+                // عرض عدد الإعلانات المتبقية
+                alert(`مرحباً بعودتك! 👋\n\nكودك: ${userCode}\n\n📊 إعلاناتك المتبقية: ${userData.adsRemaining}`);
+            }
+            
+            // الانتقال للصفحة الرئيسية
+            window.location.href = 'main.html';
+        }
+        
+        // تحميل الكود المحفوظ عند فتح الصفحة
         window.onload = function() {
-            setTimeout(function() {
-                alert("مرحباً بك! 👋\n\nاضغط 'ابدأ الآن' لكتابة إعلانك");
+            const rememberedCode = localStorage.getItem('remembered_user_code');
+            if (rememberedCode) {
+                document.getElementById('userCode').value = rememberedCode;
+            }
+            
+            // التحقق من وجود كود في الجلسة
+            const sessionCode = sessionStorage.getItem('current_user_code');
+            if (sessionCode) {
+                document.getElementById('userCode').value = sessionCode;
+            }
+            
+            // عرض رسالة ترحيبية
+            setTimeout(() => {
+                alert("مرحباً بك في سلمية الإعلانية! 👋\n\n1. إذا كان لديك كود مسبقاً، أدخله\n2. إذا كنت جديداً، اضغط 'إنشاء كود جديد'\n3. احصل على إعلانين مجانيين!");
             }, 1000);
         };
     </script>
