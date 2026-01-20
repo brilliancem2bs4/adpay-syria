@@ -41,6 +41,18 @@
         .price-label { font-size: 18px; color: #333; margin-bottom: 10px; font-weight: 600; }
         .price-amount { font-size: 32px; color: #047857; font-weight: bold; margin: 10px 0; }
         
+        /* تحسينات لتحميل QR */
+        .qr-download-link {
+            display: block;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .qr-download-link:hover {
+            transform: scale(1.03);
+        }
+        
         .qr-container {
             width: 200px;
             height: 200px;
@@ -54,6 +66,7 @@
             justify-content: center;
             padding: 15px;
             overflow: hidden;
+            position: relative;
         }
         
         .qr-image {
@@ -61,6 +74,25 @@
             max-height: 100%;
             object-fit: contain;
             border-radius: 8px;
+        }
+        
+        .download-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+            text-align: center;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .qr-download-link:hover .download-overlay {
+            opacity: 1;
         }
         
         .qr-placeholder {
@@ -145,43 +177,13 @@
             flex-shrink: 0; 
         }
         
-        /* جديد: صندوق استكشاف الأخطاء */
-        .debug-box {
-            background: #fef3c7;
-            border: 2px solid #f59e0b;
+        /* تصميم لرقم سيريتيل كاش */
+        .phone-payment-box {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 2px solid #0ea5e9;
             border-radius: 12px;
             padding: 20px;
-            margin: 20px 30px;
-            display: none;
-        }
-        
-        .debug-title {
-            color: #92400e;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .debug-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .debug-item {
-            padding: 8px;
-            border-bottom: 1px solid #fde68a;
-            font-family: monospace;
-            font-size: 14px;
-        }
-        
-        .debug-btn {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
+            margin: 20px 0;
         }
         
         @media (max-width: 768px) {
@@ -251,12 +253,13 @@
                 <div class="price-option">
                     <div class="price-label">إعلان واحد</div>
                     <div class="price-amount">10 ل.س</div>
-                    <div class="qr-container">
-                        <div class="qr-placeholder">💜</div>
-                        <!-- تم التصحيح: إضافة .jpg -->
-                        <img src="sham-qr10.jpg" class="qr-image" alt="QR Code شام كاش 10 ليرة" 
-                             onerror="showQRError(this, 'شام كاش 10 ليرة')">
-                    </div>
+                    <a href="sham-qr10.jpg" download="شام-كاش-10-ليرة.jpg" class="qr-download-link">
+                        <div class="qr-container">
+                            <img src="sham-qr10.jpg" class="qr-image" alt="QR Code شام كاش 10 ليرة" 
+                                 onerror="showQRError(this, 'شام كاش 10 ليرة')">
+                            <div class="download-overlay">⬇️ انقر للتحميل</div>
+                        </div>
+                    </a>
                     <p style="color: #dc2626; font-size: 14px; margin-top: 10px;">
                         ⚠️ تأكد من إدخال المبلغ: 10 ليرة
                     </p>
@@ -266,12 +269,13 @@
                 <div class="price-option">
                     <div class="price-label">20 إعلان</div>
                     <div class="price-amount">100 ل.س</div>
-                    <div class="qr-container">
-                        <div class="qr-placeholder">💜</div>
-                        <!-- تم التصحيح: إضافة .jpg -->
-                        <img src="sham-qr100.jpg" class="qr-image" alt="QR Code شام كاش 100 ليرة" 
-                             onerror="showQRError(this, 'شام كاش 100 ليرة')">
-                    </div>
+                    <a href="sham-qr100.jpg" download="شام-كاش-100-ليرة.jpg" class="qr-download-link">
+                        <div class="qr-container">
+                            <img src="sham-qr100.jpg" class="qr-image" alt="QR Code شام كاش 100 ليرة" 
+                                 onerror="showQRError(this, 'شام كاش 100 ليرة')">
+                            <div class="download-overlay">⬇️ انقر للتحميل</div>
+                        </div>
+                    </a>
                     <p style="color: #047857; font-size: 14px; margin-top: 10px; font-weight: bold;">
                         (توفير 50%)
                     </p>
@@ -304,7 +308,32 @@
         <div id="syriatelDetails" class="payment-details" style="display: none;">
             <div class="payment-title">❤️ الدفع عبر سيريتيل كاش</div>
             <p style="text-align: center; color: #5c3c00; margin: 15px 0;">
-                اسحب رمز QR المناسب للمبلغ
+                اختر طريقة الدفع المناسبة لك
+            </p>
+            
+            <!-- رقم سيريتيل كاش -->
+            <div class="phone-payment-box">
+                <p style="text-align: center; color: #0c4a6e; font-weight: 600; margin-bottom: 10px;">
+                    📞 الدفع عبر رقم سيريتيل كاش:
+                </p>
+                
+                <div class="payment-address" id="syriatelPhone" style="font-size: 20px; font-weight: bold; color: #e63946;">
+                    0993113374
+                </div>
+                
+                <button class="copy-btn" onclick="copyText('0993113374', 'syriatelPhone')" 
+                        style="background: linear-gradient(135deg, #e63946, #d00000);">
+                    📋 نسخ رقم سيريتيل كاش
+                </button>
+                <div class="copy-success" id="syriatelPhoneCopySuccess">تم نسخ الرقم بنجاح!</div>
+                
+                <p style="text-align: center; color: #666; font-size: 14px; margin-top: 10px;">
+                    ⚠️ تأكد من إدخال المبلغ الصحيح (10 أو 100 ليرة)
+                </p>
+            </div>
+            
+            <p style="text-align: center; color: #5c3c00; margin: 25px 0 15px 0; font-weight: 600;">
+                أو اسحب رمز QR المناسب للمبلغ:
             </p>
             
             <div class="price-options">
@@ -312,12 +341,13 @@
                 <div class="price-option">
                     <div class="price-label">إعلان واحد</div>
                     <div class="price-amount">10 ل.س</div>
-                    <div class="qr-container">
-                        <div class="qr-placeholder">📱</div>
-                        <!-- تم التصحيح: إضافة .jpg -->
-                        <img src="syriatel-10.jpg" class="qr-image" alt="QR Code سيريتيل كاش 10 ليرة" 
-                             onerror="showQRError(this, 'سيريتيل كاش 10 ليرة')">
-                    </div>
+                    <a href="syriatel-10.jpg" download="سيريتيل-كاش-10-ليرة.jpg" class="qr-download-link">
+                        <div class="qr-container">
+                            <img src="syriatel-10.jpg" class="qr-image" alt="QR Code سيريتيل كاش 10 ليرة" 
+                                 onerror="showQRError(this, 'سيريتيل كاش 10 ليرة')">
+                            <div class="download-overlay">⬇️ انقر للتحميل</div>
+                        </div>
+                    </a>
                     <p style="color: #666; font-size: 14px; margin-top: 10px;">
                         اسحب هذا الرمز لدفع 10 ليرة
                     </p>
@@ -327,12 +357,13 @@
                 <div class="price-option">
                     <div class="price-label">20 إعلان</div>
                     <div class="price-amount">100 ل.س</div>
-                    <div class="qr-container">
-                        <div class="qr-placeholder">📱</div>
-                        <!-- تم التصحيح: إضافة .jpg -->
-                        <img src="syriatel-100.jpg" class="qr-image" alt="QR Code سيريتيل كاش 100 ليرة" 
-                             onerror="showQRError(this, 'سيريتيل كاش 100 ليرة')">
-                    </div>
+                    <a href="syriatel-100.jpg" download="سيريتيل-كاش-100-ليرة.jpg" class="qr-download-link">
+                        <div class="qr-container">
+                            <img src="syriatel-100.jpg" class="qr-image" alt="QR Code سيريتيل كاش 100 ليرة" 
+                                 onerror="showQRError(this, 'سيريتيل كاش 100 ليرة')">
+                            <div class="download-overlay">⬇️ انقر للتحميل</div>
+                        </div>
+                    </a>
                     <p style="color: #047857; font-size: 14px; margin-top: 10px; font-weight: bold;">
                         (توفير 50%)
                     </p>
@@ -350,28 +381,15 @@
                     1. افتح تطبيق <strong>سيريتيل كاش</strong>
                 </p>
                 <p style="color: #5c3c00; font-size: 14px; margin-bottom: 5px;">
-                    2. اضغط على <strong>"Scan"</strong> أو <strong>"مسح"</strong>
+                    2. اختر: <strong>"إرسال إلى رقم"</strong> أو <strong>"Scan"</strong>
                 </p>
                 <p style="color: #5c3c00; font-size: 14px; margin-bottom: 5px;">
-                    3. اسحب رمز QR المناسب أعلاه
+                    3. أدخل الرقم أو اسحب QR المناسب
                 </p>
                 <p style="color: #5c3c00; font-size: 14px;">
                     4. أكمل عملية التحويل
                 </p>
             </div>
-        </div>
-        
-        <!-- صندوق استكشاف الأخطاء -->
-        <div class="debug-box" id="debugBox">
-            <div class="debug-title">🔍 استكشاف أخطاء تحميل الصور</div>
-            <p style="color: #92400e; font-size: 14px; margin-bottom: 15px;">
-                تم اكتشاف مشكلة في تحميل صور QR. إليك المعلومات:
-            </p>
-            <ul class="debug-list" id="debugList"></ul>
-            <button class="debug-btn" onclick="checkImagesManually()">🔄 فحص الصور يدوياً</button>
-            <p style="font-size: 12px; color: #92400e; margin-top: 10px;">
-                ⚠️ تأكد من: 1) أسماء الملفات صحيحة 2) الصور في نفس المجلد 3) الصيغة JPG
-            </p>
         </div>
         
         <div class="proof-section">
@@ -428,8 +446,6 @@
         let selectedPackage = null;
         let currentUser = null;
         let paymentMethod = 'sham';
-        let debugMode = false;
-        let imageErrors = [];
         
         window.onload = function() {
             currentUser = sessionStorage.getItem('current_user_code') || 
@@ -456,10 +472,9 @@
             updateOrderInfo();
             updateWhatsAppLink();
             
-            // فحص الصور بعد تحميل الصفحة
             setTimeout(() => {
-                checkAllImages();
-            }, 1500);
+                alert(`🎉 جاهز للدفع!\n\nالباقة: ${selectedPackage.type === 'single' ? 'إعلان واحد' : '20 إعلان'}\nالمبلغ: ${selectedPackage.price} ليرة`);
+            }, 500);
         };
         
         function updateOrderInfo() {
@@ -501,7 +516,13 @@
                     successMsg.style.display = 'none';
                 }, 3000);
                 
-                alert('تم نسخ العنوان ✓\n\nالآن اذهب لتطبيق شام كاش وألصق العنوان');
+                if (method === 'syriatelPhone') {
+                    alert('تم نسخ رقم سيريتيل كاش ✓\n\nالآن اذهب لتطبيق سيريتيل كاش وأدخل الرقم');
+                } else {
+                    alert('تم نسخ العنوان ✓\n\nالآن اذهب لتطبيق شام كاش وألصق العنوان');
+                }
+            }).catch(err => {
+                alert('❌ لم يتم النسخ، حاول يدوياً: ' + text);
             });
         }
         
@@ -512,128 +533,18 @@
         }
         
         function showQRError(imgElement, qrType) {
-            const container = imgElement.parentElement;
+            const container = imgElement.closest('.qr-container');
+            if (!container) return;
+            
             const placeholder = container.querySelector('.qr-placeholder');
-            
-            // إخفاء الصورة وإظهار العنصر النائب
-            imgElement.style.display = 'none';
-            placeholder.style.display = 'flex';
-            placeholder.style.flexDirection = 'column';
-            placeholder.style.alignItems = 'center';
-            placeholder.style.justifyContent = 'center';
-            placeholder.innerHTML = `⚠️<small style="font-size: 10px; margin-top: 5px;">${qrType}</small>`;
-            
-            // تسجيل الخطأ للتصحيح
-            imageErrors.push({
-                type: qrType,
-                src: imgElement.src,
-                alt: imgElement.alt
-            });
-            
-            // إظهار صندوق الاستكشاف إذا كان هناك أخطاء
-            if (imageErrors.length > 0 && !debugMode) {
-                showDebugBox();
+            if (placeholder) {
+                imgElement.style.display = 'none';
+                placeholder.style.display = 'flex';
+                placeholder.style.flexDirection = 'column';
+                placeholder.style.alignItems = 'center';
+                placeholder.style.justifyContent = 'center';
+                placeholder.innerHTML = `⚠️<small style="font-size: 10px; margin-top: 5px;">${qrType}</small>`;
             }
-        }
-        
-        function checkAllImages() {
-            const images = document.querySelectorAll('.qr-image');
-            let hasErrors = false;
-            imageErrors = [];
-            
-            images.forEach(img => {
-                if (!img.complete || img.naturalHeight === 0) {
-                    const altText = img.alt || 'QR Code';
-                    const qrType = altText.replace('QR Code ', '');
-                    showQRError(img, qrType);
-                    hasErrors = true;
-                }
-            });
-            
-            if (hasErrors) {
-                showDebugBox();
-            }
-        }
-        
-        function showDebugBox() {
-            const debugBox = document.getElementById('debugBox');
-            const debugList = document.getElementById('debugList');
-            
-            debugMode = true;
-            debugBox.style.display = 'block';
-            debugList.innerHTML = '';
-            
-            imageErrors.forEach(error => {
-                const li = document.createElement('li');
-                li.className = 'debug-item';
-                li.innerHTML = `❌ <strong>${error.type}</strong><br>
-                               المسار: ${error.src}<br>
-                               الحالة: لم يتم تحميل الصورة`;
-                debugList.appendChild(li);
-            });
-            
-            // إضافة معلومات الصور المتوقعة
-            const expectedImages = [
-                'sham-qr10.jpg',
-                'sham-qr100.jpg', 
-                'syriatel-10.jpg',
-                'syriatel-100.jpg'
-            ];
-            
-            expectedImages.forEach(imgName => {
-                const li = document.createElement('li');
-                li.className = 'debug-item';
-                li.innerHTML = `📁 <strong>${imgName}</strong><br>
-                               المتوقع في: ${window.location.origin}/${imgName}`;
-                debugList.appendChild(li);
-            });
-        }
-        
-        function checkImagesManually() {
-            const imagesToCheck = [
-                {name: 'sham-qr10.jpg', url: 'sham-qr10.jpg'},
-                {name: 'sham-qr100.jpg', url: 'sham-qr100.jpg'},
-                {name: 'syriatel-10.jpg', url: 'syriatel-10.jpg'},
-                {name: 'syriatel-100.jpg', url: 'syriatel-100.jpg'}
-            ];
-            
-            let results = [];
-            
-            imagesToCheck.forEach(img => {
-                const testImage = new Image();
-                testImage.onload = function() {
-                    results.push(`✅ ${img.name}: تم تحميلها بنجاح`);
-                    updateManualCheckResults(results);
-                };
-                testImage.onerror = function() {
-                    results.push(`❌ ${img.name}: فشل التحميل`);
-                    updateManualCheckResults(results);
-                };
-                testImage.src = img.url;
-            });
-            
-            // إذا لم تظهر النتائج خلال 3 ثواني
-            setTimeout(() => {
-                if (results.length < 4) {
-                    results.push('⏳ بعض الصور لا تزال قيد التحقق...');
-                    updateManualCheckResults(results);
-                }
-            }, 3000);
-        }
-        
-        function updateManualCheckResults(results) {
-            const debugList = document.getElementById('debugList');
-            const resultHeader = document.createElement('li');
-            resultHeader.className = 'debug-item';
-            resultHeader.innerHTML = '<strong>نتيجة الفحص اليدوي:</strong>';
-            debugList.appendChild(resultHeader);
-            
-            results.forEach(result => {
-                const li = document.createElement('li');
-                li.className = 'debug-item';
-                li.textContent = result;
-                debugList.appendChild(li);
-            });
         }
         
         document.getElementById('whatsappLink').addEventListener('click', function() {
@@ -654,6 +565,17 @@
             
             alert('📤 تم فتح واتساب\n\nأرسل لقطة الدفع وانتظر تأكيدنا\n\nسيتم إضافة الإعلانات لحسابك خلال 10 دقائق');
         });
+        
+        // التحقق من تحميل الصور
+        setTimeout(() => {
+            document.querySelectorAll('.qr-image').forEach(img => {
+                if (!img.complete || img.naturalHeight === 0) {
+                    const altText = img.alt || 'QR Code';
+                    const qrType = altText.replace('QR Code ', '');
+                    showQRError(img, qrType);
+                }
+            });
+        }, 1000);
     </script>
 </body>
 </html>
