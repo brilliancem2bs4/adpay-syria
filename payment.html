@@ -66,7 +66,7 @@
         .qr-placeholder {
             font-size: 48px;
             margin-bottom: 10px;
-            display: none; /* سيتم إخفاء العنصر النائب عند ظهور الصور */
+            display: none;
         }
         
         .qr-note {
@@ -145,6 +145,45 @@
             flex-shrink: 0; 
         }
         
+        /* جديد: صندوق استكشاف الأخطاء */
+        .debug-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 30px;
+            display: none;
+        }
+        
+        .debug-title {
+            color: #92400e;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .debug-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .debug-item {
+            padding: 8px;
+            border-bottom: 1px solid #fde68a;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .debug-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
         @media (max-width: 768px) {
             .header { flex-direction: column; gap: 20px; text-align: center; }
             .order-info, .payment-details, .proof-section { margin: 20px; }
@@ -169,18 +208,9 @@
                 <div style="font-size: 24px; font-weight: bold; color: #3a0ca3;" id="packageName">إعلان واحد</div>
             </div>
             <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">السعر</div>
-                    <div class="info-value" id="packagePrice">10 ل.س</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">عدد الإعلانات</div>
-                    <div class="info-value" id="packageAds">1 إعلان</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">كودك</div>
-                    <div class="info-value" id="userCode">------</div>
-                </div>
+                <div class="info-item"><div class="info-label">السعر</div><div class="info-value" id="packagePrice">10 ل.س</div></div>
+                <div class="info-item"><div class="info-label">عدد الإعلانات</div><div class="info-value" id="packageAds">1 إعلان</div></div>
+                <div class="info-item"><div class="info-label">كودك</div><div class="info-value" id="userCode">------</div></div>
             </div>
         </div>
         
@@ -223,8 +253,8 @@
                     <div class="price-amount">10 ل.س</div>
                     <div class="qr-container">
                         <div class="qr-placeholder">💜</div>
-                        <!-- صورة QR الحقيقية لشام كاش 10 ليرة -->
-                        <img src="sham-qr10" class="qr-image" alt="QR Code شام كاش 10 ليرة" 
+                        <!-- تم التصحيح: إضافة .jpg -->
+                        <img src="sham-qr10.jpg" class="qr-image" alt="QR Code شام كاش 10 ليرة" 
                              onerror="showQRError(this, 'شام كاش 10 ليرة')">
                     </div>
                     <p style="color: #dc2626; font-size: 14px; margin-top: 10px;">
@@ -238,8 +268,8 @@
                     <div class="price-amount">100 ل.س</div>
                     <div class="qr-container">
                         <div class="qr-placeholder">💜</div>
-                        <!-- صورة QR الحقيقية لشام كاش 100 ليرة -->
-                        <img src="sham-qr100" class="qr-image" alt="QR Code شام كاش 100 ليرة" 
+                        <!-- تم التصحيح: إضافة .jpg -->
+                        <img src="sham-qr100.jpg" class="qr-image" alt="QR Code شام كاش 100 ليرة" 
                              onerror="showQRError(this, 'شام كاش 100 ليرة')">
                     </div>
                     <p style="color: #047857; font-size: 14px; margin-top: 10px; font-weight: bold;">
@@ -284,8 +314,8 @@
                     <div class="price-amount">10 ل.س</div>
                     <div class="qr-container">
                         <div class="qr-placeholder">📱</div>
-                        <!-- صورة QR الحقيقية لسيريتيل كاش 10 ليرة -->
-                        <img src="syriatel-10" class="qr-image" alt="QR Code سيريتيل كاش 10 ليرة" 
+                        <!-- تم التصحيح: إضافة .jpg -->
+                        <img src="syriatel-10.jpg" class="qr-image" alt="QR Code سيريتيل كاش 10 ليرة" 
                              onerror="showQRError(this, 'سيريتيل كاش 10 ليرة')">
                     </div>
                     <p style="color: #666; font-size: 14px; margin-top: 10px;">
@@ -299,8 +329,8 @@
                     <div class="price-amount">100 ل.س</div>
                     <div class="qr-container">
                         <div class="qr-placeholder">📱</div>
-                        <!-- صورة QR الحقيقية لسيريتيل كاش 100 ليرة -->
-                        <img src="syriatel-100" class="qr-image" alt="QR Code سيريتيل كاش 100 ليرة" 
+                        <!-- تم التصحيح: إضافة .jpg -->
+                        <img src="syriatel-100.jpg" class="qr-image" alt="QR Code سيريتيل كاش 100 ليرة" 
                              onerror="showQRError(this, 'سيريتيل كاش 100 ليرة')">
                     </div>
                     <p style="color: #047857; font-size: 14px; margin-top: 10px; font-weight: bold;">
@@ -329,6 +359,19 @@
                     4. أكمل عملية التحويل
                 </p>
             </div>
+        </div>
+        
+        <!-- صندوق استكشاف الأخطاء -->
+        <div class="debug-box" id="debugBox">
+            <div class="debug-title">🔍 استكشاف أخطاء تحميل الصور</div>
+            <p style="color: #92400e; font-size: 14px; margin-bottom: 15px;">
+                تم اكتشاف مشكلة في تحميل صور QR. إليك المعلومات:
+            </p>
+            <ul class="debug-list" id="debugList"></ul>
+            <button class="debug-btn" onclick="checkImagesManually()">🔄 فحص الصور يدوياً</button>
+            <p style="font-size: 12px; color: #92400e; margin-top: 10px;">
+                ⚠️ تأكد من: 1) أسماء الملفات صحيحة 2) الصور في نفس المجلد 3) الصيغة JPG
+            </p>
         </div>
         
         <div class="proof-section">
@@ -385,6 +428,8 @@
         let selectedPackage = null;
         let currentUser = null;
         let paymentMethod = 'sham';
+        let debugMode = false;
+        let imageErrors = [];
         
         window.onload = function() {
             currentUser = sessionStorage.getItem('current_user_code') || 
@@ -411,9 +456,10 @@
             updateOrderInfo();
             updateWhatsAppLink();
             
+            // فحص الصور بعد تحميل الصفحة
             setTimeout(() => {
-                alert(`🎉 جاهز للدفع!\n\nالباقة: ${selectedPackage.type === 'single' ? 'إعلان واحد' : '20 إعلان'}\nالمبلغ: ${selectedPackage.price} ليرة`);
-            }, 500);
+                checkAllImages();
+            }, 1500);
         };
         
         function updateOrderInfo() {
@@ -469,6 +515,7 @@
             const container = imgElement.parentElement;
             const placeholder = container.querySelector('.qr-placeholder');
             
+            // إخفاء الصورة وإظهار العنصر النائب
             imgElement.style.display = 'none';
             placeholder.style.display = 'flex';
             placeholder.style.flexDirection = 'column';
@@ -476,7 +523,117 @@
             placeholder.style.justifyContent = 'center';
             placeholder.innerHTML = `⚠️<small style="font-size: 10px; margin-top: 5px;">${qrType}</small>`;
             
-            console.log(`❌ لم يتم تحميل صورة QR: ${qrType}`);
+            // تسجيل الخطأ للتصحيح
+            imageErrors.push({
+                type: qrType,
+                src: imgElement.src,
+                alt: imgElement.alt
+            });
+            
+            // إظهار صندوق الاستكشاف إذا كان هناك أخطاء
+            if (imageErrors.length > 0 && !debugMode) {
+                showDebugBox();
+            }
+        }
+        
+        function checkAllImages() {
+            const images = document.querySelectorAll('.qr-image');
+            let hasErrors = false;
+            imageErrors = [];
+            
+            images.forEach(img => {
+                if (!img.complete || img.naturalHeight === 0) {
+                    const altText = img.alt || 'QR Code';
+                    const qrType = altText.replace('QR Code ', '');
+                    showQRError(img, qrType);
+                    hasErrors = true;
+                }
+            });
+            
+            if (hasErrors) {
+                showDebugBox();
+            }
+        }
+        
+        function showDebugBox() {
+            const debugBox = document.getElementById('debugBox');
+            const debugList = document.getElementById('debugList');
+            
+            debugMode = true;
+            debugBox.style.display = 'block';
+            debugList.innerHTML = '';
+            
+            imageErrors.forEach(error => {
+                const li = document.createElement('li');
+                li.className = 'debug-item';
+                li.innerHTML = `❌ <strong>${error.type}</strong><br>
+                               المسار: ${error.src}<br>
+                               الحالة: لم يتم تحميل الصورة`;
+                debugList.appendChild(li);
+            });
+            
+            // إضافة معلومات الصور المتوقعة
+            const expectedImages = [
+                'sham-qr10.jpg',
+                'sham-qr100.jpg', 
+                'syriatel-10.jpg',
+                'syriatel-100.jpg'
+            ];
+            
+            expectedImages.forEach(imgName => {
+                const li = document.createElement('li');
+                li.className = 'debug-item';
+                li.innerHTML = `📁 <strong>${imgName}</strong><br>
+                               المتوقع في: ${window.location.origin}/${imgName}`;
+                debugList.appendChild(li);
+            });
+        }
+        
+        function checkImagesManually() {
+            const imagesToCheck = [
+                {name: 'sham-qr10.jpg', url: 'sham-qr10.jpg'},
+                {name: 'sham-qr100.jpg', url: 'sham-qr100.jpg'},
+                {name: 'syriatel-10.jpg', url: 'syriatel-10.jpg'},
+                {name: 'syriatel-100.jpg', url: 'syriatel-100.jpg'}
+            ];
+            
+            let results = [];
+            
+            imagesToCheck.forEach(img => {
+                const testImage = new Image();
+                testImage.onload = function() {
+                    results.push(`✅ ${img.name}: تم تحميلها بنجاح`);
+                    updateManualCheckResults(results);
+                };
+                testImage.onerror = function() {
+                    results.push(`❌ ${img.name}: فشل التحميل`);
+                    updateManualCheckResults(results);
+                };
+                testImage.src = img.url;
+            });
+            
+            // إذا لم تظهر النتائج خلال 3 ثواني
+            setTimeout(() => {
+                if (results.length < 4) {
+                    results.push('⏳ بعض الصور لا تزال قيد التحقق...');
+                    updateManualCheckResults(results);
+                }
+            }, 3000);
+        }
+        
+        function updateManualCheckResults(results) {
+            const debugList = document.getElementById('debugList');
+            const resultHeader = document.createElement('li');
+            resultHeader.className = 'debug-item';
+            resultHeader.innerHTML = '<strong>نتيجة الفحص اليدوي:</strong>';
+            debugList.appendChild(resultHeader);
+            
+            results.forEach(result => {
+                const li = document.createElement('li');
+                li.className = 'debug-item';
+                li.textContent = result;
+                debugList.appendChild(li);
+            });
         }
         
         document.getElementById('whatsappLink').addEventListener('click', function() {
@@ -497,17 +654,6 @@
             
             alert('📤 تم فتح واتساب\n\nأرسل لقطة الدفع وانتظر تأكيدنا\n\nسيتم إضافة الإعلانات لحسابك خلال 10 دقائق');
         });
-        
-        // التحقق من تحميل الصور عند فتح الصفحة
-        setTimeout(() => {
-            document.querySelectorAll('.qr-image').forEach(img => {
-                if (!img.complete || img.naturalHeight === 0) {
-                    const altText = img.alt || 'QR Code';
-                    const qrType = altText.replace('QR Code ', '');
-                    showQRError(img, qrType);
-                }
-            });
-        }, 1000);
     </script>
 </body>
 </html>
