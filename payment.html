@@ -3,205 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الدفع - سلمية الإعلانية</title>
+    <title>الدفع - مجموعة سلمية الجديدة الإعلانية</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); }
+        .header { background: linear-gradient(135deg, #4361ee, #3a0ca3); color: white; padding: 30px; text-align: center; }
+        .back-btn { background: rgba(255, 255, 255, 0.2); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; text-decoration: none; }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
+        .header-info { flex: 1; }
+        .header h1 { font-size: 24px; margin-bottom: 10px; }
+        .order-info { background: linear-gradient(135deg, #f8f0ff, #f0f4ff); padding: 25px; border-radius: 15px; margin: 30px; border: 2px solid #e9d8fd; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .info-item { text-align: center; }
+        .info-label { font-size: 14px; color: #666; margin-bottom: 5px; }
+        .info-value { font-size: 20px; font-weight: bold; color: #3a0ca3; }
+        .payment-methods { padding: 0 30px; }
+        .section-title { font-size: 22px; color: #333; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #f0f2f5; }
+        .methods-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .method-card { background: #f8f9fa; border: 2px solid #e1e5e9; border-radius: 15px; padding: 25px; text-align: center; transition: all 0.3s ease; cursor: pointer; }
+        .method-card:hover, .method-card.active { border-color: #4361ee; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); background: #f0f4ff; }
+        .method-icon { font-size: 40px; margin-bottom: 15px; }
+        .method-name { font-size: 18px; color: #333; margin-bottom: 10px; font-weight: 600; }
+        .method-desc { color: #666; font-size: 14px; margin-bottom: 15px; }
+        .payment-details { background: #fff9db; border: 2px solid #ffd43b; border-radius: 15px; padding: 25px; margin: 30px; }
+        .payment-title { color: #5c3c00; margin-bottom: 15px; font-size: 18px; font-weight: 600; }
         
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+        /* تصميم جديد لمربعات الدفع مع QR */
+        .qr-payment-box {
             background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* رأس الصفحة */
-        .header {
-            background: linear-gradient(135deg, #4361ee, #3a0ca3);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .back-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .header-info {
-            flex: 1;
-        }
-        
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        
-        /* معلومات الطلب */
-        .order-info {
-            background: linear-gradient(135deg, #f8f0ff, #f0f4ff);
-            padding: 25px;
             border-radius: 15px;
-            margin: 30px;
-            border: 2px solid #e9d8fd;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .info-item {
+            padding: 25px;
+            margin: 25px 0;
+            border: 3px solid #e1e5e9;
             text-align: center;
         }
+        .qr-payment-box.sham { border-color: #7C3AED; }
+        .qr-payment-box.syriatel { border-color: #E63946; }
         
-        .info-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        
-        .info-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #3a0ca3;
-        }
-        
-        /* طرق الدفع */
-        .payment-methods {
-            padding: 0 30px;
-        }
-        
-        .section-title {
-            font-size: 22px;
-            color: #333;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f2f5;
-        }
-        
-        .methods-grid {
+        .price-options {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 25px;
+            margin-top: 20px;
         }
-        
-        .method-card {
-            background: #f8f9fa;
-            border: 2px solid #e1e5e9;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
+        .price-option {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #ddd;
         }
-        
-        .method-card:hover {
-            border-color: #4361ee;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .method-card.active {
-            border-color: #4361ee;
-            background: #f0f4ff;
-        }
-        
-        .method-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-        
-        .method-name {
+        .price-label {
             font-size: 18px;
             color: #333;
             margin-bottom: 10px;
             font-weight: 600;
         }
-        
-        .method-desc {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
+        .price-amount {
+            font-size: 32px;
+            color: #047857;
+            font-weight: bold;
+            margin: 10px 0;
         }
-        
-        /* تفاصيل الدفع */
-        .payment-details {
-            background: #fff9db;
-            border: 2px solid #ffd43b;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 30px;
-        }
-        
-        .payment-title {
-            color: #5c3c00;
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-        
         .qr-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .qr-code {
             width: 200px;
             height: 200px;
-            background: white;
-            border: 3px solid #e1e5e9;
+            margin: 15px auto;
+            background: #f1f5f9;
+            border: 3px solid #cbd5e1;
             border-radius: 12px;
-            margin: 0 auto 20px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
-            color: #4361ee;
+            padding: 15px;
         }
-        
+        .qr-placeholder {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .qr-note {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+        }
         .payment-address {
-            background: #f8f9fa;
+            background: #f1f5f9;
             padding: 15px;
             border-radius: 10px;
-            margin: 20px 0;
+            margin: 15px 0;
             font-family: monospace;
-            font-size: 18px;
+            font-size: 16px;
             text-align: center;
-            border: 2px solid #e1e5e9;
+            border: 2px solid #cbd5e1;
             word-break: break-all;
+            direction: ltr;
+            letter-spacing: 1px;
         }
-        
         .copy-btn {
             background: linear-gradient(135deg, #4361ee, #3a0ca3);
             color: white;
@@ -214,20 +113,9 @@
             margin-top: 15px;
             transition: all 0.3s ease;
         }
+        .copy-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3); }
+        .copy-success { color: #10b981; font-weight: bold; margin-top: 10px; display: none; }
         
-        .copy-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-        }
-        
-        .copy-success {
-            color: #10b981;
-            font-weight: bold;
-            margin-top: 10px;
-            display: none;
-        }
-        
-        /* إرسال إثبات الدفع */
         .proof-section {
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
@@ -236,12 +124,6 @@
             border-radius: 15px;
             text-align: center;
         }
-        
-        .proof-title {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
         .whatsapp-btn {
             display: inline-block;
             background: white;
@@ -253,228 +135,156 @@
             margin-top: 15px;
             transition: all 0.3s ease;
         }
+        .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2); }
         
-        .whatsapp-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
-        }
+        .steps-section { padding: 0 30px 30px; }
+        .step { display: flex; align-items: flex-start; margin-bottom: 20px; }
+        .step-number { background: #4361ee; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 15px; font-weight: bold; flex-shrink: 0; }
         
-        /* خطوات ما بعد الدفع */
-        .steps-section {
-            padding: 0 30px 30px;
-        }
-        
-        .steps-title {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        
-        .step {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-        
-        .step-number {
-            background: #4361ee;
-            color: white;
-            min-width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 15px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        
-        .step-content {
-            flex: 1;
-        }
-        
-        .step-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        
-        .step-desc {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        /* التنبيهات */
-        .alert {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            display: none;
-            z-index: 1000;
-            border-right: 4px solid #4361ee;
-            max-width: 400px;
-        }
-        
-        .alert.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        /* الأحجام الصغيرة */
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            
-            .order-info, .payment-details, .proof-section {
-                margin: 20px;
-            }
-            
-            .payment-methods {
-                padding: 0 20px;
-            }
-            
-            .methods-grid {
-                grid-template-columns: 1fr;
-            }
+            .header { text-align: center; }
+            .order-info, .payment-details, .proof-section { margin: 20px; }
+            .payment-methods { padding: 0 20px; }
+            .methods-grid { grid-template-columns: 1fr; }
+            .price-options { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- رأس الصفحة -->
         <div class="header">
             <a href="main.html" class="back-btn">← رجوع</a>
-            
             <div class="header-info">
-                <h1>💰 إتمام عملية الدفع</h1>
+                <!-- تم تعديل اسم المجموعة هنا -->
+                <h1>💰 إتمام عملية الدفع - مجموعة سلمية الجديدة الإعلانية</h1>
                 <p>اختر طريقة الدفع المناسبة لك</p>
             </div>
         </div>
         
-        <!-- معلومات الطلب -->
         <div class="order-info">
             <div style="text-align: center; margin-bottom: 15px;">
                 <div style="font-size: 14px; color: #666;">أنت تشتري:</div>
                 <div style="font-size: 24px; font-weight: bold; color: #3a0ca3;" id="packageName">إعلان واحد</div>
             </div>
-            
             <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">السعر</div>
-                    <div class="info-value" id="packagePrice">10 ل.س</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">عدد الإعلانات</div>
-                    <div class="info-value" id="packageAds">1 إعلان</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">كودك</div>
-                    <div class="info-value" id="userCode">------</div>
-                </div>
+                <div class="info-item"><div class="info-label">السعر</div><div class="info-value" id="packagePrice">10 ل.س</div></div>
+                <div class="info-item"><div class="info-label">عدد الإعلانات</div><div class="info-value" id="packageAds">1 إعلان</div></div>
+                <div class="info-item"><div class="info-label">كودك</div><div class="info-value" id="userCode">------</div></div>
             </div>
         </div>
         
-        <!-- طرق الدفع -->
         <div class="payment-methods">
             <h2 class="section-title">💳 اختر طريقة الدفع</h2>
-            
             <div class="methods-grid">
-                <!-- شام كاش -->
                 <div class="method-card active" id="shamCard" onclick="selectMethod('sham')">
                     <div class="method-icon">💜</div>
                     <div class="method-name">شام كاش</div>
-                    <div class="method-desc">الدفع عبر تطبيق شام كاش</div>
+                    <div class="method-desc">الدفع عبر عنوان المحفظة</div>
                 </div>
-                
-                <!-- سيريتيل كاش -->
                 <div class="method-card" id="syriatelCard" onclick="selectMethod('syriatel')">
                     <div class="method-icon">❤️</div>
                     <div class="method-name">سيريتيل كاش</div>
-                    <div class="method-desc">الدفع عبر تطبيق سيريتيل كاش</div>
+                    <div class="method-desc">الدفع عبر QR أو رقم الهاتف</div>
                 </div>
             </div>
         </div>
         
-        <!-- تفاصيل الدفع -->
-        <div class="payment-details">
-            <div class="payment-title" id="paymentTitle">💜 الدفع عبر شام كاش</div>
+        <!-- شام كاش - تم التصحيح هنا -->
+        <div id="shamDetails" class="payment-details">
+            <div class="payment-title">💜 الدفع عبر شام كاش - إرسال إلى عنوان المحفظة</div>
+            <p style="text-align: center; color: #5c3c00; margin: 15px 0;">
+                انسخ العنوان أدناه والصقه في تطبيق شام كاش
+            </p>
             
-            <div id="shamDetails" class="payment-details-content">
-                <p style="text-align: center; color: #5c3c00; margin-bottom: 15px;">
-                    ارسل المبلغ إلى الرقم التالي:
-                </p>
-                
-                <div class="payment-address" id="shamAddress">
-                    0993113374
-                </div>
-                
-                <button class="copy-btn" onclick="copyText('0993113374', 'sham')">
-                    📋 نسخ الرقم
-                </button>
-                <div class="copy-success" id="shamCopySuccess">تم النسخ بنجاح!</div>
+            <!-- العنوان الصحيح لشام كاش -->
+            <div class="payment-address" id="shamAddress">
+                a29b439a139be548a7f0b2ada7d93e67
             </div>
             
-            <div id="syriatelDetails" class="payment-details-content" style="display: none;">
-                <p style="text-align: center; color: #5c3c00; margin-bottom: 15px;">
-                    اسحب رمز QR التالي:
-                </p>
-                
-                <div class="qr-container">
-                    <div class="qr-code">
-                        📱
+            <button class="copy-btn" onclick="copyText('a29b439a139be548a7f0b2ada7d93e67', 'sham')">
+                📋 نسخ العنوان
+            </button>
+            <div class="copy-success" id="shamCopySuccess">تم النسخ بنجاح!</div>
+            
+            <div class="price-options">
+                <!-- خيار 10 ليرة -->
+                <div class="price-option">
+                    <div class="price-label">إعلان واحد</div>
+                    <div class="price-amount">10 ل.س</div>
+                    <div class="qr-container">
+                        <div class="qr-placeholder">💜</div>
+                        <div style="font-size: 14px; color: #7C3AED; font-weight: bold;">شام كاش</div>
+                        <div class="qr-note">لدفع 10 ليرة<br>استخدم العنوان أعلاه</div>
                     </div>
-                    <p style="color: #666; font-size: 14px;">
-                        افتح تطبيق سيريتيل كاش ومسح الرمز
-                    </p>
+                    <p style="color: #dc2626; font-size: 14px; margin-top: 10px;">⚠️ تأكد من إدخال المبلغ: 10 ليرة</p>
                 </div>
                 
-                <p style="text-align: center; color: #5c3c00; margin: 20px 0 10px;">
-                    أو ارسل إلى الرقم:
-                </p>
-                
-                <div class="payment-address" id="syriatelAddress">
-                    0993113374
+                <!-- خيار 100 ليرة -->
+                <div class="price-option">
+                    <div class="price-label">20 إعلان</div>
+                    <div class="price-amount">100 ل.س</div>
+                    <div class="qr-container">
+                        <div class="qr-placeholder">💜</div>
+                        <div style="font-size: 14px; color: #7C3AED; font-weight: bold;">شام كاش</div>
+                        <div class="qr-note">لدفع 100 ليرة<br>استخدم العنوان أعلاه</div>
+                    </div>
+                    <p style="color: #047857; font-size: 14px; margin-top: 10px; font-weight: bold;">(توفير 50%)</p>
+                    <p style="color: #dc2626; font-size: 14px;">⚠️ تأكد من إدخال المبلغ: 100 ليرة</p>
                 </div>
-                
-                <button class="copy-btn" onclick="copyText('0993113374', 'syriatel')">
-                    📋 نسخ الرقم
-                </button>
-                <div class="copy-success" id="syriatelCopySuccess">تم النسخ بنجاح!</div>
             </div>
             
             <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid #ffd43b;">
-                <p style="color: #5c3c00; font-weight: 600; margin-bottom: 10px;">
-                    ⚠️ مهم جداً:
-                </p>
-                <p style="color: #5c3c00; font-size: 14px;">
-                    تأكد من إرسال المبلغ الصحيح المذكور أعلاه
-                </p>
+                <p style="color: #5c3c00; font-weight: 600; margin-bottom: 10px;">⚠️ تعليمات مهمة لشام كاش:</p>
+                <p style="color: #5c3c00; font-size: 14px; margin-bottom: 5px;">1. افتح تطبيق <strong>شام كاش</strong></p>
+                <p style="color: #5c3c00; font-size: 14px; margin-bottom: 5px;">2. اضغط على <strong>"إرسال أموال"</strong></p>
+                <p style="color: #5c3c00; font-size: 14px; margin-bottom: 5px;">3. الصق العنوان أعلاه في حقل المستلم</p>
+                <p style="color: #5c3c00; font-size: 14px;">4. أدخل المبلغ <strong>10</strong> أو <strong>100</strong> ليرة</p>
             </div>
         </div>
         
-        <!-- إرسال إثبات الدفع -->
+        <!-- سيريتيل كاش -->
+        <div id="syriatelDetails" class="payment-details" style="display: none;">
+            <div class="payment-title">❤️ الدفع عبر سيريتيل كاش - مسح رمز QR</div>
+            <p style="text-align: center; color: #5c3c00; margin: 15px 0;">
+                اسحب رمز QR المناسب للمبلغ
+            </p>
+            
+            <div class="price-options">
+                <!-- خيار 10 ليرة -->
+                <div class="price-option">
+                    <div class="price-label">إعلان واحد</div>
+                    <div class="price-amount">10 ل.س</div>
+                    <div class="qr-container">
+                        <div class="qr-placeholder">📱</div>
+                        <div style="font-size: 14px; color: #E63946; font-weight: bold;">سيريتيل كاش</div>
+                        <div class="qr-note">QR مخصص لـ10 ليرة</div>
+                    </div>
+                    <p style="color: #666; font-size: 14px; margin-top: 10px;">اسحب هذا الرمز لدفع 10 ليرة</p>
+                </div>
+                
+                <!-- خيار 100 ليرة -->
+                <div class="price-option">
+                    <div class="price-label">20 إعلان</div>
+                    <div class="price-amount">100 ل.س</div>
+                    <div class="qr-container">
+                        <div class="qr-placeholder">📱</div>
+                        <div style="font-size: 14px; color: #E63946; font-weight: bold;">سيريتيل كاش</div>
+                        <div class="qr-note">QR مخصص لـ100 ليرة</div>
+                    </div>
+                    <p style="color: #047857; font-size: 14px; margin-top: 10px; font-weight: bold;">(توفير 50%)</p>
+                    <p style="color: #666; font-size: 14px;">اسحب هذا الرمز لدفع 100 ليرة</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid #ffd43b;">
+                <p style="color: #5c3c00; font-weight: 600; margin-bottom: 10px;">📱 طريقة الدفع بسيريتيل كاش:</p>
+                <p style="color: #5c3c00; font-size: 14px; margin-bottom: 5px;">1. افتح تطبيق <strong>سيريتيل كاش</strong></p>
+                <p style="color: #5c3c00; font-size: 14px; margin-bottom: 5px;">2. اضغط على <strong>"Scan"</strong> أو <strong>"مسح"</strong></p>
+                <p style="color: #5c3c00; font-size: 14px; margin-bottom: 5px;">3. اسحب رمز QR المناسب أعلاه</p>
+                <p style="color: #5c3c00; font-size: 14px;">4. أكمل عملية التحويل</p>
+            </div>
+        </div>
+        
         <div class="proof-section">
             <div class="proof-title">📸 بعد الدفع، أرسل إثبات الدفع</div>
             <p style="opacity: 0.9; margin-bottom: 15px;">
@@ -490,97 +300,45 @@
             </p>
         </div>
         
-        <!-- خطوات ما بعد الدفع -->
         <div class="steps-section">
-            <h2 class="steps-title">📋 ماذا يحدث بعد الدفع؟</h2>
-            
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <div class="step-title">إرسال إثبات الدفع</div>
-                    <div class="step-desc">أرسل لقطة شاشة للدفع على واتساب</div>
-                </div>
-            </div>
-            
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <div class="step-title">تأكيد الدفع</div>
-                    <div class="step-desc">نتحقق من الدفع خلال 5-10 دقائق</div>
-                </div>
-            </div>
-            
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <div class="step-title">إضافة الإعلانات لحسابك</div>
-                    <div class="step-desc">نضيف الإعلانات المدفوعة لحسابك فوراً</div>
-                </div>
-            </div>
-            
-            <div class="step">
-                <div class="step-number">4</div>
-                <div class="step-content">
-                    <div class="step-title">جاهز للنشر</div>
-                    <div class="step-desc">يمكنك نشر إعلاناتك فوراً بعد التأكيد</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- تنبيهات -->
-        <div class="alert" id="alertBox">
-            <div id="alertMessage"></div>
+            <h2 style="font-size: 20px; color: #333; margin-bottom: 20px;">📋 ماذا يحدث بعد الدفع؟</h2>
+            <div class="step"><div class="step-number">1</div><div class="step-content"><div class="step-title">إرسال إثبات الدفع</div><div class="step-desc">أرسل لقطة شاشة للدفع على واتساب</div></div></div>
+            <div class="step"><div class="step-number">2</div><div class="step-content"><div class="step-title">تأكيد الدفع</div><div class="step-desc">نتحقق من الدفع خلال 5-10 دقائق</div></div></div>
+            <div class="step"><div class="step-number">3</div><div class="step-content"><div class="step-title">إضافة الإعلانات لحسابك</div><div class="step-desc">نضيف الإعلانات المدفوعة لحسابك فوراً</div></div></div>
+            <div class="step"><div class="step-number">4</div><div class="step-content"><div class="step-title">جاهز للنشر</div><div class="step-desc">يمكنك نشر إعلاناتك فوراً بعد التأكيد</div></div></div>
         </div>
     </div>
     
     <script>
-        // بيانات الطلب
         let selectedPackage = null;
         let currentUser = null;
         let paymentMethod = 'sham';
         
-        // تحميل البيانات عند فتح الصفحة
         window.onload = function() {
-            // الحصول على كود المستخدم
-            currentUser = sessionStorage.getItem('current_user_code') || 
-                         localStorage.getItem('remembered_user_code');
-            
+            currentUser = sessionStorage.getItem('current_user_code') || localStorage.getItem('remembered_user_code');
             if (!currentUser) {
-                // إذا لم يكن مسجل دخول، العودة لصفحة الدخول
-                showAlert('⚠️ يرجى تسجيل الدخول أولاً', 'warning');
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
+                alert('⚠️ يرجى تسجيل الدخول أولاً');
+                setTimeout(() => { window.location.href = 'index.html'; }, 2000);
                 return;
             }
             
-            // تحميل معلومات الباقة المختارة
             selectedPackage = JSON.parse(localStorage.getItem('selected_package'));
-            
             if (!selectedPackage) {
-                showAlert('⚠️ لم يتم اختيار باقة', 'warning');
-                setTimeout(() => {
-                    window.location.href = 'main.html';
-                }, 2000);
+                alert('⚠️ لم يتم اختيار باقة');
+                setTimeout(() => { window.location.href = 'main.html'; }, 2000);
                 return;
             }
             
-            // تحديث الواجهة بمعلومات الباقة
             updateOrderInfo();
-            
-            // تحديث رابط واتساب
             updateWhatsAppLink();
             
-            // عرض رسالة ترحيبية
             setTimeout(() => {
-                showAlert(`🎉 جاهز للدفع!\n\nالباقة: ${selectedPackage.type === 'single' ? 'إعلان واحد' : '20 إعلان'}\nالمبلغ: ${selectedPackage.price} ليرة`, 'success');
+                alert(`🎉 جاهز للدفع!\n\nالباقة: ${selectedPackage.type === 'single' ? 'إعلان واحد' : '20 إعلان'}\nالمبلغ: ${selectedPackage.price} ليرة`);
             }, 500);
         };
         
-        // تحديث معلومات الطلب
         function updateOrderInfo() {
             document.getElementById('userCode').textContent = currentUser;
-            
             if (selectedPackage.type === 'single') {
                 document.getElementById('packageName').textContent = 'إعلان واحد';
                 document.getElementById('packagePrice').textContent = '10 ل.س';
@@ -592,78 +350,33 @@
             }
         }
         
-        // اختيار طريقة الدفع
         function selectMethod(method) {
             paymentMethod = method;
-            
-            // تحديث البطاقات النشطة
             document.getElementById('shamCard').classList.toggle('active', method === 'sham');
             document.getElementById('syriatelCard').classList.toggle('active', method === 'syriatel');
-            
-            // تحديث تفاصيل الدفع
             document.getElementById('shamDetails').style.display = method === 'sham' ? 'block' : 'none';
             document.getElementById('syriatelDetails').style.display = method === 'syriatel' ? 'block' : 'none';
-            
-            // تحديث العنوان
-            document.getElementById('paymentTitle').textContent = method === 'sham' ? 
-                '💜 الدفع عبر شام كاش' : '❤️ الدفع عبر سيريتيل كاش';
-            
-            // تحديث رابط واتساب
+            document.getElementById('paymentTitle').textContent = method === 'sham' ? '💜 الدفع عبر شام كاش - إرسال إلى عنوان المحفظة' : '❤️ الدفع عبر سيريتيل كاش - مسح رمز QR';
             updateWhatsAppLink();
         }
         
-        // نسخ النص
         function copyText(text, method) {
             navigator.clipboard.writeText(text).then(() => {
-                // إظهار رسالة النجاح
                 const successId = method + 'CopySuccess';
                 const successMsg = document.getElementById(successId);
                 successMsg.style.display = 'block';
-                
-                // إخفاء الرسالة بعد 3 ثواني
-                setTimeout(() => {
-                    successMsg.style.display = 'none';
-                }, 3000);
-                
-                // رسالة تأكيد
-                showAlert('تم نسخ الرقم ✓\n\nالآن اذهب لتطبيق الدفع وألصق الرقم', 'success');
+                setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
+                alert('تم نسخ العنوان ✓\n\nالآن اذهب لتطبيق شام كاش وألصق العنوان');
             });
         }
         
-        // تحديث رابط واتساب
         function updateWhatsAppLink() {
-            const message = `السلام عليكم\n\nأود تأكيد عملية الدفع للباقة:\n\n${selectedPackage.type === 'single' ? 'إعلان واحد' : '20 إعلان'}\nالمبلغ: ${selectedPackage.price} ليرة\nطريقة الدفع: ${paymentMethod === 'sham' ? 'شام كاش' : 'سيريتيل كاش'}\nكودي: ${currentUser}\n\nهذه لقطة شاشة للدفع:`;
+            const message = `السلام عليكم\nأود تأكيد عملية الدفع للباقة:\n${selectedPackage.type === 'single' ? 'إعلان واحد' : '20 إعلان'}\nالمبلغ: ${selectedPackage.price} ليرة\nطريقة الدفع: ${paymentMethod === 'sham' ? 'شام كاش' : 'سيريتيل كاش'}\nكودي: ${currentUser}\n\nهذه لقطة شاشة للدفع:`;
             const encodedMessage = encodeURIComponent(message);
             document.getElementById('whatsappLink').href = `https://wa.me/963993113374?text=${encodedMessage}`;
         }
         
-        // عرض التنبيهات
-        function showAlert(message, type = 'info') {
-            const alertBox = document.getElementById('alertBox');
-            const alertMessage = document.getElementById('alertMessage');
-            
-            alertMessage.textContent = message;
-            
-            // تغيير اللون حسب نوع التنبيه
-            if (type === 'success') {
-                alertBox.style.borderRightColor = '#10b981';
-            } else if (type === 'warning') {
-                alertBox.style.borderRightColor = '#f59e0b';
-            } else {
-                alertBox.style.borderRightColor = '#4361ee';
-            }
-            
-            alertBox.classList.add('show');
-            
-            // إخفاء التنبيه بعد 5 ثواني
-            setTimeout(() => {
-                alertBox.classList.remove('show');
-            }, 5000);
-        }
-        
-        // حفظ بيانات الدفع عند إرسال إثبات الدفع
         document.getElementById('whatsappLink').addEventListener('click', function() {
-            // إنشاء سجل للدفع
             const paymentRecord = {
                 userCode: currentUser,
                 packageType: selectedPackage.type,
@@ -672,17 +385,11 @@
                 timestamp: new Date().toISOString(),
                 status: 'pending_confirmation'
             };
-            
-            // حفظ سجل الدفع
             const payments = JSON.parse(localStorage.getItem('adpay_payments') || '[]');
             payments.push(paymentRecord);
             localStorage.setItem('adpay_payments', JSON.stringify(payments));
-            
-            // رسالة تأكيد
-            showAlert('📤 تم فتح واتساب\n\nأرسل لقطة الدفع وانتظر تأكيدنا\n\nسيتم إضافة الإعلانات لحسابك خلال 10 دقائق', 'success');
-            
-            // تسجيل الوقت لمنع الاحتيال
             localStorage.setItem('last_payment_' + currentUser, new Date().getTime());
+            alert('📤 تم فتح واتساب\nأرسل لقطة الدفع وانتظر تأكيدنا\nسيتم إضافة الإعلانات خلال 10 دقائق');
         });
     </script>
 </body>
